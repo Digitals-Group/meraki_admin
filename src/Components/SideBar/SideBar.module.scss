@@ -2,10 +2,18 @@
 
 .sidenav {
   background-color: crimson !important;
+  width: 64px;
 
   .expand {
     position: relative;
-    @include element-center;
+    // @include element-center;
+    padding: 20px 0px 20px 23px;
+    color: #fff;
+
+    &__writer {
+      display: flex;
+      align-items: center;
+    }
 
     &__icon {
       position: absolute;

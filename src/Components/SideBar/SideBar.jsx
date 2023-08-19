@@ -1,11 +1,15 @@
 // import { Container } from "@mui/material";
 // import { NavLink } from "react-router-dom";
 // import { useTranslation } from "react-i18next";
-import styles from "./Nabvar.module.scss";
+import styles from "./SideBar.module.scss";
 import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 import { ChevronIcon, SearchIcon, UserIcon } from "helpers/Icons/Icons";
 import { useDispatch, useSelector } from "react-redux";
 import { sideBarExpand } from "redux/sidebar/sidebar.slice";
+import { useLocation, useNavigate } from "react-router-dom";
+import Typewriter from "typewriter-effect";
+import { Button, Tooltip } from "@mui/material";
+import Zoom from "@mui/material/Zoom";
 
 const menuData = [
   { name: "Home", icon: <UserIcon />, eventKey: "home" },
@@ -16,9 +20,11 @@ const menuData = [
   },
 ];
 
-export function Navbar() {
+export function SideBar() {
   const dispatch = useDispatch();
   const expanded = useSelector((state) => state.sidebar.expand);
+  const navigate = useNavigate();
+  const location = useLocation();
   // const { t, i18n } = useTranslation("common");
   // const langs = [
   //   {
@@ -39,7 +45,22 @@ export function Navbar() {
   return (
     <SideNav expanded={expanded} className={styles.sidenav}>
       <div className={styles.expand}>
-        <h1>U</h1>
+        <h1>
+          {expanded ? (
+            <div className={styles.expand__writer}>
+              <span>U</span>
+              <Typewriter
+                options={{
+                  strings: ["nion !"],
+                  autoStart: true,
+                  loop: true,
+                }}
+              />
+            </div>
+          ) : (
+            "U"
+          )}
+        </h1>
         <div
           onClick={() => dispatch(sideBarExpand.setSideBarExpand())}
           className={styles.expand__icon}
@@ -47,11 +68,11 @@ export function Navbar() {
           <ChevronIcon />
         </div>
       </div>
-      <SideNav.Nav defaultSelected="home">
+      <SideNav.Nav defaultSelected={location.pathname.replace("/main/", "")}>
         {menuData.map((elem) => (
           <NavItem
             eventKey={elem.eventKey}
-            style={{ borderRight: "3px solid blue" }}
+            onClick={() => navigate(`/main/${elem.eventKey}`)}
           >
             <NavIcon
               style={{
@@ -60,7 +81,22 @@ export function Navbar() {
                 alignItems: "center",
               }}
             >
-              {elem.icon}
+              {expanded ? (
+                <Button sx={{ width: "100%", height: "100%" }}>
+                  {elem.icon}
+                </Button>
+              ) : (
+                <Tooltip
+                  title={elem.name}
+                  placement="right"
+                  arrow
+                  TransitionComponent={Zoom}
+                >
+                  <Button sx={{ width: "100%", height: "100%" }}>
+                    {elem.icon}
+                  </Button>
+                </Tooltip>
+              )}
             </NavIcon>
             <NavText>{elem.name}</NavText>
           </NavItem>
