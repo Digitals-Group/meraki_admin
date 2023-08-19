@@ -6,7 +6,7 @@ import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
 import { ChevronIcon, SearchIcon, UserIcon } from "helpers/Icons/Icons";
 import { useDispatch, useSelector } from "react-redux";
 import { sideBarExpand } from "redux/sidebar/sidebar.slice";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Typewriter from "typewriter-effect";
 import { Button, Tooltip } from "@mui/material";
 import Zoom from "@mui/material/Zoom";
@@ -24,7 +24,7 @@ export function SideBar() {
   const dispatch = useDispatch();
   const expanded = useSelector((state) => state.sidebar.expand);
   const navigate = useNavigate();
-  const location = useLocation();
+  const { tab_name } = useParams();
   // const { t, i18n } = useTranslation("common");
   // const langs = [
   //   {
@@ -68,7 +68,7 @@ export function SideBar() {
           <ChevronIcon />
         </div>
       </div>
-      <SideNav.Nav defaultSelected={location.pathname.replace("/main/", "")}>
+      <SideNav.Nav selected={tab_name}>
         {menuData.map((elem) => (
           <NavItem
             eventKey={elem.eventKey}

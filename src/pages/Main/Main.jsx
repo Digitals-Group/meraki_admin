@@ -92,26 +92,26 @@ const Main = () => {
           data={tableData}
           columns={columns}
           settings={{
-            enableColumnActions: false,
-            enableColumnFilters: false,
-            enablePagination: false,
-            enableSorting: false,
-            enableTopBottomToolbar: false,
-            muiTableBodyRowProps: false,
-            enableColumnResizing: false,
-            enableColumnOrdering: false,
-            enablePinning: false,
+            enableColumnActions: true,
+            enableColumnFilters: true,
+            enablePagination: true,
+            enableSorting: true,
+            enableTopBottomToolbar: true,
+            muiTableBodyRowProps: true,
+            enableColumnResizing: true,
+            enableColumnOrdering: true,
+            enablePinning: true,
             enableStickyHeader: true,
             enableStickyFooter: true,
             enableEditing: (row) => {
               return row.original.status;
             },
-            enableRowNumbers: false,
+            enableRowNumbers: true,
             editingMode: "cell",
-            enableRowActions: false,
+            enableRowActions: true,
             enableClickToCopy: false,
-            enableColumnDragging: false,
-            enableColumnFilterModes: false,
+            enableColumnDragging: true,
+            enableColumnFilterModes: true,
             enableExpanding: false,
           }}
           border={{
