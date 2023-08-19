@@ -3,6 +3,8 @@
 .sidenav {
   background-color: crimson !important;
   width: 64px;
+  @include direction-column;
+  justify-content: space-between;
 
   .expand {
     position: relative;
@@ -26,6 +28,24 @@
       width: 30px;
       height: 30px;
       @include element-center;
+    }
+  }
+  .asset {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    &__setting {
+      cursor: pointer;
+    }
+    &__helpers {
+      @include align-items-center;
+      gap: 10px;
+      flex: 1;
+
+      &__icon {
+        cursor: pointer;
+      }
     }
   }
 }

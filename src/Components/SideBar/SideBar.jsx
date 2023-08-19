@@ -10,6 +10,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Typewriter from "typewriter-effect";
 import { Button, Tooltip } from "@mui/material";
 import Zoom from "@mui/material/Zoom";
+import SettingsApplicationsRoundedIcon from "@mui/icons-material/SettingsApplicationsRounded";
+import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 
 const menuData = [
   { name: "Home", icon: <UserIcon />, eventKey: "home" },
@@ -44,64 +46,87 @@ export function SideBar() {
 
   return (
     <SideNav expanded={expanded} className={styles.sidenav}>
-      <div className={styles.expand}>
-        <h1>
-          {expanded ? (
-            <div className={styles.expand__writer}>
-              <span>U</span>
-              <Typewriter
-                options={{
-                  strings: ["nion !"],
-                  autoStart: true,
-                  loop: true,
+      <div>
+        <div className={styles.expand}>
+          <h1>
+            {expanded ? (
+              <div className={styles.expand__writer}>
+                <span>U</span>
+                <Typewriter
+                  options={{
+                    strings: ["nion !"],
+                    autoStart: true,
+                    loop: true,
+                  }}
+                />
+              </div>
+            ) : (
+              "U"
+            )}
+          </h1>
+          <div
+            onClick={() => dispatch(sideBarExpand.setSideBarExpand())}
+            className={styles.expand__icon}
+          >
+            <ChevronIcon />
+          </div>
+        </div>
+        <SideNav.Nav selected={tab_name} className={styles.navbar}>
+          {menuData.map((elem) => (
+            <NavItem
+              eventKey={elem.eventKey}
+              onClick={() => navigate(`/main/${elem.eventKey}`)}
+            >
+              <NavIcon
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
-              />
-            </div>
-          ) : (
-            "U"
-          )}
-        </h1>
-        <div
-          onClick={() => dispatch(sideBarExpand.setSideBarExpand())}
-          className={styles.expand__icon}
-        >
-          <ChevronIcon />
+              >
+                {expanded ? (
+                  elem.icon
+                ) : (
+                  <Tooltip
+                    title={elem.name}
+                    placement="right"
+                    arrow
+                    TransitionComponent={Zoom}
+                  >
+                    <Button sx={{ width: "100%", height: "100%" }}>
+                      {elem.icon}
+                    </Button>
+                  </Tooltip>
+                )}
+              </NavIcon>
+
+              <NavText>{elem.name}</NavText>
+            </NavItem>
+          ))}
+        </SideNav.Nav>
+      </div>
+      <div className={styles.asset}>
+        <div className={styles.asset__setting}>
+          <SettingsApplicationsRoundedIcon
+            fontSize="large"
+            sx={{ color: "#fff" }}
+          />
+        </div>
+        <div className={styles.asset__helpers}>
+          {/* <div className={styles.asset__helpers__icon}>
+            <AddCircleOutlinedIcon sx={{ color: "#fff" }} fontSize="large" />
+          </div>
+          <div className={styles.asset__helpers__icon}>
+            <AddCircleOutlinedIcon sx={{ color: "#fff" }} fontSize="large" />
+          </div> */}
+          {/* <div className={styles.asset__helpers__icon}>
+            <AddCircleOutlinedIcon sx={{ color: "#fff" }} fontSize="large" />
+          </div> */}
+          {/* <div className={styles.asset__helpers__icon}>
+            <AddCircleOutlinedIcon sx={{ color: "#fff" }} fontSize="large" />
+          </div> */}
         </div>
       </div>
-      <SideNav.Nav selected={tab_name}>
-        {menuData.map((elem) => (
-          <NavItem
-            eventKey={elem.eventKey}
-            onClick={() => navigate(`/main/${elem.eventKey}`)}
-          >
-            <NavIcon
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              {expanded ? (
-                <Button sx={{ width: "100%", height: "100%" }}>
-                  {elem.icon}
-                </Button>
-              ) : (
-                <Tooltip
-                  title={elem.name}
-                  placement="right"
-                  arrow
-                  TransitionComponent={Zoom}
-                >
-                  <Button sx={{ width: "100%", height: "100%" }}>
-                    {elem.icon}
-                  </Button>
-                </Tooltip>
-              )}
-            </NavIcon>
-            <NavText>{elem.name}</NavText>
-          </NavItem>
-        ))}
-      </SideNav.Nav>
     </SideNav>
     // <header className={styles.header}>
     //   <Container>
