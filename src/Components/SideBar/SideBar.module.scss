@@ -25,9 +25,10 @@
       background-color: blue;
       cursor: pointer;
       border-radius: 50%;
-      width: 30px;
-      height: 30px;
+      width: 35px;
+      height: 35px;
       @include element-center;
+      border: 4px solid #fff;
     }
   }
   .asset {
