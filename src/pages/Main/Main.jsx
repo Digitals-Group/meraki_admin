@@ -98,7 +98,10 @@ const Main = () => {
   };
 
   return (
-    <div id={!enableTopToolbar && !enableBottomToolbar && "mui-table"}>
+    <div
+      id={!enableTopToolbar && !enableBottomToolbar && "mui-table"}
+      className="mui-table"
+    >
       {!id && (
         <MaterialReactTable
           data={data?.data ?? []}
