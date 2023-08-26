@@ -4,8 +4,11 @@ import { useForm } from "react-hook-form";
 import Label from "Components/Label/Label";
 import Input from "Components/Form/Input/Input";
 import MainButton from "Components/MainButton/MainButton";
+import { useDispatch } from "react-redux";
+import { showAlert } from "redux/alert/alert.thunk";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const {
     control,
     handleSubmit,
@@ -20,6 +23,8 @@ const Login = () => {
 
   const onSubmit = (data) => {
     console.log("data", data);
+    dispatch(showAlert("success", "success"));
+    reset();
   };
   return (
     <div className={styles.login}>
@@ -64,6 +69,7 @@ const Login = () => {
             text="Submit"
             fullWidth
             variant="contained"
+            loading={false}
           />
         </form>
       </div>

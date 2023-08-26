@@ -12,6 +12,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { sideBarExpandReducer } from "./sidebar/sidebar.slice";
+import { alertReducer } from "./alert/alert.slice";
 
 const sidebarPersistConfig = {
   key: "sidebar",
@@ -20,6 +21,7 @@ const sidebarPersistConfig = {
 
 const rootReducer = combineReducers({
   sidebar: persistReducer(sidebarPersistConfig, sideBarExpandReducer),
+  alert: alertReducer,
 });
 
 export const store = configureStore({

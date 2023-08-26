@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Input.module.scss";
 import { Controller } from "react-hook-form";
-import { ShowPasswordIcon } from "helpers/Icons/Icons";
+import { HidePasswordIcon, ShowPasswordIcon } from "helpers/Icons/Icons";
 import { Collapse } from "@mui/material";
 
 const Input = ({
@@ -66,9 +66,14 @@ const Input = ({
               {typePassword ? (
                 <div
                   onClick={() => setShowPassword((prev) => !prev)}
-                  style={{ cursor: "pointer" }}
+                  style={{
+                    cursor: "pointer",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
                 >
-                  <ShowPasswordIcon />
+                  {showPassword ? <ShowPasswordIcon /> : <HidePasswordIcon />}
                 </div>
               ) : (
                 endIcon

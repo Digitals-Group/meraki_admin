@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 
 const MainButton = ({
   fullWidth,
@@ -12,6 +12,7 @@ const MainButton = ({
   sx,
   isClicked,
   isProfile,
+  loading,
   ...restProps
 }) => {
   return (
@@ -22,10 +23,21 @@ const MainButton = ({
       fullWidth={fullWidth}
       variant={variant}
       onClick={onClick}
-      sx={{ ...sx, whiteSpace: "nowrap" }}
+      sx={{
+        ...sx,
+        whiteSpace: "nowrap",
+      }}
       {...restProps}
     >
-      {text}
+      {loading ? (
+        <CircularProgress
+          disableShrink
+          size="medium"
+          sx={{ color: "#dfe3e5" }}
+        />
+      ) : (
+        text
+      )}
     </Button>
   );
 };

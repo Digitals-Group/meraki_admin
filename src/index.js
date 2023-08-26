@@ -12,6 +12,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import "@trendmicro/react-sidenav/dist/react-sidenav.css";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "services/http-client";
+import AlertProvider from "providers/AlertProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -19,13 +20,15 @@ root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={theme}>
-          <BrowserRouter>
-            <Suspense fallback={<div className="suspense">Loading...</div>}>
-              <App />
-            </Suspense>
-          </BrowserRouter>
-        </ThemeProvider>
+        <AlertProvider>
+          <ThemeProvider theme={theme}>
+            <BrowserRouter>
+              <Suspense fallback={<div className="suspense">Loading...</div>}>
+                <App />
+              </Suspense>
+            </BrowserRouter>
+          </ThemeProvider>
+        </AlertProvider>
       </QueryClientProvider>
     </PersistGate>
   </Provider>
