@@ -1,6 +1,12 @@
 @import "/src/styles/mixins.scss";
 @import "/src/styles/functions.scss";
 
+:root {
+  --primary-color: #00acb5;
+  --secondary-color: #f6f8f9;
+  --border-color: #dfe3e5;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -31,11 +37,5 @@ body {
   .MuiTableContainer-root {
     max-height: 100vh;
     overflow: scroll;
-  }
-}
-
-.mui-table {
-  .MuiTableCell-body {
-    background-color: #fff;
   }
 }

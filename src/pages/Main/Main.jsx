@@ -44,7 +44,39 @@ const Main = () => {
   const columns = data?.fields?.map((elem) => {
     return {
       accessorKey: elem.slug,
+      accessorFn: (row) => {
+        switch (elem.type) {
+          case "PHOTO":
+            return (
+              <img
+                src={row[elem.slug]}
+                alt="ImageColumn"
+                style={{ width: "100px", height: "100px" }}
+              />
+            );
+          case "SWITCH":
+            return (
+              <div style={{ border: "1px solid red" }}>
+                {row[elem.slug].toString()}
+              </div>
+            );
+          default:
+            return row[elem.slug];
+        }
+      },
+      enableEditing: true,
       header: elem.label,
+      // Header: (
+      //   <i style={{ color: "red" }}>
+      //     sdfsdfsdjfkjsdhfkjsdhkfkjsdh ksjdhkfj dskfh dskjfhksdh fkjsd{" "}
+      //   </i>
+      // ),
+      // Footer: () => (
+      //   <Stack>
+      //     Max Age:
+      //     <Box color="warning.main">sdfsdfsd</Box>
+      //   </Stack>
+      // ),
     };
   });
 
@@ -98,10 +130,7 @@ const Main = () => {
   };
 
   return (
-    <div
-      id={!enableTopToolbar && !enableBottomToolbar && "mui-table"}
-      className="mui-table"
-    >
+    <div id={!enableTopToolbar && !enableBottomToolbar && "mui-table"}>
       {!id && (
         <MaterialReactTable
           data={data?.data ?? []}
@@ -120,7 +149,7 @@ const Main = () => {
             return row.original.status;
           }}
           enableRowNumbers={true}
-          editingMode="cell"
+          editingMode="row"
           enableRowSelection={true}
           getRowId={(row) => row.phoneNumber}
           enableRowActions={true}
@@ -131,6 +160,7 @@ const Main = () => {
           muiTableProps={{
             sx: {
               border: "1px solid #e1e5e8",
+              // tableLayout: "fixed",
             },
           }}
           muiTableHeadCellProps={{
@@ -150,9 +180,12 @@ const Main = () => {
             "mrt-row-expand": {
               size: 10,
             },
-            "mrt-row-actions": { size: 100 },
+            "mrt-row-actions": { size: 80 },
           }}
-          initialState={{ showColumnFilters: false }}
+          initialState={{
+            showColumnFilters: false,
+            density: "compact",
+          }}
           manualFiltering
           manualPagination
           manualSorting
@@ -188,7 +221,7 @@ const Main = () => {
             >
               <IconButton
                 color="primary"
-                onClick={() => handleDeleteRow(row)}
+                onClick={() => handleEditRow(row)}
                 sx={{ padding: 0, margin: 0 }}
               >
                 <Edit />
@@ -202,22 +235,15 @@ const Main = () => {
               </IconButton>
             </Box>
           )}
-          // renderRowActionMenuItems={({ row }) => [
-          //   <IconButton
-          //     color="primary"
-          //     onClick={() => handleDeleteRow(row)}
-          //     sx={{ padding: 0, margin: 0 }}
-          //   >
-          //     <Edit />
-          //   </IconButton>,
-          //   <IconButton
-          //     color="error"
-          //     onClick={() => handleDeleteRow(row)}
-          //     sx={{ padding: 0, margin: 0 }}
-          //   >
-          //     <Delete />
-          //   </IconButton>,
-          // ]}
+          renderRowActionMenuItems={({ row }) => [
+            <IconButton
+              color="error"
+              onClick={() => handleDeleteRow(row)}
+              sx={{ padding: 0, margin: 0 }}
+            >
+              <Delete />
+            </IconButton>,
+          ]}
           muiToolbarAlertBannerProps={
             isError
               ? {

@@ -8,8 +8,28 @@ export default createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          "@media (max-width: 768px)": {},
-          "&:hover": {},
+          cursor: "pointer !important",
+          border: "none",
+          textTransform: "none",
+          boxShadow: "none !important",
+          fontSize: `${rem(16)} !important`,
+          lineHeight: `${rem(18)} !important`,
+          fontWeight: "500 !important",
+          padding: `${rem(12)} 0`,
+          transition: "all 0.2s ease-in-out",
+          height: `${rem(48)}`,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: "4px",
+          "@media (max-width: 768px)": {
+            height: `${rem(40)}`,
+            lineHeight: `${rem(16)} !important`,
+          },
+          "&:hover": {
+            border: "none",
+            boxShadow: "none !important",
+          },
           svg: {
             maxWidth: "20px",
             minWidth: "20px",
@@ -19,10 +39,23 @@ export default createTheme({
           },
         },
         outlined: {
-          "&:hover": {},
+          color: "#00acb5",
+          background: "#EEF0F2",
+          padding: `${rem(12)} ${rem(24)}`,
+          "&:hover": {
+            color: "#00acb5",
+            background: "#EEF0F2",
+          },
         },
         contained: {
-          "&:hover": {},
+          padding: `${rem(12)} ${rem(24)}`,
+          color: "#fff",
+          background: "#00acb5",
+
+          "&:hover": {
+            color: "#fff",
+            background: "#00acb5",
+          },
         },
       },
     },

@@ -23,3 +23,9 @@
   display: flex;
   flex-direction: column;
 }
+
+@mixin backgroundOptimize {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

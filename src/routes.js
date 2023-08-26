@@ -5,25 +5,52 @@ import Main from "pages/Main/Main";
 import MainIndex from "pages/MainIndex/MainIndex";
 import MainSingle from "pages/MainSingle/MainSingle";
 import SettingsLayout from "Layouts/SettingsLayout/SettingsLayout";
+import Protected from "helpers/Protected/Protected";
+import Login from "pages/Login/Login";
+
+const hasToken = localStorage.getItem("token");
 
 export const Routes = () =>
   useRoutes([
     {
       path: "/",
-      element: <Navigate to="/main" replace />,
+      element: (
+        <Protected isProtected={!hasToken}>
+          <Navigate to="/main" replace />
+        </Protected>
+      ),
     },
     {
       path: "/main",
-      element: <MainLayout />,
+      element: (
+        <Protected isProtected={!hasToken}>
+          <MainLayout />
+        </Protected>
+      ),
       children: [
-        { index: true, element: <MainIndex /> },
+        {
+          index: true,
+          element: (
+            <Protected isProtected={!hasToken}>
+              <MainIndex />
+            </Protected>
+          ),
+        },
         {
           path: ":tab_name",
-          element: <Main />,
+          element: (
+            <Protected isProtected={!hasToken}>
+              <Main />
+            </Protected>
+          ),
           children: [
             {
               path: ":id",
-              element: <MainSingle />,
+              element: (
+                <Protected isProtected={!hasToken}>
+                  <MainSingle />
+                </Protected>
+              ),
             },
           ],
         },
@@ -31,29 +58,44 @@ export const Routes = () =>
     },
     {
       path: "/settings",
-      element: <SettingsLayout />,
+      element: (
+        <Protected isProtected={!hasToken}>
+          <SettingsLayout />
+        </Protected>
+      ),
       children: [
-        { index: true, element: <MainIndex /> },
+        {
+          index: true,
+          element: (
+            <Protected isProtected={!hasToken}>
+              <MainIndex />
+            </Protected>
+          ),
+        },
         {
           path: ":tab_name",
-          element: <Main />,
+          element: (
+            <Protected isProtected={!hasToken}>
+              <Main />
+            </Protected>
+          ),
           children: [
             {
               path: ":id",
-              element: <MainSingle />,
+              element: (
+                <Protected isProtected={!hasToken}>
+                  <MainSingle />
+                </Protected>
+              ),
             },
           ],
         },
       ],
     },
-    // {
-    //   path: "/about",
-    //   element: (
-    //     <Protected isProtected={true}>
-    //       <About />
-    //     </Protected>
-    //   ),
-    // },
+    {
+      path: "/login",
+      element: <Login />,
+    },
     // {
     //   path: "/blog",
     //   element: <Blog />,
@@ -74,6 +116,10 @@ export const Routes = () =>
     // },
     {
       path: "*",
-      element: <NotFound />,
+      element: (
+        <Protected isProtected={!hasToken}>
+          <NotFound />
+        </Protected>
+      ),
     },
   ]);
