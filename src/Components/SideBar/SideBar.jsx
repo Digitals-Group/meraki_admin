@@ -106,7 +106,10 @@ export function SideBar() {
         </SideNav.Nav>
       </div>
       <div className={styles.asset}>
-        <div className={styles.asset__setting}>
+        <div
+          className={styles.asset__setting}
+          onClick={() => navigate("/settings")}
+        >
           <SettingsApplicationsRoundedIcon
             fontSize="large"
             sx={{ color: "#fff" }}

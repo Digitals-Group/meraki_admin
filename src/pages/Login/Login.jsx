@@ -6,8 +6,10 @@ import Input from "Components/Form/Input/Input";
 import MainButton from "Components/MainButton/MainButton";
 import { useDispatch } from "react-redux";
 import { showAlert } from "redux/alert/alert.thunk";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const {
     control,
@@ -23,6 +25,8 @@ const Login = () => {
 
   const onSubmit = (data) => {
     console.log("data", data);
+    localStorage.setItem("token", "hi");
+    navigate("/main");
     dispatch(showAlert("success", "success"));
     reset();
   };

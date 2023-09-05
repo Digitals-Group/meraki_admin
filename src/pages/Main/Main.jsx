@@ -17,7 +17,7 @@ const Main = () => {
   const [sorting, setSorting] = useState([]);
   const [columnPinning, setColumnPinning] = useState({});
   const [pagination, setPagination] = useState({
-    pageIndex: 1,
+    pageIndex: 0,
     pageSize: 10,
   });
 
@@ -135,13 +135,13 @@ const Main = () => {
         <MaterialReactTable
           data={data?.data ?? []}
           columns={columns ?? columnsLoading}
-          enableColumnActions={true}
-          enableColumnFilters={true}
+          enableColumnActions={false}
+          enableColumnFilters={false}
           enablePagination={true}
-          enableSorting={true}
-          muiTableBodyRowProps={true}
+          enableSorting={false}
+          muiTableBodyRowProps={false}
           enableColumnResizing={true}
-          enableColumnOrdering={true}
+          enableColumnOrdering={false}
           enablePinning={true}
           enableStickyHeader={true}
           enableStickyFooter={true}
@@ -171,13 +171,11 @@ const Main = () => {
           muiTableBodyCellProps={{
             sx: {
               border: "1px solid #e1e5e8",
+              whiteSpace: "break-spaces",
             },
           }}
           displayColumnDefOptions={{
             "mrt-row-numbers": {
-              size: 10,
-            },
-            "mrt-row-expand": {
               size: 10,
             },
             "mrt-row-actions": { size: 80 },
@@ -211,6 +209,11 @@ const Main = () => {
               handleEditRow(cell, event.target.value);
             },
           })}
+          defaultColumn={{
+            minSize: 40, //allow columns to get smaller than default
+            maxSize: 9001, //allow columns to get larger than default
+            size: 260, //make columns wider by default
+          }}
           onColumnPinningChange={setColumnPinning}
           renderRowActions={({ row, table }) => (
             <Box
