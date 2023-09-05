@@ -7,6 +7,7 @@ import MainButton from "Components/MainButton/MainButton";
 import { useDispatch } from "react-redux";
 import { showAlert } from "redux/alert/alert.thunk";
 import { useNavigate } from "react-router-dom";
+import { UseAuth } from "services/auth.service";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,17 +19,25 @@ const Login = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      user_name: "",
+      username: "",
       password: "",
     },
   });
 
+  const { mutate: authMutate } = UseAuth({
+    onSuccess: (res) => {
+      localStorage.setItem("token", res);
+      dispatch(showAlert("You successfully entered", "success"));
+      navigate("/main");
+      reset();
+    },
+    onError: (err) => {
+      dispatch(showAlert(err.data?.message, "error"));
+    },
+  });
+
   const onSubmit = (data) => {
-    console.log("data", data);
-    localStorage.setItem("token", "hi");
-    navigate("/main");
-    dispatch(showAlert("success", "success"));
-    reset();
+    authMutate(data);
   };
   return (
     <div className={styles.login}>
@@ -42,7 +51,7 @@ const Login = () => {
             <Input
               control={control}
               placeholder="Enter name"
-              name="user_name"
+              name="username"
               validation={{
                 required: {
                   value: true,

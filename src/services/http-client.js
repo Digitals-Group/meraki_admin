@@ -15,11 +15,21 @@ export const request = axios.create({
   },
 });
 
+export const requestUnion = axios.create({
+  baseURL: process.env.REACT_APP_PUBLIC_BASE_URL_UNION,
+  params: {},
+  headers: {},
+});
+
 const errorHandler = (error) => {
   return Promise.reject(error.response);
 };
 
 request.interceptors.response.use((response) => response.data, errorHandler);
+requestUnion.interceptors.response.use(
+  (response) => response.data,
+  errorHandler
+);
 
 export const queryClient = new QueryClient({
   defaultOptions: {

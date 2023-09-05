@@ -94,7 +94,7 @@ export const Routes = () =>
     },
     {
       path: "/login",
-      element: <Login />,
+      element: hasToken ? <Navigate to="/main" replace /> : <Login />,
     },
     // {
     //   path: "/blog",
