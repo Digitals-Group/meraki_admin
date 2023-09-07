@@ -26,7 +26,11 @@ const Login = () => {
 
   const { mutate: authMutate } = UseAuth({
     onSuccess: (res) => {
-      localStorage.setItem("token", res);
+      localStorage.setItem("first_name", res.first_name);
+      localStorage.setItem("last_name", res.last_name);
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("user_id", res.user_id);
+      localStorage.setItem("username", res.username);
       dispatch(showAlert("You successfully entered", "success"));
       reset();
       navigate("/main");

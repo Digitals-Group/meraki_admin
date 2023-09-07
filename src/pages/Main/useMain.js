@@ -1,10 +1,11 @@
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { UseGetProducts } from "services/fake.service";
+import { useNavigate, useParams } from "react-router-dom";
+import { UseGetUsers } from "services/user.service";
 
 const useMain = () => {
-  const { id } = useParams();
+  const { id, tab_name } = useParams();
+  const navigate = useNavigate();
   const isDesktop = useMediaQuery("(min-width: 1200px)");
   const [columnFilters, setColumnFilters] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
@@ -28,51 +29,39 @@ const useMain = () => {
     }
   }, [isDesktop]);
 
-  const { data, isError, isFetching, isLoading, refetch } = UseGetProducts({
+  const { data, isError, isFetching, isLoading, refetch } = UseGetUsers({
     queryParams: {
       offset: pagination.pageIndex * pagination.pageSize,
       limit: pagination.pageSize,
     },
   });
 
-  const columns = data?.fields?.map((elem) => {
-    return {
-      accessorKey: elem.slug,
-      accessorFn: (row) => {
-        switch (elem.type) {
-          case "PHOTO":
-            return (
-              <img
-                src={row[elem.slug]}
-                alt="ImageColumn"
-                style={{ width: "100px", height: "100px" }}
-              />
-            );
-          case "SWITCH":
-            return (
-              <div style={{ border: "1px solid red" }}>
-                {row[elem.slug].toString()}
-              </div>
-            );
-          default:
-            return row[elem.slug];
-        }
-      },
-      enableEditing: false,
-      header: elem.label,
-      // Header: (
-      //   <i style={{ color: "red" }}>
-      //     sdfsdfsdjfkjsdhfkjsdhkfkjsdh ksjdhkfj dskfh dskjfhksdh fkjsd{" "}
-      //   </i>
-      // ),
-      // Footer: () => (
-      //   <Stack>
-      //     Max Age:
-      //     <Box color="warning.main">sdfsdfsd</Box>
-      //   </Stack>
-      // ),
-    };
-  });
+  const columns = [
+    {
+      accessorFn: (row) => row.created_at,
+      header: "Create date",
+    },
+    {
+      accessorFn: (row) => row.first_name,
+      header: "First name",
+    },
+    {
+      accessorFn: (row) => row.last_name,
+      header: "Last name",
+    },
+    {
+      accessorFn: (row) => row.phone_number,
+      header: "Phone number",
+    },
+    {
+      accessorFn: (row) => row.username,
+      header: "User name",
+    },
+    {
+      accessorFn: (row) => row.role_data.name,
+      header: "Role name",
+    },
+  ];
 
   const columnsLoading = [
     {
@@ -97,14 +86,11 @@ const useMain = () => {
     },
   ];
 
-  const handleDeleteRow = (row) => {
-    // const newTableData = tableData.filter(
-    //   (_, index) => index !== row.index
-    // );
-    // setTableData(newTableData);
-  };
+  const handleDeleteRow = (row) => {};
   return {
     id,
+    tab_name,
+    navigate,
     data,
     columns,
     columnsLoading,

@@ -1,9 +1,13 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { Box, Button, IconButton, Tooltip } from "@mui/material";
-import RefreshIcon from "@mui/icons-material/Refresh";
+import { Box, IconButton, Tooltip } from "@mui/material";
 import MaterialReactTable from "material-react-table";
-import { Delete } from "@mui/icons-material";
+import {
+  CreateNewFolder,
+  Delete,
+  DeleteSweep,
+  Refresh,
+} from "@mui/icons-material";
 import useMain from "./useMain";
 
 const enableBottomToolbar = true;
@@ -12,20 +16,17 @@ const enableTopToolbar = true;
 const Main = () => {
   const {
     id,
+    tab_name,
+    navigate,
     data,
     columns,
     columnsLoading,
     setColumnFilters,
-    setGlobalFilter,
     setSorting,
     setPagination,
-    columnFilters,
-    globalFilter,
     isLoading,
-    pagination,
     isError,
     isFetching,
-    sorting,
     columnPinning,
     setColumnPinning,
     refetch,
@@ -35,7 +36,7 @@ const Main = () => {
     <div id={!enableTopToolbar && !enableBottomToolbar && "mui-table"}>
       {!id && (
         <MaterialReactTable
-          data={data?.data ?? []}
+          data={data?.users ?? []}
           columns={columns ?? columnsLoading}
           rowCount={data?.count ?? 0}
           enableBottomToolbar={enableBottomToolbar}
@@ -122,33 +123,52 @@ const Main = () => {
                 padding: "0 20px",
                 maxWidth: "100%",
                 display: "flex",
-                gap: "15px",
+                gap: "5px",
               }}
             >
-              <Tooltip arrow title="Refresh Data">
-                <IconButton onClick={() => refetch()}>
-                  <RefreshIcon />
+              <Tooltip arrow title="Refresh">
+                <IconButton
+                  onClick={() => refetch()}
+                  sx={{
+                    width: "50px",
+                    height: "50px",
+                  }}
+                >
+                  <Refresh />
                 </IconButton>
               </Tooltip>
-              <Button
-                color="secondary"
-                // onClick={() => setCreateModalOpen(false)}
-                variant="contained"
-              >
-                Create New Account
-              </Button>
-              <Button
-                color="error"
-                disabled={!table.getIsSomeRowsSelected()}
-                onClick={() => {
-                  alert("Delete Selected Accounts");
-                }}
-                variant="contained"
-              >
-                Delete Selected Accounts
-              </Button>
+              <Tooltip arrow title="Create">
+                <IconButton
+                  onClick={() => refetch()}
+                  sx={{
+                    width: "50px",
+                    height: "50px",
+                  }}
+                >
+                  <CreateNewFolder />
+                </IconButton>
+              </Tooltip>
+              <Tooltip arrow title="Delete selected">
+                <IconButton
+                  onClick={() => refetch()}
+                  sx={{
+                    width: "50px",
+                    height: "50px",
+                  }}
+                >
+                  <DeleteSweep />
+                </IconButton>
+              </Tooltip>
             </div>
           )}
+          muiTableBodyRowProps={({ row }) => ({
+            onClick: (event) => {
+              navigate(`/main/${tab_name}/${row.original.id}`);
+            },
+            sx: {
+              cursor: "pointer",
+            },
+          })}
         />
       )}
       <Outlet />
