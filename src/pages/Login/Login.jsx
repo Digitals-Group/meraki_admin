@@ -28,8 +28,9 @@ const Login = () => {
     onSuccess: (res) => {
       localStorage.setItem("token", res);
       dispatch(showAlert("You successfully entered", "success"));
-      navigate("/main");
       reset();
+      navigate("/main");
+      window.location.reload();
     },
     onError: (err) => {
       dispatch(showAlert(err.data?.message, "error"));

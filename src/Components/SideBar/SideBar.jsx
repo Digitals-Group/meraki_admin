@@ -14,7 +14,7 @@ import SettingsApplicationsRoundedIcon from "@mui/icons-material/SettingsApplica
 import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 
 const menuData = [
-  { name: "Home", icon: <UserIcon />, eventKey: "home" },
+  { name: "Users", icon: <UserIcon />, eventKey: "users" },
   {
     name: "Search",
     icon: <SearchIcon />,
@@ -131,75 +131,5 @@ export function SideBar() {
         </div>
       </div>
     </SideNav>
-    // <header className={styles.header}>
-    //   <Container>
-    //     <div className={styles.box}>
-    //       <NavLink to="/">
-    //         <h2>Logo</h2>
-    //       </NavLink>
-    //       <nav>
-    //         <ul>
-    //           <li>
-    //             <NavLink
-    //               className={({ isActive }) =>
-    //                 isActive ? styles.active : undefined
-    //               }
-    //               to="/"
-    //               state={{ name: "ilyosbek" }}
-    //             >
-    //               {t("home")}
-    //             </NavLink>
-    //           </li>
-    //           <li>
-    //             <NavLink
-    //               className={({ isActive }) =>
-    //                 isActive ? styles.active : undefined
-    //               }
-    //               to="/blog"
-    //             >
-    //               {t("blog")}
-    //             </NavLink>
-    //           </li>
-    //           <li>
-    //             <NavLink
-    //               className={({ isActive }) =>
-    //                 isActive ? styles.active : undefined
-    //               }
-    //               to="/about"
-    //             >
-    //               {t("about")}
-    //             </NavLink>
-    //           </li>
-    //           <li>
-    //             <NavLink
-    //               className={({ isActive }) =>
-    //                 isActive ? styles.active : undefined
-    //               }
-    //               to="/products"
-    //             >
-    //               products
-    //             </NavLink>
-    //           </li>
-    //         </ul>
-    //       </nav>
-    //       <div className={styles.langs}>
-    //         <ul>
-    //           {langs.map((lang) => (
-    //             <li
-    //               key={lang.label}
-    //               onClick={() => handleChangeLang(lang.label)}
-    //               style={{
-    //                 cursor: "pointer",
-    //                 color: i18n.language === lang.label && "red",
-    //               }}
-    //             >
-    //               {lang.label}
-    //             </li>
-    //           ))}
-    //         </ul>
-    //       </div>
-    //     </div>
-    //   </Container>
-    // </header>
   );
 }

@@ -1,166 +1,60 @@
-import React, { useEffect, useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
-import { Box, Button, IconButton, Tooltip, useMediaQuery } from "@mui/material";
-import { UseGetProducts } from "services/fake.service";
+import React from "react";
+import { Outlet } from "react-router-dom";
+import { Box, Button, IconButton, Tooltip } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import MaterialReactTable from "material-react-table";
-import { Delete, Edit } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
+import useMain from "./useMain";
 
 const enableBottomToolbar = true;
 const enableTopToolbar = true;
 
 const Main = () => {
-  const { id } = useParams();
-  const isDesktop = useMediaQuery("(min-width: 1200px)");
-  const [columnFilters, setColumnFilters] = useState([]);
-  const [globalFilter, setGlobalFilter] = useState("");
-  const [sorting, setSorting] = useState([]);
-  const [columnPinning, setColumnPinning] = useState({});
-  const [pagination, setPagination] = useState({
-    pageIndex: 0,
-    pageSize: 10,
-  });
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (isDesktop) {
-        setColumnPinning({
-          left: ["mrt-row-expand", "mrt-row-numbers", "mrt-row-actions"],
-          right: ["mrt-row-select"],
-        });
-      } else {
-        setColumnPinning({});
-      }
-    }
-  }, [isDesktop]);
-
-  const { data, isError, isFetching, isLoading, refetch } = UseGetProducts({
-    queryParams: {
-      offset: pagination.pageIndex * pagination.pageSize,
-      limit: pagination.pageSize,
-    },
-  });
-
-  const columns = data?.fields?.map((elem) => {
-    return {
-      accessorKey: elem.slug,
-      accessorFn: (row) => {
-        switch (elem.type) {
-          case "PHOTO":
-            return (
-              <img
-                src={row[elem.slug]}
-                alt="ImageColumn"
-                style={{ width: "100px", height: "100px" }}
-              />
-            );
-          case "SWITCH":
-            return (
-              <div style={{ border: "1px solid red" }}>
-                {row[elem.slug].toString()}
-              </div>
-            );
-          default:
-            return row[elem.slug];
-        }
-      },
-      enableEditing: true,
-      header: elem.label,
-      // Header: (
-      //   <i style={{ color: "red" }}>
-      //     sdfsdfsdjfkjsdhfkjsdhkfkjsdh ksjdhkfj dskfh dskjfhksdh fkjsd{" "}
-      //   </i>
-      // ),
-      // Footer: () => (
-      //   <Stack>
-      //     Max Age:
-      //     <Box color="warning.main">sdfsdfsd</Box>
-      //   </Stack>
-      // ),
-    };
-  });
-
-  const columnsLoading = [
-    {
-      accessorKey: "1",
-      header: "",
-    },
-    {
-      accessorKey: "2",
-      header: "",
-    },
-    {
-      accessorKey: "3",
-      header: "",
-    },
-    {
-      accessorKey: "4",
-      header: "",
-    },
-    {
-      accessorKey: "5",
-      header: "",
-    },
-  ];
-
-  const handleEditRow = (cell, value) => {
-    // //if using flat data and simple accessorKeys/ids, you can just do a simple assignment here
-    // let keys = cell.column.id.split(".");
-    // let newObj = {};
-    // keys.forEach((element, i) => {
-    //   if (i === 0) {
-    //     newObj = tableData[cell.row.index][element];
-    //   } else {
-    //     if (typeof newObj[element] === "object")
-    //       newObj = newObj[element];
-    //   }
-    // });
-    // if (keys.length > 1) {
-    //   newObj[keys[keys.length - 1]] = value;
-    // } else tableData[cell.row.index][cell.column.id] = value;
-    // //send/receive api updates here
-    // setTableData([...tableData]); //re-render with new data
-  };
-
-  const handleDeleteRow = (row) => {
-    // const newTableData = tableData.filter(
-    //   (_, index) => index !== row.index
-    // );
-    // setTableData(newTableData);
-  };
-
+  const {
+    id,
+    data,
+    columns,
+    columnsLoading,
+    setColumnFilters,
+    setGlobalFilter,
+    setSorting,
+    setPagination,
+    columnFilters,
+    globalFilter,
+    isLoading,
+    pagination,
+    isError,
+    isFetching,
+    sorting,
+    columnPinning,
+    setColumnPinning,
+    refetch,
+    handleDeleteRow,
+  } = useMain();
   return (
     <div id={!enableTopToolbar && !enableBottomToolbar && "mui-table"}>
       {!id && (
         <MaterialReactTable
           data={data?.data ?? []}
           columns={columns ?? columnsLoading}
-          enableColumnActions={false}
-          enableColumnFilters={false}
+          rowCount={data?.count ?? 0}
+          enableBottomToolbar={enableBottomToolbar}
+          enableTopToolbar={enableTopToolbar}
+          enableColumnActions={true}
+          enableColumnFilters={true}
           enablePagination={true}
-          enableSorting={false}
-          muiTableBodyRowProps={false}
+          enableSorting={true}
           enableColumnResizing={true}
-          enableColumnOrdering={false}
+          enableColumnOrdering={true}
           enablePinning={true}
           enableStickyHeader={true}
           enableStickyFooter={true}
-          enableEditing={(row) => {
-            return row.original.status;
-          }}
-          enableRowNumbers={true}
-          editingMode="row"
           enableRowSelection={true}
-          getRowId={(row) => row.phoneNumber}
           enableRowActions={true}
-          enableClickToCopy={false}
           enableColumnDragging={true}
-          enableColumnFilterModes={true}
-          enableExpanding={false}
           muiTableProps={{
             sx: {
               border: "1px solid #e1e5e8",
-              // tableLayout: "fixed",
             },
           }}
           muiTableHeadCellProps={{
@@ -178,43 +72,25 @@ const Main = () => {
             "mrt-row-numbers": {
               size: 10,
             },
-            "mrt-row-actions": { size: 80 },
+            "mrt-row-actions": { size: 70 },
           }}
-          initialState={{
-            showColumnFilters: false,
-            density: "compact",
-          }}
-          manualFiltering
           manualPagination
           manualSorting
           onColumnFiltersChange={setColumnFilters}
-          onGlobalFilterChange={setGlobalFilter}
+          onColumnPinningChange={setColumnPinning}
           onSortingChange={setSorting}
           onPaginationChange={setPagination}
-          rowCount={data?.count ?? 0}
           state={{
-            columnFilters,
-            globalFilter,
             isLoading,
-            pagination,
             showAlertBanner: isError,
             showProgressBars: isFetching,
-            sorting,
             columnPinning,
           }}
-          enableBottomToolbar={true}
-          enableTopToolbar={true}
-          muiTableBodyCellEditTextFieldProps={({ cell }) => ({
-            onBlur: (event) => {
-              handleEditRow(cell, event.target.value);
-            },
-          })}
           defaultColumn={{
             minSize: 40, //allow columns to get smaller than default
             maxSize: 9001, //allow columns to get larger than default
             size: 260, //make columns wider by default
           }}
-          onColumnPinningChange={setColumnPinning}
           renderRowActions={({ row, table }) => (
             <Box
               sx={{
@@ -222,13 +98,6 @@ const Main = () => {
                 gap: "0rem",
               }}
             >
-              <IconButton
-                color="primary"
-                onClick={() => handleEditRow(row)}
-                sx={{ padding: 0, margin: 0 }}
-              >
-                <Edit />
-              </IconButton>
               <IconButton
                 color="error"
                 onClick={() => handleDeleteRow(row)}
@@ -238,15 +107,6 @@ const Main = () => {
               </IconButton>
             </Box>
           )}
-          renderRowActionMenuItems={({ row }) => [
-            <IconButton
-              color="error"
-              onClick={() => handleDeleteRow(row)}
-              sx={{ padding: 0, margin: 0 }}
-            >
-              <Delete />
-            </IconButton>,
-          ]}
           muiToolbarAlertBannerProps={
             isError
               ? {
@@ -272,7 +132,7 @@ const Main = () => {
               </Tooltip>
               <Button
                 color="secondary"
-                // onClick={() => setCreateModalOpen(true)}
+                // onClick={() => setCreateModalOpen(false)}
                 variant="contained"
               >
                 Create New Account
@@ -289,21 +149,6 @@ const Main = () => {
               </Button>
             </div>
           )}
-          // renderToolbarInternalActions={({ table }) => (
-          //   <Box>
-          //     {/* add custom button to print table  */}
-          //     <IconButton
-          //       onClick={() => {
-          //         window.print();
-          //       }}
-          //     >
-          //       <PrintIcon />
-          //     </IconButton>
-          //     {/* along-side built-in buttons in whatever order you want them */}
-          //     {/* <MRT_ToggleDensePaddingButton table={table} /> */}
-          //     {/* <MRT_FullScreenToggleButton table={table} /> */}
-          //   </Box>
-          // )}
         />
       )}
       <Outlet />
