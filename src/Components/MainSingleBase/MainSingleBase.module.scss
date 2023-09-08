@@ -1,6 +1,11 @@
 .base {
-  border: 1px solid blue;
   z-index: 0 !important;
   transition: margin-left 0.9s ease;
-  background-color: var(--secondary-color) !important;
+  transition: max-width 0.9s ease;
+  background-color: #fff !important;
+
+  &__body {
+    width: 300px;
+    border-right: 1px solid var(--border-color);
+  }
 }

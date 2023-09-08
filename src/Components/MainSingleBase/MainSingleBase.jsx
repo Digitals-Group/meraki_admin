@@ -15,17 +15,20 @@ const MainSingleBase = () => {
       className={styles.base}
       style={{
         marginLeft: expanded ? "240px" : "64px",
+        display: expandedSinglePage ? "flex" : "none",
       }}
       expanded={expandedSinglePage}
     >
-      <div className={styles.base__header}>
-        <button
-          onClick={() => dispatch(sideBarExpand.setSideBarExpandSinglePage())}
-        >
-          back
-        </button>
+      <div className={styles.base__body}>
+        <div className={styles.base__body_header}>
+          <button
+            onClick={() => dispatch(sideBarExpand.setSideBarExpandSinglePage())}
+          >
+            sdsdljfsdlfsdfkj
+          </button>
+        </div>
+        <div className={styles.base__body_content}></div>
       </div>
-      <div className={styles.base__content}></div>
     </SideNav>
   );
 };
