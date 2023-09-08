@@ -1,0 +1,6 @@
+.base {
+  border: 1px solid blue;
+  z-index: 0 !important;
+  transition: margin-left 0.9s ease;
+  background-color: var(--secondary-color) !important;
+}

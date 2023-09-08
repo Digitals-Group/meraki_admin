@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   expand: false,
+  expandSinglePage: false,
 };
 
 export const { actions: sideBarExpand, reducer: sideBarExpandReducer } =
@@ -11,6 +12,9 @@ export const { actions: sideBarExpand, reducer: sideBarExpandReducer } =
     reducers: {
       setSideBarExpand: (state) => {
         state.expand = !state.expand;
+      },
+      setSideBarExpandSinglePage: (state) => {
+        state.expandSinglePage = !state.expandSinglePage;
       },
     },
   });

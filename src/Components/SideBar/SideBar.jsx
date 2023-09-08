@@ -11,7 +11,6 @@ import Typewriter from "typewriter-effect";
 import { Button, Tooltip } from "@mui/material";
 import Zoom from "@mui/material/Zoom";
 import SettingsApplicationsRoundedIcon from "@mui/icons-material/SettingsApplicationsRounded";
-import AddCircleOutlinedIcon from "@mui/icons-material/AddCircleOutlined";
 
 const menuData = [
   { name: "Users", icon: <UserIcon />, eventKey: "users" },
