@@ -17,6 +17,7 @@ const MainSingle = () => {
         className="main_single"
         style={{
           marginLeft: `${!expandedSinglePage ? "0px" : "300px"}`,
+          width: expandedSinglePage ? "75%" : "100%",
         }}
       >
         <MainSingleRelations />
