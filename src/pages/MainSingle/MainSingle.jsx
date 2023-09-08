@@ -8,6 +8,7 @@ const MainSingle = () => {
   const expandedSinglePage = useSelector(
     (state) => state.sidebar.expandSinglePage
   );
+  const expanded = useSelector((state) => state.sidebar.expand);
   return (
     <div className={styles.mainSingle}>
       <div className={styles.mainSingle__base}>
@@ -17,7 +18,7 @@ const MainSingle = () => {
         className="main_single"
         style={{
           marginLeft: `${!expandedSinglePage ? "0px" : "300px"}`,
-          width: expandedSinglePage ? "75%" : "100%",
+          width: expandedSinglePage ? (expanded ? "75%" : "78%") : "100%",
         }}
       >
         <MainSingleRelations />
