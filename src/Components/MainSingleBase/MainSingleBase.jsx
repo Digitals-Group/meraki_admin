@@ -1,15 +1,20 @@
 import React from "react";
 import styles from "./MainSingleBase.module.scss";
 import SideNav from "@trendmicro/react-sidenav";
-import { useDispatch, useSelector } from "react-redux";
-import { sideBarExpand } from "redux/sidebar/sidebar.slice";
+import MainButton from "Components/MainButton/MainButton";
+import useMainSingleBase from "./useMainSingleBase";
 
 const MainSingleBase = () => {
-  const expanded = useSelector((state) => state.sidebar.expand);
-  const expandedSinglePage = useSelector(
-    (state) => state.sidebar.expandSinglePage
-  );
-  const dispatch = useDispatch();
+  const {
+    expanded,
+    expandedSinglePage,
+    tab_name,
+    handleSubmit,
+    onSubmit,
+    id,
+    inputs,
+    navigate,
+  } = useMainSingleBase();
   return (
     <SideNav
       className={styles.base}
@@ -20,14 +25,37 @@ const MainSingleBase = () => {
       expanded={expandedSinglePage}
     >
       <div className={styles.base__body}>
-        <div className={styles.base__body_header}>
-          <button
-            onClick={() => dispatch(sideBarExpand.setSideBarExpandSinglePage())}
-          >
-            sdsdljfsdlfsdfkj
-          </button>
+        <div
+          className={styles.base__body__header}
+          onClick={() => navigate(`/main/${tab_name}`)}
+        >
+          <h3>{tab_name}</h3>
         </div>
-        <div className={styles.base__body_content}></div>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className={styles.base__body__content}
+        >
+          <div className={styles.base__body__content__inputs}>{inputs()}</div>
+
+          <div className={styles.base__body__content__buttons}>
+            <MainButton
+              type="button"
+              text="Delete"
+              fullWidth
+              variant="outlined"
+              loading={false}
+              sx={{ borderRadius: "0" }}
+            />
+            <MainButton
+              type="submit"
+              text={id === "create" ? "Create" : "Edit"}
+              fullWidth
+              variant="contained"
+              loading={false}
+              sx={{ borderRadius: "0" }}
+            />
+          </div>
+        </form>
       </div>
     </SideNav>
   );

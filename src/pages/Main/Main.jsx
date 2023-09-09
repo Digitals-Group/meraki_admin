@@ -139,7 +139,7 @@ const Main = () => {
               </Tooltip>
               <Tooltip arrow title="Create">
                 <IconButton
-                  onClick={() => refetch()}
+                  onClick={() => navigate(`/main/${tab_name}/create`)}
                   sx={{
                     width: "50px",
                     height: "50px",

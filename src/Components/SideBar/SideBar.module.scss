@@ -1,7 +1,7 @@
 @import "/src/styles/mixins.scss";
 
 .sidenav {
-  background-color: crimson !important;
+  background-color: #00acb5 !important;
   width: 64px;
   @include direction-column;
   justify-content: space-between;
