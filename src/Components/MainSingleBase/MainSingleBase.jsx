@@ -14,6 +14,7 @@ const MainSingleBase = () => {
     id,
     inputs,
     navigate,
+    handleDeleteSingle,
   } = useMainSingleBase();
   return (
     <SideNav
@@ -44,6 +45,7 @@ const MainSingleBase = () => {
               fullWidth
               variant="outlined"
               loading={false}
+              onClick={() => handleDeleteSingle()}
               sx={{ borderRadius: "0" }}
             />
             <MainButton

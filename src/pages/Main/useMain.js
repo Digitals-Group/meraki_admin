@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { useMediaQuery } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { UseGetUsers } from "services/user.service";
+import { UseDeleteUsers, UseGetUsers } from "services/user.service";
+import { useDispatch } from "react-redux";
+import { showAlert } from "redux/alert/alert.thunk";
+import { queryClient } from "services/http-client";
 
 const useMain = () => {
   const { id, tab_name } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const isDesktop = useMediaQuery("(min-width: 1200px)");
   const [columnFilters, setColumnFilters] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
@@ -86,7 +90,17 @@ const useMain = () => {
     },
   ];
 
-  const handleDeleteRow = (row) => {};
+  const { mutate: userDeleteMutate } = UseDeleteUsers({
+    onSuccess: (res) => {
+      dispatch(showAlert("Successfully deleted", "success"));
+      queryClient.refetchQueries("GET_USERS");
+    },
+    onError: (err) => {},
+  });
+
+  const handleDeleteRow = (row) => {
+    userDeleteMutate(row.original.id);
+  };
   return {
     id,
     tab_name,

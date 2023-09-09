@@ -9,6 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { showAlert } from "redux/alert/alert.thunk";
 import { queryClient } from "services/http-client";
 import {
+  UseDeleteUsers,
   UseGetUsersById,
   UsePostUsers,
   UsePutUsers,
@@ -151,6 +152,19 @@ const useMainSingleBase = () => {
       }
     }
   };
+
+  const { mutate: userDeleteMutate } = UseDeleteUsers({
+    onSuccess: (res) => {
+      dispatch(showAlert("Successfully deleted", "success"));
+      queryClient.refetchQueries("GET_USERS");
+    },
+    onError: (err) => {},
+  });
+
+  const handleDeleteSingle = () => {
+    navigate(`/main/${tab_name}`);
+    userDeleteMutate(id);
+  };
   return {
     expanded,
     expandedSinglePage,
@@ -162,6 +176,7 @@ const useMainSingleBase = () => {
     id,
     inputs,
     navigate,
+    handleDeleteSingle,
   };
 };
 

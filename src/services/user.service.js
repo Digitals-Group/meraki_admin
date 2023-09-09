@@ -9,6 +9,7 @@ const userService = {
   getUsersById: (id) => requestUnion.get(`/user/${id}`),
   postUser: (data) => requestUnion.post("/user", data),
   putUser: ({ id, data }) => requestUnion.put(`/user/${id}`, data),
+  deleteUser: (id) => requestUnion.delete(`/user/${id}`),
 };
 
 export const UseGetUsers = ({ queryParams }) => {
@@ -33,4 +34,8 @@ export const UsePostUsers = (mutationSettings) => {
 
 export const UsePutUsers = (mutationSettings) => {
   return useMutation((data) => userService.putUser(data), mutationSettings);
+};
+
+export const UseDeleteUsers = (mutationSettings) => {
+  return useMutation((id) => userService.deleteUser(id), mutationSettings);
 };

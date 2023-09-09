@@ -101,7 +101,10 @@ const Main = () => {
             >
               <IconButton
                 color="error"
-                onClick={() => handleDeleteRow(row)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteRow(row);
+                }}
                 sx={{ padding: 0, margin: 0 }}
               >
                 <Delete />
