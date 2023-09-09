@@ -123,6 +123,7 @@ const useMain = () => {
     setColumnPinning,
     refetch,
     handleDeleteRow,
+    dispatch,
   };
 };
 

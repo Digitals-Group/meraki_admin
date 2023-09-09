@@ -16,5 +16,9 @@ export const { actions: sideBarExpand, reducer: sideBarExpandReducer } =
       setSideBarExpandSinglePage: (state) => {
         state.expandSinglePage = !state.expandSinglePage;
       },
+
+      setOpenSideBarExpandSinglePage: (state) => {
+        state.expandSinglePage = true;
+      },
     },
   });

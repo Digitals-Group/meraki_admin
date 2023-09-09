@@ -9,6 +9,7 @@ import {
   Refresh,
 } from "@mui/icons-material";
 import useMain from "./useMain";
+import { sideBarExpand } from "redux/sidebar/sidebar.slice";
 
 const enableBottomToolbar = true;
 const enableTopToolbar = true;
@@ -31,6 +32,7 @@ const Main = () => {
     setColumnPinning,
     refetch,
     handleDeleteRow,
+    dispatch,
   } = useMain();
   return (
     <div id={!enableTopToolbar && !enableBottomToolbar && "mui-table"}>
@@ -167,6 +169,7 @@ const Main = () => {
           muiTableBodyRowProps={({ row }) => ({
             onClick: (event) => {
               navigate(`/main/${tab_name}/${row.original.id}`);
+              dispatch(sideBarExpand.setOpenSideBarExpandSinglePage());
             },
             sx: {
               cursor: "pointer",
