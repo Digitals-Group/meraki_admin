@@ -9,6 +9,8 @@ import {
   Delete,
   DeleteSweep,
   Refresh,
+  ArrowBack,
+  ArrowForward,
 } from "@mui/icons-material";
 
 const enableBottomToolbar = true;
@@ -139,7 +141,7 @@ const MainSingleRelations = () => {
                   height: "50px",
                 }}
               >
-                back
+                {expandedSinglePage ? <ArrowBack /> : <ArrowForward />}
               </IconButton>
             </Tooltip>
             <Tooltip arrow title="Refresh">

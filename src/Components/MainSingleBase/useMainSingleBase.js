@@ -1,14 +1,18 @@
+import React, { useEffect } from "react";
 import Input from "Components/Form/Input/Input";
 import PhoneInput from "Components/Form/PhoneInput/PhoneInput";
 import Label from "Components/Label/Label";
 import BigLoading from "Components/Loading/BigLoading";
-import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { showAlert } from "redux/alert/alert.thunk";
 import { queryClient } from "services/http-client";
-import { UseGetUsersById, UsePostUsers } from "services/user.service";
+import {
+  UseGetUsersById,
+  UsePostUsers,
+  UsePutUsers,
+} from "services/user.service";
 
 const useMainSingleBase = () => {
   const { tab_name, id } = useParams();
@@ -42,7 +46,17 @@ const useMainSingleBase = () => {
 
   const { mutate: userMutate } = UsePostUsers({
     onSuccess: (res) => {
-      dispatch(showAlert("You successfully entered", "success"));
+      dispatch(showAlert("Successfully created", "success"));
+      navigate(`/main/${tab_name}`);
+      reset();
+      queryClient.refetchQueries("GET_USERS");
+    },
+    onError: (err) => {},
+  });
+
+  const { mutate: userUpdateMutate } = UsePutUsers({
+    onSuccess: (res) => {
+      dispatch(showAlert("Successfully Updated", "success"));
       navigate(`/main/${tab_name}`);
       reset();
       queryClient.refetchQueries("GET_USERS");
@@ -51,7 +65,11 @@ const useMainSingleBase = () => {
   });
 
   const onSubmit = (data) => {
-    userMutate(data);
+    if (id === "create") {
+      userMutate(data);
+    } else {
+      userUpdateMutate({ id, data });
+    }
   };
 
   const inputs = () => {

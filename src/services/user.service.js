@@ -8,6 +8,7 @@ const userService = {
     }),
   getUsersById: (id) => requestUnion.get(`/user/${id}`),
   postUser: (data) => requestUnion.post("/user", data),
+  putUser: ({ id, data }) => requestUnion.put(`/user/${id}`, data),
 };
 
 export const UseGetUsers = ({ queryParams }) => {
@@ -28,4 +29,8 @@ export const UseGetUsersById = ({ id, querySettings }) => {
 
 export const UsePostUsers = (mutationSettings) => {
   return useMutation((data) => userService.postUser(data), mutationSettings);
+};
+
+export const UsePutUsers = (mutationSettings) => {
+  return useMutation((data) => userService.putUser(data), mutationSettings);
 };
