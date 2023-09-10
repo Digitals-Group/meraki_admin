@@ -41,7 +41,7 @@ const MainSingleRelations = () => {
   return (
     <div id={!enableTopToolbar && !enableBottomToolbar && "mui-table"}>
       <MaterialReactTable
-        data={data?.users ?? []}
+        data={data?.datas ?? []}
         columns={columns ?? columnsLoading}
         rowCount={data?.count ?? 0}
         enableBottomToolbar={enableBottomToolbar}

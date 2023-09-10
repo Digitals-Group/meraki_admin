@@ -34,11 +34,12 @@ const Main = () => {
     handleDeleteRow,
     dispatch,
   } = useMain();
+
   return (
     <div id={!enableTopToolbar && !enableBottomToolbar && "mui-table"}>
       {!id && (
         <MaterialReactTable
-          data={data?.users ?? []}
+          data={data?.datas ?? []}
           columns={columns ?? columnsLoading}
           rowCount={data?.count ?? 0}
           enableBottomToolbar={enableBottomToolbar}

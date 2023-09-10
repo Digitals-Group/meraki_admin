@@ -14,6 +14,18 @@ import {
   UsePostUsers,
   UsePutUsers,
 } from "services/user.service";
+import WSelect from "Components/Form/WSelect/WSelect";
+
+const userTypeOptions = [
+  {
+    label: "USER",
+    value: "3110a62f-7774-442a-b9b3-2d762d3b791a",
+  },
+  {
+    label: "ADMIN",
+    value: "64b8d97f-5b9e-4ffc-bbaa-94038b6694be",
+  },
+];
 
 const useMainSingleBase = () => {
   const { tab_name, id } = useParams();
@@ -42,8 +54,17 @@ const useMainSingleBase = () => {
   });
 
   useEffect(() => {
-    for (let item in data) setValue(item, data[item]);
-  }, [data, setValue]);
+    if (id !== "create") {
+      for (let item in data) {
+        if (item !== "created_at" || item !== "updated_at")
+          setValue(item, data[item]);
+      }
+      setValue("role_id", {
+        label: data?.role_data?.name,
+        value: data?.role_id,
+      });
+    }
+  }, [data, setValue, id]);
 
   const { mutate: userMutate } = UsePostUsers({
     onSuccess: (res) => {
@@ -66,10 +87,15 @@ const useMainSingleBase = () => {
   });
 
   const onSubmit = (data) => {
+    const apiData = {
+      ...data,
+      role_id: data.role_id.value,
+      role_data: undefined,
+    };
     if (id === "create") {
-      userMutate(data);
+      userMutate(apiData);
     } else {
-      userUpdateMutate({ id, data });
+      userUpdateMutate({ id, apiData });
     }
   };
 
@@ -142,6 +168,24 @@ const useMainSingleBase = () => {
                   placeholder="Enter password"
                   name="password"
                   typePassword
+                />
+              </Label>
+              <Label label="Role type">
+                <WSelect
+                  name="role_id"
+                  control={control}
+                  options={userTypeOptions}
+                  defaultValue={{
+                    label: "USER",
+                    value: "3110a62f-7774-442a-b9b3-2d762d3b791a",
+                  }}
+                  errors={errors}
+                  validation={{
+                    required: {
+                      value: true,
+                      message: "Обязательное поле",
+                    },
+                  }}
                 />
               </Label>
             </>
