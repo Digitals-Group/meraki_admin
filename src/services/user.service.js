@@ -8,7 +8,8 @@ const userService = {
     }),
   getUsersById: (id) => requestUnion.get(`/user/${id}`),
   postUser: (data) => requestUnion.post("/user", data),
-  putUser: ({ id, apiData }) => requestUnion.put(`/user/${id}`, apiData),
+  patchUser: ({ id, apiData }) =>
+    requestUnion.patch(`/user/${id}`, { data: apiData }),
   deleteUser: (id) => requestUnion.delete(`/user/${id}`),
 };
 
@@ -32,9 +33,9 @@ export const UsePostUsers = (mutationSettings) => {
   return useMutation((data) => userService.postUser(data), mutationSettings);
 };
 
-export const UsePutUsers = (mutationSettings) => {
+export const UsePatchUsers = (mutationSettings) => {
   return useMutation(
-    ({ id, apiData }) => userService.putUser({ id, apiData }),
+    ({ id, apiData }) => userService.patchUser({ id, apiData }),
     mutationSettings
   );
 };

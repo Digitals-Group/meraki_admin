@@ -17,10 +17,6 @@ const enableBottomToolbar = true;
 const enableTopToolbar = true;
 
 const MainSingleRelations = () => {
-  const dispatch = useDispatch();
-  const expandedSinglePage = useSelector(
-    (state) => state.sidebar.expandSinglePage
-  );
   const {
     tab_name,
     navigate,
@@ -29,7 +25,6 @@ const MainSingleRelations = () => {
     columnsLoading,
     setColumnFilters,
     setSorting,
-    setPagination,
     isLoading,
     isError,
     isFetching,
@@ -37,13 +32,17 @@ const MainSingleRelations = () => {
     setColumnPinning,
     refetch,
     handleDeleteRow,
+    pagination,
+    dispatch,
+    expandedSinglePage,
+    handlePaginationChange,
   } = useMainSingleRelations();
   return (
     <div id={!enableTopToolbar && !enableBottomToolbar && "mui-table"}>
       <MaterialReactTable
         data={data?.datas ?? []}
         columns={columns ?? columnsLoading}
-        rowCount={data?.count ?? 0}
+        rowCount={data?.count}
         enableBottomToolbar={enableBottomToolbar}
         enableTopToolbar={enableTopToolbar}
         enableColumnActions={true}
@@ -85,12 +84,13 @@ const MainSingleRelations = () => {
         onColumnFiltersChange={setColumnFilters}
         onColumnPinningChange={setColumnPinning}
         onSortingChange={setSorting}
-        onPaginationChange={setPagination}
+        onPaginationChange={handlePaginationChange}
         state={{
           isLoading,
           showAlertBanner: isError,
           showProgressBars: isFetching,
           columnPinning,
+          pagination,
         }}
         defaultColumn={{
           minSize: 40, //allow columns to get smaller than default

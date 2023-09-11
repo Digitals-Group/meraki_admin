@@ -11,8 +11,8 @@ import { queryClient } from "services/http-client";
 import {
   UseDeleteUsers,
   UseGetUsersById,
+  UsePatchUsers,
   UsePostUsers,
-  UsePutUsers,
 } from "services/user.service";
 import WSelect from "Components/Form/WSelect/WSelect";
 
@@ -56,7 +56,7 @@ const useMainSingleBase = () => {
   useEffect(() => {
     if (id !== "create") {
       for (let item in data) {
-        if (item !== "created_at" || item !== "updated_at")
+        if (item !== "created_at" && item !== "updated_at")
           setValue(item, data[item]);
       }
       setValue("role_id", {
@@ -76,7 +76,7 @@ const useMainSingleBase = () => {
     onError: (err) => {},
   });
 
-  const { mutate: userUpdateMutate } = UsePutUsers({
+  const { mutate: userUpdateMutate } = UsePatchUsers({
     onSuccess: (res) => {
       dispatch(showAlert("Successfully Updated", "success"));
       navigate(`/main/${tab_name}`);

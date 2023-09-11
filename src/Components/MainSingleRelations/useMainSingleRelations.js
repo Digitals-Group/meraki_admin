@@ -1,37 +1,35 @@
 import { useEffect, useState } from "react";
-import { useMediaQuery } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { UseDeleteUsers, UseGetUsers } from "services/user.service";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { showAlert } from "redux/alert/alert.thunk";
 import { queryClient } from "services/http-client";
+import { paginationChange } from "redux/pagination/pagination.slice";
 
 const useMainSingleRelations = () => {
-  const { id, tab_name } = useParams();
   const dispatch = useDispatch();
+  const expandedSinglePage = useSelector(
+    (state) => state.sidebar.expandSinglePage
+  );
+  const { id, tab_name } = useParams();
   const navigate = useNavigate();
-  const isDesktop = useMediaQuery("(min-width: 1200px)");
   const [columnFilters, setColumnFilters] = useState([]);
   const [globalFilter, setGlobalFilter] = useState("");
   const [sorting, setSorting] = useState([]);
   const [columnPinning, setColumnPinning] = useState({});
-  const [pagination, setPagination] = useState({
-    pageIndex: 0,
-    pageSize: 10,
-  });
+
+  const pagination = useSelector(
+    (state) => state.pagination.pagination_relation
+  );
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if (isDesktop) {
-        setColumnPinning({
-          left: ["mrt-row-expand", "mrt-row-numbers", "mrt-row-actions"],
-          right: ["mrt-row-select"],
-        });
-      } else {
-        setColumnPinning({});
-      }
+      setColumnPinning({
+        left: ["mrt-row-expand", "mrt-row-numbers", "mrt-row-select"],
+        right: ["mrt-row-actions"],
+      });
     }
-  }, [isDesktop]);
+  }, []);
 
   const { data, isError, isFetching, isLoading, refetch } = UseGetUsers({
     queryParams: {
@@ -107,6 +105,10 @@ const useMainSingleRelations = () => {
       }
     });
   };
+
+  const handlePaginationChange = (item) => {
+    dispatch(paginationChange.setPaginationRelation(item(pagination)));
+  };
   return {
     id,
     tab_name,
@@ -117,7 +119,6 @@ const useMainSingleRelations = () => {
     setColumnFilters,
     setGlobalFilter,
     setSorting,
-    setPagination,
     columnFilters,
     globalFilter,
     isLoading,
@@ -129,6 +130,9 @@ const useMainSingleRelations = () => {
     setColumnPinning,
     refetch,
     handleDeleteRow,
+    handlePaginationChange,
+    dispatch,
+    expandedSinglePage,
   };
 };
 

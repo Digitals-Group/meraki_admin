@@ -24,7 +24,6 @@ const Main = () => {
     columnsLoading,
     setColumnFilters,
     setSorting,
-    setPagination,
     isLoading,
     isError,
     isFetching,
@@ -33,6 +32,8 @@ const Main = () => {
     refetch,
     handleDeleteRow,
     dispatch,
+    pagination,
+    handlePaginationChange,
   } = useMain();
 
   return (
@@ -41,7 +42,7 @@ const Main = () => {
         <MaterialReactTable
           data={data?.datas ?? []}
           columns={columns ?? columnsLoading}
-          rowCount={data?.count ?? 0}
+          rowCount={data?.count}
           enableBottomToolbar={enableBottomToolbar}
           enableTopToolbar={enableTopToolbar}
           enableColumnActions={true}
@@ -83,12 +84,13 @@ const Main = () => {
           onColumnFiltersChange={setColumnFilters}
           onColumnPinningChange={setColumnPinning}
           onSortingChange={setSorting}
-          onPaginationChange={setPagination}
+          onPaginationChange={handlePaginationChange}
           state={{
             isLoading,
             showAlertBanner: isError,
             showProgressBars: isFetching,
             columnPinning,
+            pagination,
           }}
           defaultColumn={{
             minSize: 40, //allow columns to get smaller than default

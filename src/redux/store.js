@@ -13,14 +13,21 @@ import {
 import storage from "redux-persist/lib/storage";
 import { sideBarExpandReducer } from "./sidebar/sidebar.slice";
 import { alertReducer } from "./alert/alert.slice";
+import { paginationReducer } from "./pagination/pagination.slice";
 
 const sidebarPersistConfig = {
   key: "sidebar",
   storage,
 };
 
+const paginationPersistConfig = {
+  key: "sidebar",
+  storage,
+};
+
 const rootReducer = combineReducers({
   sidebar: persistReducer(sidebarPersistConfig, sideBarExpandReducer),
+  pagination: persistReducer(paginationPersistConfig, paginationReducer),
   alert: alertReducer,
 });
 
