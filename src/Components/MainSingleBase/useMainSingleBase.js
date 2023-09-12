@@ -433,7 +433,7 @@ const useMainSingleBase = () => {
     }
   };
 
-  const { mutate: userDeleteMutate } = UseDeleteMain({
+  const { mutate: mainDeleteMutate } = UseDeleteMain({
     onSuccess: (res) => {
       dispatch(showAlert("Successfully deleted", "success"));
       queryClient.refetchQueries("GET_MAIN");
@@ -442,8 +442,8 @@ const useMainSingleBase = () => {
   });
 
   const handleDeleteSingle = () => {
+    mainDeleteMutate({ id, tab_name });
     navigate(`/main/${tab_name}`);
-    userDeleteMutate(id);
   };
   return {
     expanded,

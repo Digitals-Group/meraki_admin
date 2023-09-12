@@ -12,7 +12,7 @@ const mainService = {
     requestUnion.patch(`/${tab_name}/${id}`, { data: apiData }),
   putMain: ({ id, tab_name, apiData }) =>
     requestUnion.put(`/${tab_name}/${id}`, apiData),
-  deleteMain: (id) => requestUnion.delete(`/user/${id}`),
+  deleteMain: ({ id, tab_name }) => requestUnion.delete(`/${tab_name}/${id}`),
 };
 
 export const UseGetMain = ({ queryParams, tab_name }) => {
@@ -51,5 +51,8 @@ export const UsePatchMain = (mutationSettings) => {
 };
 
 export const UseDeleteMain = (mutationSettings) => {
-  return useMutation((id) => mainService.deleteMain(id), mutationSettings);
+  return useMutation(
+    ({ id, tab_name }) => mainService.deleteMain({ id, tab_name }),
+    mutationSettings
+  );
 };
