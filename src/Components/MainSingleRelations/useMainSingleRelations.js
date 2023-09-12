@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import styles from "./MainSingleRelations.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { UseDeleteMain, UseGetMain } from "services/main.service";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,29 +7,6 @@ import { showAlert } from "redux/alert/alert.thunk";
 import { queryClient } from "services/http-client";
 import { paginationChange } from "redux/pagination/pagination.slice";
 import { columns } from "Components/Columns/Columns";
-
-const columnsLoading = [
-  {
-    accessorKey: "1",
-    header: "",
-  },
-  {
-    accessorKey: "2",
-    header: "",
-  },
-  {
-    accessorKey: "3",
-    header: "",
-  },
-  {
-    accessorKey: "4",
-    header: "",
-  },
-  {
-    accessorKey: "5",
-    header: "",
-  },
-];
 
 const useMainSingleRelations = () => {
   const dispatch = useDispatch();
@@ -49,7 +27,7 @@ const useMainSingleRelations = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       setColumnPinning({
-        left: ["mrt-row-expand", "mrt-row-numbers", "mrt-row-select"],
+        left: ["#", "mrt-row-expand", "mrt-row-numbers", "mrt-row-select"],
         right: ["mrt-row-actions"],
       });
     }
@@ -89,8 +67,27 @@ const useMainSingleRelations = () => {
     tab_name,
     navigate,
     data,
-    columns: columns(tab_name),
-    columnsLoading,
+    columns: [
+      {
+        accessorFn: (_, index) => (
+          <div className={styles.order}>
+            {pagination.pageIndex * 10 + index + 1}
+          </div>
+        ),
+        header: "#",
+        size: 45,
+        minSize: 45,
+        enableColumnActions: false,
+        enableEditing: false,
+        enableExpanding: false,
+        enableColumnDragging: false,
+        enableColumnFilter: false,
+        enableColumnOrdering: false,
+        enableResizing: false,
+        enableSorting: false,
+      },
+      ...columns(tab_name),
+    ],
     setColumnFilters,
     setGlobalFilter,
     setSorting,

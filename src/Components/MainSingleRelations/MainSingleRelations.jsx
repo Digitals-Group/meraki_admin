@@ -41,7 +41,7 @@ const MainSingleRelations = () => {
     <div id={!enableTopToolbar && !enableBottomToolbar && "mui-table"}>
       <MaterialReactTable
         data={data?.datas ?? []}
-        columns={columns ?? columnsLoading}
+        columns={columns}
         rowCount={data?.count}
         enableBottomToolbar={enableBottomToolbar}
         enableTopToolbar={enableTopToolbar}
@@ -77,7 +77,8 @@ const MainSingleRelations = () => {
           "mrt-row-numbers": {
             size: 10,
           },
-          "mrt-row-actions": { size: 70 },
+          "mrt-row-actions": { size: 80 },
+          "mrt-row-select": { size: 55 },
         }}
         manualPagination
         manualSorting
@@ -102,6 +103,7 @@ const MainSingleRelations = () => {
             sx={{
               display: "flex",
               gap: "0rem",
+              justifyContent: "flex-end",
             }}
           >
             <IconButton

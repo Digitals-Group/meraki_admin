@@ -41,7 +41,7 @@ const Main = () => {
       {!id && (
         <MaterialReactTable
           data={data?.datas ?? []}
-          columns={columns ?? columnsLoading}
+          columns={columns}
           rowCount={data?.count}
           enableBottomToolbar={enableBottomToolbar}
           enableTopToolbar={enableTopToolbar}
@@ -73,11 +73,17 @@ const Main = () => {
               whiteSpace: "break-spaces",
             },
           }}
+          defaultColumn={{
+            minSize: 40, //allow columns to get smaller than default
+            maxSize: 1000, //allow columns to get larger than default
+            size: 260, //make columns wider by default
+          }}
           displayColumnDefOptions={{
             "mrt-row-numbers": {
               size: 10,
             },
-            "mrt-row-actions": { size: 70 },
+            "mrt-row-actions": { size: 80 },
+            "mrt-row-select": { size: 55 },
           }}
           manualPagination
           manualSorting
@@ -92,16 +98,12 @@ const Main = () => {
             columnPinning,
             pagination,
           }}
-          defaultColumn={{
-            minSize: 40, //allow columns to get smaller than default
-            maxSize: 9001, //allow columns to get larger than default
-            size: 260, //make columns wider by default
-          }}
           renderRowActions={({ row, table }) => (
             <Box
               sx={{
                 display: "flex",
                 gap: "0rem",
+                justifyContent: "flex-end",
               }}
             >
               <IconButton
