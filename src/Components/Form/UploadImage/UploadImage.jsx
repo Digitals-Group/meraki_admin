@@ -44,7 +44,7 @@ const UploadImage = ({ control, errors, name, setValue }) => {
         <>
           <SingleFileUpload
             control={control}
-            name={name}
+            name={name || "image_url"}
             type="file"
             handleImage={handleImage}
             uploadRef={uploadRef}

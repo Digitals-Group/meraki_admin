@@ -25,7 +25,6 @@ const SingleFileUpload = ({
               handleImage(e);
             }}
             ref={uploadRef}
-            required
             style={{ display: unvisible && "none" }}
           />
         );

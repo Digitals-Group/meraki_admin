@@ -51,13 +51,10 @@ const useMainSingleBase = () => {
     handleSubmit,
     reset,
     setValue,
-    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {},
   });
-
-  console.log("watch", watch());
 
   useEffect(() => {
     if (id !== "create") {
@@ -100,7 +97,7 @@ const useMainSingleBase = () => {
             role_id: data.role_id.value,
             role_data: undefined,
           }
-        : data;
+        : { ...data, price: +data?.price };
 
     if (id === "create") {
       mainMutate({ tab_name, apiData });
@@ -295,7 +292,78 @@ const useMainSingleBase = () => {
             </>
           );
         case "product":
-          return <></>;
+          return (
+            <>
+              <Label label="Name">
+                <Input
+                  control={control}
+                  placeholder="Enter name"
+                  name="title"
+                  validation={{
+                    required: {
+                      value: true,
+                      message: "required",
+                    },
+                  }}
+                  errors={errors}
+                />
+              </Label>
+              <Label label="Subtitle">
+                <Input
+                  control={control}
+                  placeholder="Enter subtitle"
+                  name="subtitle"
+                  validation={{
+                    required: {
+                      value: true,
+                      message: "required",
+                    },
+                  }}
+                  errors={errors}
+                />
+              </Label>
+              <Label label="Description">
+                <Textarea
+                  placeholder="description"
+                  control={control}
+                  name="description"
+                  validation={{
+                    required: {
+                      value: true,
+                      message: "Обязательное поле",
+                    },
+                    validate: {
+                      freeSpace: (value) => {
+                        if (!value.trim().length) return "Обязательное поле";
+                      },
+                    },
+                  }}
+                  errors={errors}
+                />
+              </Label>
+              <UploadImage
+                control={control}
+                errors={errors}
+                name="image_url"
+                setValue={setValue}
+              />
+              <Label label="Price">
+                <Input
+                  control={control}
+                  placeholder="Enter price"
+                  name="price"
+                  type="number"
+                  validation={{
+                    required: {
+                      value: true,
+                      message: "required",
+                    },
+                  }}
+                  errors={errors}
+                />
+              </Label>
+            </>
+          );
 
         case "size":
           return (
