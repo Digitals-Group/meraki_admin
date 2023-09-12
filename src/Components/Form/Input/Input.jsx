@@ -47,11 +47,10 @@ const Input = ({
                 placeholder={placeholder}
                 type={showPassword && typePassword ? "password" : type}
                 disabled={disabled}
-                value={
-                  typeof value == "object"
-                    ? value?.value.replace(/\s{2,}/g, " ").trimStart()
-                    : value?.replace(/\s{2,}/g, " ").trimStart()
-                }
+                value={value
+                  ?.toString()
+                  ?.replace(/\s{2,}/g, " ")
+                  .trimStart()}
                 autoComplete={autoComplete}
                 onChange={(e) => {
                   onChange(e);

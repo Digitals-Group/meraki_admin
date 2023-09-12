@@ -1,3 +1,5 @@
+import Image from "Components/Fields/Image/Image";
+
 export const columns = (tab_name) => {
   switch (tab_name) {
     case "user":
@@ -41,7 +43,7 @@ export const columns = (tab_name) => {
     case "banner":
       return [
         {
-          accessorFn: (row) => row.image_url,
+          accessorFn: (row) => <Image url={row.image_url} />,
           header: "Image",
         },
       ];
@@ -52,7 +54,7 @@ export const columns = (tab_name) => {
           header: "Category name",
         },
         {
-          accessorFn: (row) => row.image_url,
+          accessorFn: (row) => <Image url={row.image_url} />,
           header: "Category image",
         },
       ];
@@ -71,7 +73,7 @@ export const columns = (tab_name) => {
           header: "Description",
         },
         {
-          accessorFn: (row) => row.image_url,
+          accessorFn: (row) => <Image url={row.image_url} />,
           header: "Image",
         },
         {
@@ -97,7 +99,7 @@ export const columns = (tab_name) => {
           header: "Name",
         },
         {
-          accessorFn: (row) => row.image_url,
+          accessorFn: (row) => <Image url={row.image_url} />,
           header: "Image",
         },
         {
