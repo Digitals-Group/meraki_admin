@@ -9,12 +9,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { showAlert } from "redux/alert/alert.thunk";
 import { queryClient } from "services/http-client";
 import {
-  UseDeleteUsers,
-  UseGetUsersById,
-  UsePatchUsers,
-  UsePostUsers,
-} from "services/user.service";
+  UseDeleteMain,
+  UseGetMainById,
+  UsePatchMain,
+  UsePostMain,
+} from "services/main.service";
 import WSelect from "Components/Form/WSelect/WSelect";
+import Textarea from "Components/Form/TextArea/TextArea";
+import UploadImage from "Components/Form/UploadImage/UploadImage";
 
 const userTypeOptions = [
   {
@@ -36,8 +38,9 @@ const useMainSingleBase = () => {
     (state) => state.sidebar.expandSinglePage
   );
 
-  const { data, isLoading } = UseGetUsersById({
+  const { data, isLoading } = UseGetMainById({
     id: id,
+    tab_name,
     querySettings: {
       enabled: id !== "create",
     },
@@ -48,10 +51,13 @@ const useMainSingleBase = () => {
     handleSubmit,
     reset,
     setValue,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {},
   });
+
+  console.log("watch", watch());
 
   useEffect(() => {
     if (id !== "create") {
@@ -66,36 +72,40 @@ const useMainSingleBase = () => {
     }
   }, [data, setValue, id]);
 
-  const { mutate: userMutate } = UsePostUsers({
+  const { mutate: mainMutate } = UsePostMain({
     onSuccess: (res) => {
       dispatch(showAlert("Successfully created", "success"));
       navigate(`/main/${tab_name}`);
       reset();
-      queryClient.refetchQueries("GET_USERS");
+      queryClient.refetchQueries("GET_MAIN");
     },
     onError: (err) => {},
   });
 
-  const { mutate: userUpdateMutate } = UsePatchUsers({
+  const { mutate: userUpdateMutate } = UsePatchMain({
     onSuccess: (res) => {
       dispatch(showAlert("Successfully Updated", "success"));
       navigate(`/main/${tab_name}`);
       reset();
-      queryClient.refetchQueries("GET_USERS");
+      queryClient.refetchQueries("GET_MAIN");
     },
     onError: (err) => {},
   });
 
   const onSubmit = (data) => {
-    const apiData = {
-      ...data,
-      role_id: data.role_id.value,
-      role_data: undefined,
-    };
+    const apiData =
+      tab_name === "user"
+        ? {
+            ...data,
+            role_id: data.role_id.value,
+            role_data: undefined,
+          }
+        : data;
+
     if (id === "create") {
-      userMutate(apiData);
+      mainMutate({ tab_name, apiData });
     } else {
-      userUpdateMutate({ id, apiData });
+      userUpdateMutate({ id, tab_name, apiData });
     }
   };
 
@@ -104,7 +114,7 @@ const useMainSingleBase = () => {
       return <BigLoading />;
     } else {
       switch (tab_name) {
-        case "users":
+        case "user":
           return (
             <>
               <Label label="First name*">
@@ -135,7 +145,7 @@ const useMainSingleBase = () => {
                   errors={errors}
                 />
               </Label>
-              <Label label="Ваш номер телефона*">
+              <Label label="Phone number">
                 <PhoneInput
                   mask="+\9\9\8 (99) 999-99-99"
                   maskChar="_"
@@ -191,16 +201,174 @@ const useMainSingleBase = () => {
             </>
           );
 
+        case "application":
+          return (
+            <>
+              <Label label="First name*">
+                <Input
+                  control={control}
+                  placeholder="Enter first name"
+                  name="full_name"
+                  validation={{
+                    required: {
+                      value: true,
+                      message: "required",
+                    },
+                  }}
+                  errors={errors}
+                />
+              </Label>
+              <Label label="Phone number">
+                <PhoneInput
+                  mask="+\9\9\8 (99) 999-99-99"
+                  maskChar="_"
+                  name="phone_number"
+                  control={control}
+                  errors={errors}
+                  validation={{
+                    required: {
+                      value: true,
+                      message: "Обязательное поле",
+                    },
+                    validate: {
+                      isFull: (value) => {
+                        if (value.includes("_")) return "Invalid phone";
+                      },
+                    },
+                  }}
+                />
+              </Label>
+              <Label label="Description">
+                <Textarea
+                  placeholder="description"
+                  control={control}
+                  name="description"
+                  validation={{
+                    required: {
+                      value: true,
+                      message: "Обязательное поле",
+                    },
+                    validate: {
+                      freeSpace: (value) => {
+                        if (!value.trim().length) return "Обязательное поле";
+                      },
+                    },
+                  }}
+                  errors={errors}
+                />
+              </Label>
+            </>
+          );
+
+        case "banner":
+          return (
+            <UploadImage
+              control={control}
+              errors={errors}
+              name="image_url"
+              setValue={setValue}
+            />
+          );
+        case "category":
+          return (
+            <>
+              <Label label="Name">
+                <Input
+                  control={control}
+                  placeholder="Enter name"
+                  name="name"
+                  validation={{
+                    required: {
+                      value: true,
+                      message: "required",
+                    },
+                  }}
+                  errors={errors}
+                />
+              </Label>
+              <UploadImage
+                control={control}
+                errors={errors}
+                name="image_url"
+                setValue={setValue}
+              />
+            </>
+          );
+        case "product":
+          return <></>;
+
+        case "size":
+          return (
+            <Label label="Size">
+              <Input
+                control={control}
+                placeholder="Enter size"
+                name="code"
+                validation={{
+                  required: {
+                    value: true,
+                    message: "required",
+                  },
+                }}
+                errors={errors}
+              />
+            </Label>
+          );
+        case "university":
+          return (
+            <>
+              <Label label="University">
+                <Input
+                  control={control}
+                  placeholder="Enter university name"
+                  name="title"
+                  validation={{
+                    required: {
+                      value: true,
+                      message: "required",
+                    },
+                  }}
+                  errors={errors}
+                />
+              </Label>
+              <UploadImage
+                control={control}
+                errors={errors}
+                name="image_url"
+                setValue={setValue}
+              />
+              <Label label="Description">
+                <Textarea
+                  placeholder="description"
+                  control={control}
+                  name="description"
+                  validation={{
+                    required: {
+                      value: true,
+                      message: "Обязательное поле",
+                    },
+                    validate: {
+                      freeSpace: (value) => {
+                        if (!value.trim().length) return "Обязательное поле";
+                      },
+                    },
+                  }}
+                  errors={errors}
+                />
+              </Label>
+            </>
+          );
+
         default:
           break;
       }
     }
   };
 
-  const { mutate: userDeleteMutate } = UseDeleteUsers({
+  const { mutate: userDeleteMutate } = UseDeleteMain({
     onSuccess: (res) => {
       dispatch(showAlert("Successfully deleted", "success"));
-      queryClient.refetchQueries("GET_USERS");
+      queryClient.refetchQueries("GET_MAIN");
     },
     onError: (err) => {},
   });

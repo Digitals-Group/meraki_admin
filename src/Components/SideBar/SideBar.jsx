@@ -1,23 +1,53 @@
-// import { Container } from "@mui/material";
-// import { NavLink } from "react-router-dom";
-// import { useTranslation } from "react-i18next";
 import styles from "./SideBar.module.scss";
 import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
-import { ChevronIcon, SearchIcon, UserIcon } from "helpers/Icons/Icons";
+import { ChevronIcon, UserIcon } from "helpers/Icons/Icons";
 import { useDispatch, useSelector } from "react-redux";
 import { sideBarExpand } from "redux/sidebar/sidebar.slice";
 import { useNavigate, useParams } from "react-router-dom";
 import Typewriter from "typewriter-effect";
 import { Button, Tooltip } from "@mui/material";
 import Zoom from "@mui/material/Zoom";
-import SettingsApplicationsRoundedIcon from "@mui/icons-material/SettingsApplicationsRounded";
+import {
+  SettingsApplicationsRounded,
+  AppRegistration,
+  ViewCarousel,
+  Category,
+  ProductionQuantityLimits,
+  PhotoSizeSelectSmall,
+  School,
+} from "@mui/icons-material";
 
 const menuData = [
-  { name: "Users", icon: <UserIcon />, eventKey: "users" },
+  { name: "Users", icon: <UserIcon />, eventKey: "user" },
   {
-    name: "Search",
-    icon: <SearchIcon />,
-    eventKey: "search",
+    name: "Application",
+    icon: <AppRegistration />,
+    eventKey: "application",
+  },
+  {
+    name: "Banner",
+    icon: <ViewCarousel />,
+    eventKey: "banner",
+  },
+  {
+    name: "Category",
+    icon: <Category />,
+    eventKey: "category",
+  },
+  {
+    name: "Product",
+    icon: <ProductionQuantityLimits />,
+    eventKey: "product",
+  },
+  {
+    name: "Sizes",
+    icon: <PhotoSizeSelectSmall />,
+    eventKey: "size",
+  },
+  {
+    name: "University",
+    icon: <School />,
+    eventKey: "university",
   },
 ];
 
@@ -26,22 +56,6 @@ export function SideBar() {
   const expanded = useSelector((state) => state.sidebar.expand);
   const navigate = useNavigate();
   const { tab_name } = useParams();
-  // const { t, i18n } = useTranslation("common");
-  // const langs = [
-  //   {
-  //     label: "ru",
-  //   },
-  //   {
-  //     label: "uz",
-  //   },
-  //   {
-  //     label: "en",
-  //   },
-  // ];
-
-  // const handleChangeLang = (lang) => {
-  //   i18n.changeLanguage(lang);
-  // };
 
   return (
     <SideNav expanded={expanded} className={styles.sidenav}>
@@ -109,7 +123,7 @@ export function SideBar() {
           className={styles.asset__setting}
           onClick={() => navigate("/settings")}
         >
-          <SettingsApplicationsRoundedIcon
+          <SettingsApplicationsRounded
             fontSize="large"
             sx={{ color: "#fff" }}
           />

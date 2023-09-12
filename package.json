@@ -15,6 +15,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@trendmicro/react-sidenav": "^0.5.0",
     "axios": "^1.4.0",
+    "compressorjs": "^1.2.1",
     "i18next": "^23.4.4",
     "i18next-browser-languagedetector": "^7.1.0",
     "i18next-http-backend": "^2.2.1",

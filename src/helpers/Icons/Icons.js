@@ -179,3 +179,62 @@ export const SelectionArrow = ({ stroke = "#293649" }) => (
     />
   </svg>
 );
+
+export const ClearImgIcon = () => (
+  <svg
+    width="26"
+    height="26"
+    viewBox="0 0 26 26"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect
+      x="1.25"
+      y="1.25"
+      width="23.5"
+      height="23.5"
+      rx="11.75"
+      fill="#5C5C5C"
+    />
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M17.5405 9.52154C17.8334 9.22865 17.8334 8.75377 17.5405 8.46088C17.2476 8.16799 16.7728 8.16799 16.4799 8.46088L13.0012 11.9396L9.52252 8.46088C9.22962 8.16799 8.75475 8.16799 8.46186 8.46088C8.16896 8.75377 8.16896 9.22865 8.46186 9.52154L11.9405 13.0002L8.46186 16.4789C8.16896 16.7718 8.16896 17.2467 8.46186 17.5396C8.75475 17.8325 9.22962 17.8325 9.52252 17.5396L13.0012 14.0609L16.4799 17.5396C16.7728 17.8325 17.2476 17.8325 17.5405 17.5396C17.8334 17.2467 17.8334 16.7718 17.5405 16.4789L14.0619 13.0002L17.5405 9.52154Z"
+      fill="white"
+    />
+    <rect
+      x="1.25"
+      y="1.25"
+      width="23.5"
+      height="23.5"
+      rx="11.75"
+      stroke="white"
+      strokeWidth="1.5"
+    />
+  </svg>
+);
+
+export const ImageAddIcon = () => (
+  <svg
+    width="22"
+    height="22"
+    viewBox="0 0 22 22"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M11 4.58398V17.4173"
+      stroke="black"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M4.58325 11H17.4166"
+      stroke="black"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
