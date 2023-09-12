@@ -65,8 +65,9 @@ const useMain = () => {
           </div>
         ),
         header: "#",
-        size: 45,
         minSize: 45,
+        maxSize: 45,
+        size: 45,
         enableColumnActions: false,
         enableEditing: false,
         enableExpanding: false,

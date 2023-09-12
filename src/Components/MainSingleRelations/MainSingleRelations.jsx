@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { sideBarExpand } from "redux/sidebar/sidebar.slice";
 import useMainSingleRelations from "./useMainSingleRelations";
 import MaterialReactTable from "material-react-table";
@@ -22,7 +21,6 @@ const MainSingleRelations = () => {
     navigate,
     data,
     columns,
-    columnsLoading,
     setColumnFilters,
     setSorting,
     isLoading,

@@ -1,4 +1,5 @@
 import Image from "Components/Fields/Image/Image";
+import Phone from "Components/Fields/Phone/Phone";
 
 export const columns = (tab_name) => {
   switch (tab_name) {
@@ -13,7 +14,7 @@ export const columns = (tab_name) => {
           header: "Last name",
         },
         {
-          accessorFn: (row) => row.phone_number,
+          accessorFn: (row) => <Phone phone={row.phone_number} />,
           header: "Phone number",
         },
         {
@@ -32,7 +33,7 @@ export const columns = (tab_name) => {
           header: "Full name",
         },
         {
-          accessorFn: (row) => row.phone_number,
+          accessorFn: (row) => <Phone phone={row.phone_number} />,
           header: "Phone number",
         },
         {
