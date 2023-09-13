@@ -12,6 +12,10 @@
     padding: 20px 0px 20px 23px;
     color: #fff;
 
+    &__logo {
+      cursor: pointer;
+    }
+
     &__writer {
       display: flex;
       align-items: center;

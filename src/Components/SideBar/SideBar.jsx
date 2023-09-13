@@ -62,7 +62,7 @@ export function SideBar() {
     <SideNav expanded={expanded} className={styles.sidenav}>
       <div>
         <div className={styles.expand}>
-          <h1>
+          <h1 onClick={() => navigate("/main")} className={styles.expand__logo}>
             {expanded ? (
               <div className={styles.expand__writer}>
                 <span>U</span>
