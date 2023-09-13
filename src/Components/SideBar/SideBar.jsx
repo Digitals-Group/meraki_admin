@@ -15,6 +15,7 @@ import {
   ProductionQuantityLimits,
   PhotoSizeSelectSmall,
   School,
+  Logout,
 } from "@mui/icons-material";
 
 const menuData = [
@@ -129,10 +130,17 @@ export function SideBar() {
           />
         </div>
         <div className={styles.asset__helpers}>
-          {/* <div className={styles.asset__helpers__icon}>
-            <AddCircleOutlinedIcon sx={{ color: "#fff" }} fontSize="large" />
+          <div
+            className={styles.asset__helpers__icon}
+            onClick={() => {
+              localStorage.clear();
+              navigate("/login");
+              window.location.reload();
+            }}
+          >
+            <Logout sx={{ color: "#fff" }} fontSize="large" />
           </div>
-          <div className={styles.asset__helpers__icon}>
+          {/* <div className={styles.asset__helpers__icon}>
             <AddCircleOutlinedIcon sx={{ color: "#fff" }} fontSize="large" />
           </div> */}
           {/* <div className={styles.asset__helpers__icon}>
