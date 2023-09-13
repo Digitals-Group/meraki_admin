@@ -37,6 +37,8 @@ const MainSingleRelations = () => {
     handlePaginationChange,
     columnSizing,
   } = useMainSingleRelations();
+
+  console.log("columnSizing", columnSizing);
   return (
     <div id={!enableTopToolbar && !enableBottomToolbar && "mui-table"}>
       <MaterialReactTable
@@ -195,7 +197,10 @@ const MainSingleRelations = () => {
         })}
         columnResizeMode="onEnd"
         onColumnSizingChange={(size) => {
-          if (tab_name in columnSizing.resize) {
+          if (
+            tab_name in columnSizing.resize ||
+            `${tab_name}_byId` in columnSizing.resize
+          ) {
             dispatch(
               resizeChange.setResize({
                 ...columnSizing.resize,
