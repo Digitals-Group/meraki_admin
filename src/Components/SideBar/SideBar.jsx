@@ -129,27 +129,29 @@ export function SideBar() {
             sx={{ color: "#fff" }}
           />
         </div>
-        <div className={styles.asset__helpers}>
-          <div
-            className={styles.asset__helpers__icon}
-            onClick={() => {
-              localStorage.clear();
-              navigate("/login");
-              window.location.reload();
-            }}
-          >
-            <Logout sx={{ color: "#fff" }} fontSize="large" />
+        {expanded && (
+          <div className={styles.asset__helpers}>
+            <div
+              className={styles.asset__helpers__icon}
+              onClick={() => {
+                localStorage.clear();
+                navigate("/login");
+                window.location.reload();
+              }}
+            >
+              <Logout sx={{ color: "#fff" }} fontSize="large" />
+            </div>
+            {/* <div className={styles.asset__helpers__icon}>
+            <AddCircleOutlinedIcon sx={{ color: "#fff" }} fontSize="large" />
+          </div> */}
+            {/* <div className={styles.asset__helpers__icon}>
+            <AddCircleOutlinedIcon sx={{ color: "#fff" }} fontSize="large" />
+          </div> */}
+            {/* <div className={styles.asset__helpers__icon}>
+            <AddCircleOutlinedIcon sx={{ color: "#fff" }} fontSize="large" />
+          </div> */}
           </div>
-          {/* <div className={styles.asset__helpers__icon}>
-            <AddCircleOutlinedIcon sx={{ color: "#fff" }} fontSize="large" />
-          </div> */}
-          {/* <div className={styles.asset__helpers__icon}>
-            <AddCircleOutlinedIcon sx={{ color: "#fff" }} fontSize="large" />
-          </div> */}
-          {/* <div className={styles.asset__helpers__icon}>
-            <AddCircleOutlinedIcon sx={{ color: "#fff" }} fontSize="large" />
-          </div> */}
-        </div>
+        )}
       </div>
     </SideNav>
   );
