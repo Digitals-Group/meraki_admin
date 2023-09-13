@@ -10,6 +10,7 @@ import {
 } from "@mui/icons-material";
 import useMain from "./useMain";
 import { sideBarExpand } from "redux/sidebar/sidebar.slice";
+import { resizeChange } from "redux/resize/resize.slice";
 
 const enableBottomToolbar = true;
 const enableTopToolbar = true;
@@ -21,7 +22,6 @@ const Main = () => {
     navigate,
     data,
     columns,
-    columnsLoading,
     setColumnFilters,
     setSorting,
     isLoading,
@@ -34,6 +34,7 @@ const Main = () => {
     dispatch,
     pagination,
     handlePaginationChange,
+    columnSizing,
   } = useMain();
 
   return (
@@ -97,6 +98,7 @@ const Main = () => {
             showProgressBars: isFetching,
             columnPinning,
             pagination,
+            columnSizing: columnSizing.resize?.[tab_name] || {},
           }}
           renderRowActions={({ row, table }) => (
             <Box
@@ -180,6 +182,24 @@ const Main = () => {
               cursor: "pointer",
             },
           })}
+          columnResizeMode="onEnd"
+          onColumnSizingChange={(size) => {
+            if (tab_name in columnSizing.resize) {
+              dispatch(
+                resizeChange.setResize({
+                  ...columnSizing.resize,
+                  [tab_name]: { ...columnSizing.resize[tab_name], ...size() },
+                })
+              );
+            } else {
+              dispatch(
+                resizeChange.setResize({
+                  ...columnSizing.resize,
+                  [tab_name]: size(),
+                })
+              );
+            }
+          }}
         />
       )}
       <Outlet />

@@ -18,6 +18,7 @@ const useMain = () => {
   const [columnPinning, setColumnPinning] = useState({});
 
   const pagination = useSelector((state) => state.pagination.pagination_main);
+  const columnSizing = useSelector((state) => state.resize);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -61,7 +62,7 @@ const useMain = () => {
       {
         accessorFn: (_, index) => (
           <div className={styles.order}>
-            {pagination.pageIndex * 10 + index + 1}
+            {pagination.pageIndex * pagination.pageSize + index + 1}
           </div>
         ),
         header: "#",
@@ -95,6 +96,7 @@ const useMain = () => {
     handleDeleteRow,
     dispatch,
     handlePaginationChange,
+    columnSizing,
   };
 };
 

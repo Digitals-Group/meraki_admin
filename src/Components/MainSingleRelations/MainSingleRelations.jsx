@@ -11,6 +11,7 @@ import {
   ArrowBack,
   ArrowForward,
 } from "@mui/icons-material";
+import { resizeChange } from "redux/resize/resize.slice";
 
 const enableBottomToolbar = true;
 const enableTopToolbar = true;
@@ -34,6 +35,7 @@ const MainSingleRelations = () => {
     dispatch,
     expandedSinglePage,
     handlePaginationChange,
+    columnSizing,
   } = useMainSingleRelations();
   return (
     <div id={!enableTopToolbar && !enableBottomToolbar && "mui-table"}>
@@ -90,6 +92,7 @@ const MainSingleRelations = () => {
           showProgressBars: isFetching,
           columnPinning,
           pagination,
+          columnSizing: columnSizing.resize?.[`${tab_name}_byId`] || {},
         }}
         defaultColumn={{
           minSize: 40, //allow columns to get smaller than default
@@ -190,6 +193,27 @@ const MainSingleRelations = () => {
             cursor: "pointer",
           },
         })}
+        columnResizeMode="onEnd"
+        onColumnSizingChange={(size) => {
+          if (tab_name in columnSizing.resize) {
+            dispatch(
+              resizeChange.setResize({
+                ...columnSizing.resize,
+                [`${tab_name}_byId`]: {
+                  ...columnSizing.resize[`${tab_name}_byId`],
+                  ...size(),
+                },
+              })
+            );
+          } else {
+            dispatch(
+              resizeChange.setResize({
+                ...columnSizing.resize,
+                [`${tab_name}_byId`]: size(),
+              })
+            );
+          }
+        }}
       />
     </div>
   );

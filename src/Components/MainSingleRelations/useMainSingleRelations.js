@@ -23,6 +23,7 @@ const useMainSingleRelations = () => {
   const pagination = useSelector(
     (state) => state.pagination.pagination_relation
   );
+  const columnSizing = useSelector((state) => state.resize);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -71,7 +72,7 @@ const useMainSingleRelations = () => {
       {
         accessorFn: (_, index) => (
           <div className={styles.order}>
-            {pagination.pageIndex * 10 + index + 1}
+            {pagination.pageIndex * pagination.pageSize + index + 1}
           </div>
         ),
         header: "#",
@@ -105,6 +106,7 @@ const useMainSingleRelations = () => {
     handlePaginationChange,
     dispatch,
     expandedSinglePage,
+    columnSizing,
   };
 };
 

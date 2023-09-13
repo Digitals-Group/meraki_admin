@@ -14,6 +14,7 @@ import storage from "redux-persist/lib/storage";
 import { sideBarExpandReducer } from "./sidebar/sidebar.slice";
 import { alertReducer } from "./alert/alert.slice";
 import { paginationReducer } from "./pagination/pagination.slice";
+import { resizeReducer } from "./resize/resize.slice";
 
 const sidebarPersistConfig = {
   key: "sidebar",
@@ -25,9 +26,15 @@ const paginationPersistConfig = {
   storage,
 };
 
+const resizePersistConfig = {
+  key: "resize",
+  storage,
+};
+
 const rootReducer = combineReducers({
   sidebar: persistReducer(sidebarPersistConfig, sideBarExpandReducer),
   pagination: persistReducer(paginationPersistConfig, paginationReducer),
+  resize: persistReducer(resizePersistConfig, resizeReducer),
   alert: alertReducer,
 });
 
