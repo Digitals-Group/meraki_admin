@@ -38,7 +38,6 @@ const MainSingleRelations = () => {
     columnSizing,
   } = useMainSingleRelations();
 
-  console.log("columnSizing", columnSizing);
   return (
     <div id={!enableTopToolbar && !enableBottomToolbar && "mui-table"}>
       <MaterialReactTable

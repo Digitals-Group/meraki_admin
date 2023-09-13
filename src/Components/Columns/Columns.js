@@ -74,16 +74,24 @@ export const columns = (tab_name) => {
           header: "Description",
         },
         {
-          accessorFn: (row) => <Image url={row.image_url} />,
-          header: "Image",
-        },
-        {
           accessorFn: (row) => row.price,
           header: "Price",
         },
         {
           accessorFn: (row) => row.rating,
           header: "Rating",
+        },
+        {
+          accessorFn: (row) => row.category.name,
+          header: "Category",
+        },
+        {
+          accessorFn: (row) => row.university.title,
+          header: "University",
+        },
+        {
+          accessorFn: (row) => row.sizes?.map((elem) => elem?.code + "/"),
+          header: "Sizes",
         },
       ];
     case "size":
@@ -108,8 +116,10 @@ export const columns = (tab_name) => {
           header: "Description",
         },
       ];
+    case "product_image":
+      return [];
 
     default:
-      break;
+      return [];
   }
 };

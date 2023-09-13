@@ -16,6 +16,7 @@ import {
   PhotoSizeSelectSmall,
   School,
   Logout,
+  AddPhotoAlternate,
 } from "@mui/icons-material";
 
 const menuData = [
@@ -49,6 +50,11 @@ const menuData = [
     name: "University",
     icon: <School />,
     eventKey: "university",
+  },
+  {
+    name: "Images",
+    icon: <AddPhotoAlternate />,
+    eventKey: "product_image",
   },
 ];
 

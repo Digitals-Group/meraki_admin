@@ -17,6 +17,7 @@ import {
 import WSelect from "Components/Form/WSelect/WSelect";
 import Textarea from "Components/Form/TextArea/TextArea";
 import UploadImage from "Components/Form/UploadImage/UploadImage";
+import { UseGetRelations } from "services/relation.service";
 
 const userTypeOptions = [
   {
@@ -28,6 +29,20 @@ const userTypeOptions = [
     value: "64b8d97f-5b9e-4ffc-bbaa-94038b6694be",
   },
 ];
+
+const relationFields = (tab_name) => {
+  switch (tab_name) {
+    case "product":
+      return [
+        { tab_name: "category", inputName: "category_id", isMulti: false },
+        { tab_name: "size", inputName: "sizes_ids", isMulti: true },
+        { tab_name: "university", inputName: "university_id", isMulti: false },
+      ];
+
+    default:
+      return [];
+  }
+};
 
 const useMainSingleBase = () => {
   const { tab_name, id } = useParams();
@@ -61,13 +76,35 @@ const useMainSingleBase = () => {
       for (let item in data) {
         if (item !== "created_at" && item !== "updated_at")
           setValue(item, data[item]);
+
+        if (Array.isArray(data[item])) {
+          setValue(
+            `${item}_ids`,
+            data[item].map((elem) => ({ label: elem.code, value: elem.id }))
+          );
+          setValue(item, undefined);
+        }
+        if (
+          typeof data[item] === "object" &&
+          !Array.isArray(data[item]) &&
+          data[item]
+        ) {
+          data[item] = {
+            label: data[item]?.name || data[item]?.title,
+            value: data[item]?.id,
+          };
+          setValue(`${item}_id`, data[item]);
+          setValue(item, undefined);
+        }
       }
-      setValue("role_id", {
-        label: data?.role_data?.name,
-        value: data?.role_id,
-      });
+      if (tab_name === "user") {
+        setValue("role_id", {
+          label: data?.role_data?.label,
+          value: data?.role_id,
+        });
+      }
     }
-  }, [data, setValue, id]);
+  }, [data, setValue, id, tab_name]);
 
   const { mutate: mainMutate } = UsePostMain({
     onSuccess: (res) => {
@@ -90,6 +127,20 @@ const useMainSingleBase = () => {
   });
 
   const onSubmit = (data) => {
+    for (let elem in data) {
+      if (
+        relationFields(tab_name)
+          .map((item) => item.inputName)
+          .includes(elem)
+      ) {
+        if (Array.isArray(data[elem])) {
+          data[elem] = data[elem]?.map((el) => el.value);
+        } else {
+          data[elem] = data[elem].value;
+        }
+      }
+    }
+
     const apiData =
       tab_name === "user"
         ? {
@@ -341,12 +392,12 @@ const useMainSingleBase = () => {
                   errors={errors}
                 />
               </Label>
-              <UploadImage
+              {/* <UploadImage
                 control={control}
                 errors={errors}
                 name="image_url"
                 setValue={setValue}
-              />
+              /> */}
               <Label label="Price">
                 <Input
                   control={control}
@@ -445,6 +496,11 @@ const useMainSingleBase = () => {
     mainDeleteMutate({ id, tab_name });
     navigate(`/main/${tab_name}`);
   };
+
+  const relations = UseGetRelations({
+    list: relationFields(tab_name) || [],
+  });
+
   return {
     expanded,
     expandedSinglePage,
@@ -457,6 +513,7 @@ const useMainSingleBase = () => {
     inputs,
     navigate,
     handleDeleteSingle,
+    relations,
   };
 };
 

@@ -39,7 +39,7 @@ const WSelect = ({
         ? "#f76659"
         : "#F6F8F9",
       boxShadow: "none",
-      height: "48px !important",
+      minHeight: "48px !important",
       borderRadius: "8px",
       cursor: "pointer",
       transition: "all .25s ease-in-out",
