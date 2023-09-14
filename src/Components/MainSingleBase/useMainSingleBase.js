@@ -97,7 +97,7 @@ const useMainSingleBase = () => {
         if (
           typeof data[item] === "object" &&
           !Array.isArray(data[item]) &&
-          data[item]
+          data[item] !== null
         ) {
           data[item] = {
             label: data[item]?.name || data[item]?.title,
