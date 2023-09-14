@@ -27,6 +27,7 @@ const WSelect = ({
   disabled = false,
   placement = "auto",
   noOptionsText = "Нет вариантов",
+  onInputChange,
 }) => {
   const colourStyles = {
     control: (styles, { isFocused, isDisabled }) => ({
@@ -111,6 +112,7 @@ const WSelect = ({
               isClearable={isClearable}
               className="basic-multi-select"
               onChange={onChange}
+              onInputChange={onInputChange}
               components={{
                 NoOptionsMessage,
                 IndicatorSeparator: () => null,

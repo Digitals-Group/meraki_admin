@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Input from "Components/Form/Input/Input";
 import PhoneInput from "Components/Form/PhoneInput/PhoneInput";
 import Label from "Components/Label/Label";
-import BigLoading from "Components/Loading/BigLoading";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -17,7 +16,6 @@ import {
 import WSelect from "Components/Form/WSelect/WSelect";
 import Textarea from "Components/Form/TextArea/TextArea";
 import UploadImage from "Components/Form/UploadImage/UploadImage";
-import { UseGetRelations } from "services/relation.service";
 
 const userTypeOptions = [
   {
@@ -29,14 +27,25 @@ const userTypeOptions = [
     value: "64b8d97f-5b9e-4ffc-bbaa-94038b6694be",
   },
 ];
-
 const relationFields = (tab_name) => {
   switch (tab_name) {
     case "product":
       return [
-        { tab_name: "category", inputName: "category_id", isMulti: false },
-        { tab_name: "size", inputName: "sizes_ids", isMulti: true },
-        { tab_name: "university", inputName: "university_id", isMulti: false },
+        {
+          tab_name: "category",
+          inputName: "category_id",
+          isMulti: false,
+        },
+        {
+          tab_name: "size",
+          inputName: "sizes_ids",
+          isMulti: true,
+        },
+        {
+          tab_name: "university",
+          inputName: "university_id",
+          isMulti: false,
+        },
       ];
 
     default:
@@ -77,13 +86,14 @@ const useMainSingleBase = () => {
         if (item !== "created_at" && item !== "updated_at")
           setValue(item, data[item]);
 
-        if (Array.isArray(data[item])) {
+        if (Array.isArray(data[item]) || data[item] === null) {
           setValue(
             `${item}_ids`,
-            data[item].map((elem) => ({ label: elem.code, value: elem.id }))
+            data[item]?.map((elem) => ({ label: elem.code, value: elem.id }))
           );
           setValue(item, undefined);
         }
+
         if (
           typeof data[item] === "object" &&
           !Array.isArray(data[item]) &&
@@ -93,7 +103,7 @@ const useMainSingleBase = () => {
             label: data[item]?.name || data[item]?.title,
             value: data[item]?.id,
           };
-          setValue(`${item}_id`, data[item]);
+          if (item !== "role_data") setValue(`${item}_id`, data[item]);
           setValue(item, undefined);
         }
       }
@@ -158,271 +168,15 @@ const useMainSingleBase = () => {
   };
 
   const inputs = () => {
-    if (isLoading) {
-      return <BigLoading />;
-    } else {
-      switch (tab_name) {
-        case "user":
-          return (
-            <>
-              <Label label="First name*">
-                <Input
-                  control={control}
-                  placeholder="Enter first name"
-                  name="first_name"
-                  validation={{
-                    required: {
-                      value: true,
-                      message: "required",
-                    },
-                  }}
-                  errors={errors}
-                />
-              </Label>
-              <Label label="Last name*">
-                <Input
-                  control={control}
-                  placeholder="Enter last name"
-                  name="last_name"
-                  validation={{
-                    required: {
-                      value: true,
-                      message: "required",
-                    },
-                  }}
-                  errors={errors}
-                />
-              </Label>
-              <Label label="Phone number">
-                <PhoneInput
-                  mask="+\9\9\8 (99) 999-99-99"
-                  maskChar="_"
-                  name="phone_number"
-                  control={control}
-                  errors={errors}
-                  validation={{
-                    required: {
-                      value: true,
-                      message: "Обязательное поле",
-                    },
-                    validate: {
-                      isFull: (value) => {
-                        if (value.includes("_")) return "Invalid phone";
-                      },
-                    },
-                  }}
-                />
-              </Label>
-              <Label label="User name">
-                <Input
-                  control={control}
-                  placeholder="Enter user name"
-                  name="username"
-                />
-              </Label>
-              <Label label="Password">
-                <Input
-                  control={control}
-                  placeholder="Enter password"
-                  name="password"
-                  typePassword
-                />
-              </Label>
-              <Label label="Role type">
-                <WSelect
-                  name="role_id"
-                  control={control}
-                  options={userTypeOptions}
-                  defaultValue={{
-                    label: "USER",
-                    value: "3110a62f-7774-442a-b9b3-2d762d3b791a",
-                  }}
-                  errors={errors}
-                  validation={{
-                    required: {
-                      value: true,
-                      message: "Обязательное поле",
-                    },
-                  }}
-                />
-              </Label>
-            </>
-          );
-
-        case "application":
-          return (
-            <>
-              <Label label="First name*">
-                <Input
-                  control={control}
-                  placeholder="Enter first name"
-                  name="full_name"
-                  validation={{
-                    required: {
-                      value: true,
-                      message: "required",
-                    },
-                  }}
-                  errors={errors}
-                />
-              </Label>
-              <Label label="Phone number">
-                <PhoneInput
-                  mask="+\9\9\8 (99) 999-99-99"
-                  maskChar="_"
-                  name="phone_number"
-                  control={control}
-                  errors={errors}
-                  validation={{
-                    required: {
-                      value: true,
-                      message: "Обязательное поле",
-                    },
-                    validate: {
-                      isFull: (value) => {
-                        if (value.includes("_")) return "Invalid phone";
-                      },
-                    },
-                  }}
-                />
-              </Label>
-              <Label label="Description">
-                <Textarea
-                  placeholder="description"
-                  control={control}
-                  name="description"
-                  validation={{
-                    required: {
-                      value: true,
-                      message: "Обязательное поле",
-                    },
-                    validate: {
-                      freeSpace: (value) => {
-                        if (!value.trim().length) return "Обязательное поле";
-                      },
-                    },
-                  }}
-                  errors={errors}
-                />
-              </Label>
-            </>
-          );
-
-        case "banner":
-          return (
-            <UploadImage
-              control={control}
-              errors={errors}
-              name="image_url"
-              setValue={setValue}
-            />
-          );
-        case "category":
-          return (
-            <>
-              <Label label="Name">
-                <Input
-                  control={control}
-                  placeholder="Enter name"
-                  name="name"
-                  validation={{
-                    required: {
-                      value: true,
-                      message: "required",
-                    },
-                  }}
-                  errors={errors}
-                />
-              </Label>
-              <UploadImage
-                control={control}
-                errors={errors}
-                name="image_url"
-                setValue={setValue}
-              />
-            </>
-          );
-        case "product":
-          return (
-            <>
-              <Label label="Name">
-                <Input
-                  control={control}
-                  placeholder="Enter name"
-                  name="title"
-                  validation={{
-                    required: {
-                      value: true,
-                      message: "required",
-                    },
-                  }}
-                  errors={errors}
-                />
-              </Label>
-              <Label label="Subtitle">
-                <Input
-                  control={control}
-                  placeholder="Enter subtitle"
-                  name="subtitle"
-                  validation={{
-                    required: {
-                      value: true,
-                      message: "required",
-                    },
-                  }}
-                  errors={errors}
-                />
-              </Label>
-              <Label label="Description">
-                <Textarea
-                  placeholder="description"
-                  control={control}
-                  name="description"
-                  validation={{
-                    required: {
-                      value: true,
-                      message: "Обязательное поле",
-                    },
-                    validate: {
-                      freeSpace: (value) => {
-                        if (!value.trim().length) return "Обязательное поле";
-                      },
-                    },
-                  }}
-                  errors={errors}
-                />
-              </Label>
-              {/* <UploadImage
-                control={control}
-                errors={errors}
-                name="image_url"
-                setValue={setValue}
-              /> */}
-              <Label label="Price">
-                <Input
-                  control={control}
-                  placeholder="Enter price"
-                  name="price"
-                  type="number"
-                  validation={{
-                    required: {
-                      value: true,
-                      message: "required",
-                    },
-                  }}
-                  errors={errors}
-                />
-              </Label>
-            </>
-          );
-
-        case "size":
-          return (
-            <Label label="Size">
+    switch (tab_name) {
+      case "user":
+        return (
+          <>
+            <Label label="First name*">
               <Input
                 control={control}
-                placeholder="Enter size"
-                name="code"
+                placeholder="Enter first name"
+                name="first_name"
                 validation={{
                   required: {
                     value: true,
@@ -432,55 +186,307 @@ const useMainSingleBase = () => {
                 errors={errors}
               />
             </Label>
-          );
-        case "university":
-          return (
-            <>
-              <Label label="University">
-                <Input
-                  control={control}
-                  placeholder="Enter university name"
-                  name="title"
-                  validation={{
-                    required: {
-                      value: true,
-                      message: "required",
-                    },
-                  }}
-                  errors={errors}
-                />
-              </Label>
-              <UploadImage
+            <Label label="Last name*">
+              <Input
+                control={control}
+                placeholder="Enter last name"
+                name="last_name"
+                validation={{
+                  required: {
+                    value: true,
+                    message: "required",
+                  },
+                }}
+                errors={errors}
+              />
+            </Label>
+            <Label label="Phone number">
+              <PhoneInput
+                mask="+\9\9\8 (99) 999-99-99"
+                maskChar="_"
+                name="phone_number"
                 control={control}
                 errors={errors}
-                name="image_url"
-                setValue={setValue}
+                validation={{
+                  required: {
+                    value: true,
+                    message: "Обязательное поле",
+                  },
+                  validate: {
+                    isFull: (value) => {
+                      if (value.includes("_")) return "Invalid phone";
+                    },
+                  },
+                }}
               />
-              <Label label="Description">
-                <Textarea
-                  placeholder="description"
-                  control={control}
-                  name="description"
-                  validation={{
-                    required: {
-                      value: true,
-                      message: "Обязательное поле",
-                    },
-                    validate: {
-                      freeSpace: (value) => {
-                        if (!value.trim().length) return "Обязательное поле";
-                      },
-                    },
-                  }}
-                  errors={errors}
-                />
-              </Label>
-            </>
-          );
+            </Label>
+            <Label label="User name">
+              <Input
+                control={control}
+                placeholder="Enter user name"
+                name="username"
+              />
+            </Label>
+            <Label label="Password">
+              <Input
+                control={control}
+                placeholder="Enter password"
+                name="password"
+                typePassword
+              />
+            </Label>
+            <Label label="Role type">
+              <WSelect
+                name="role_id"
+                control={control}
+                options={userTypeOptions}
+                defaultValue={{
+                  label: "USER",
+                  value: "3110a62f-7774-442a-b9b3-2d762d3b791a",
+                }}
+                errors={errors}
+                validation={{
+                  required: {
+                    value: true,
+                    message: "Обязательное поле",
+                  },
+                }}
+              />
+            </Label>
+          </>
+        );
 
-        default:
-          break;
-      }
+      case "application":
+        return (
+          <>
+            <Label label="First name*">
+              <Input
+                control={control}
+                placeholder="Enter first name"
+                name="full_name"
+                validation={{
+                  required: {
+                    value: true,
+                    message: "required",
+                  },
+                }}
+                errors={errors}
+              />
+            </Label>
+            <Label label="Phone number">
+              <PhoneInput
+                mask="+\9\9\8 (99) 999-99-99"
+                maskChar="_"
+                name="phone_number"
+                control={control}
+                errors={errors}
+                validation={{
+                  required: {
+                    value: true,
+                    message: "Обязательное поле",
+                  },
+                  validate: {
+                    isFull: (value) => {
+                      if (value.includes("_")) return "Invalid phone";
+                    },
+                  },
+                }}
+              />
+            </Label>
+            <Label label="Description">
+              <Textarea
+                placeholder="description"
+                control={control}
+                name="description"
+                validation={{
+                  required: {
+                    value: true,
+                    message: "Обязательное поле",
+                  },
+                  validate: {
+                    freeSpace: (value) => {
+                      if (!value.trim().length) return "Обязательное поле";
+                    },
+                  },
+                }}
+                errors={errors}
+              />
+            </Label>
+          </>
+        );
+
+      case "banner":
+        return (
+          <UploadImage
+            control={control}
+            errors={errors}
+            name="image_url"
+            setValue={setValue}
+          />
+        );
+      case "category":
+        return (
+          <>
+            <Label label="Name">
+              <Input
+                control={control}
+                placeholder="Enter name"
+                name="name"
+                validation={{
+                  required: {
+                    value: true,
+                    message: "required",
+                  },
+                }}
+                errors={errors}
+              />
+            </Label>
+            <UploadImage
+              control={control}
+              errors={errors}
+              name="image_url"
+              setValue={setValue}
+            />
+          </>
+        );
+      case "product":
+        return (
+          <>
+            <Label label="Name">
+              <Input
+                control={control}
+                placeholder="Enter name"
+                name="title"
+                validation={{
+                  required: {
+                    value: true,
+                    message: "required",
+                  },
+                }}
+                errors={errors}
+              />
+            </Label>
+            <Label label="Subtitle">
+              <Input
+                control={control}
+                placeholder="Enter subtitle"
+                name="subtitle"
+                validation={{
+                  required: {
+                    value: true,
+                    message: "required",
+                  },
+                }}
+                errors={errors}
+              />
+            </Label>
+            <Label label="Description">
+              <Textarea
+                placeholder="description"
+                control={control}
+                name="description"
+                validation={{
+                  required: {
+                    value: true,
+                    message: "Обязательное поле",
+                  },
+                  validate: {
+                    freeSpace: (value) => {
+                      if (!value.trim().length) return "Обязательное поле";
+                    },
+                  },
+                }}
+                errors={errors}
+              />
+            </Label>
+            {/* <UploadImage
+              control={control}
+              errors={errors}
+              name="image_url"
+              setValue={setValue}
+            /> */}
+            <Label label="Price">
+              <Input
+                control={control}
+                placeholder="Enter price"
+                name="price"
+                type="number"
+                validation={{
+                  required: {
+                    value: true,
+                    message: "required",
+                  },
+                }}
+                errors={errors}
+              />
+            </Label>
+          </>
+        );
+
+      case "size":
+        return (
+          <Label label="Size">
+            <Input
+              control={control}
+              placeholder="Enter size"
+              name="code"
+              validation={{
+                required: {
+                  value: true,
+                  message: "required",
+                },
+              }}
+              errors={errors}
+            />
+          </Label>
+        );
+      case "university":
+        return (
+          <>
+            <Label label="University">
+              <Input
+                control={control}
+                placeholder="Enter university name"
+                name="title"
+                validation={{
+                  required: {
+                    value: true,
+                    message: "required",
+                  },
+                }}
+                errors={errors}
+              />
+            </Label>
+            <UploadImage
+              control={control}
+              errors={errors}
+              name="image_url"
+              setValue={setValue}
+            />
+            <Label label="Description">
+              <Textarea
+                placeholder="description"
+                control={control}
+                name="description"
+                validation={{
+                  required: {
+                    value: true,
+                    message: "Обязательное поле",
+                  },
+                  validate: {
+                    freeSpace: (value) => {
+                      if (!value.trim().length) return "Обязательное поле";
+                    },
+                  },
+                }}
+                errors={errors}
+              />
+            </Label>
+          </>
+        );
+
+      default:
+        break;
     }
   };
 
@@ -497,10 +503,6 @@ const useMainSingleBase = () => {
     navigate(`/main/${tab_name}`);
   };
 
-  const relations = UseGetRelations({
-    list: relationFields(tab_name) || [],
-  });
-
   return {
     expanded,
     expandedSinglePage,
@@ -513,7 +515,8 @@ const useMainSingleBase = () => {
     inputs,
     navigate,
     handleDeleteSingle,
-    relations,
+    relations: relationFields(tab_name),
+    isLoading,
   };
 };
 

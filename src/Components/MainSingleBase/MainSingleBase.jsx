@@ -3,8 +3,8 @@ import styles from "./MainSingleBase.module.scss";
 import SideNav from "@trendmicro/react-sidenav";
 import MainButton from "Components/MainButton/MainButton";
 import useMainSingleBase from "./useMainSingleBase";
-import Label from "Components/Label/Label";
-import WSelect from "Components/Form/WSelect/WSelect";
+import BigLoading from "Components/Loading/BigLoading";
+import RelationsSingle from "Components/RelationsSingle/RelationsSingle";
 
 const MainSingleBase = () => {
   const {
@@ -20,7 +20,9 @@ const MainSingleBase = () => {
     navigate,
     handleDeleteSingle,
     relations,
+    isLoading,
   } = useMainSingleBase();
+
   return (
     <SideNav
       className={styles.base}
@@ -42,28 +44,20 @@ const MainSingleBase = () => {
           className={styles.base__body__content}
         >
           <div className={styles.base__body__content__inputs}>
-            {relations.map((elem) => (
-              <Label label={elem?.data?.tab_name?.toUpperCase()}>
-                <WSelect
-                  name={elem.data?.inputName}
-                  control={control}
-                  options={elem.data?.datas.map((el) => ({
-                    label: el.name || el.title || el.code,
-                    value: el.id,
-                  }))}
-                  errors={errors}
-                  validation={{
-                    required: {
-                      value: true,
-                      message: "Обязательное поле",
-                    },
-                  }}
-                  isSearchable
-                  isMulti={elem.data?.isMulti}
-                />
-              </Label>
-            ))}
-            {inputs()}
+            {isLoading ? (
+              <BigLoading />
+            ) : (
+              <>
+                {relations.map((elem) => (
+                  <RelationsSingle
+                    elem={elem}
+                    control={control}
+                    errors={errors}
+                  />
+                ))}
+                {inputs()}
+              </>
+            )}
           </div>
 
           <div className={styles.base__body__content__buttons}>
