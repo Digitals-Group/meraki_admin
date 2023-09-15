@@ -129,9 +129,7 @@ export function SideBar({ page, header, setSwitchResult, switchResult }) {
                   className={styles.navbar__item}
                   style={{
                     backgroundColor:
-                      tab_name === elem.eventKey
-                        ? "rgba(142, 248, 242, 0.5)"
-                        : "",
+                      tab_name === elem.eventKey ? "rgba(0, 0, 0, 0.2)" : "",
                   }}
                 >
                   <NavIcon
