@@ -166,7 +166,7 @@ export function SideBar({ page, header, setSwitchResult, switchResult }) {
                           control={control}
                           name={`columnsList[${index}].is_checked`}
                           icon={<VisibilityOff />}
-                          checkedIcon={<RemoveRedEye sx={{ color: "blue" }} />}
+                          checkedIcon={<RemoveRedEye sx={{ color: "#fff" }} />}
                         />
                       )}
                     </div>
