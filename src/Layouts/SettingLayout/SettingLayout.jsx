@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { SideBar } from "Components/SideBar/SideBar";
 
-const MainLayout = () => {
+const SettingLayout = () => {
   const expanded = useSelector((state) => state.sidebar.expand);
+
+  const [switchResult, setSwitchResult] = useState([]);
 
   return (
     <div
@@ -13,10 +15,15 @@ const MainLayout = () => {
         marginLeft: `${expanded ? "240px" : "64px"}`,
       }}
     >
-      <SideBar page="main" header="Union" />
+      <SideBar
+        page="setting"
+        header="Setting"
+        setSwitchResult={setSwitchResult}
+        switchResult={switchResult}
+      />
       <Outlet context={{ hello: "js" }} />
     </div>
   );
 };
 
-export default MainLayout;
+export default SettingLayout;

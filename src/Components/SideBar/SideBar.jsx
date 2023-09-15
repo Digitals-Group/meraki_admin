@@ -17,71 +17,99 @@ import {
   School,
   Logout,
   AddPhotoAlternate,
+  Apps,
+  VisibilityOff,
+  RemoveRedEye,
 } from "@mui/icons-material";
+import { Container, Draggable } from "react-smooth-dnd";
+import WCheckbox from "Components/Form/WCheckbox/WCheckbox";
+import { useForm } from "react-hook-form";
 
 const menuData = [
-  { name: "Users", icon: <UserIcon />, eventKey: "user" },
+  {
+    name: "Users",
+    icon: <UserIcon sx={{ color: "#fff" }} />,
+    eventKey: "user",
+  },
   {
     name: "Application",
-    icon: <AppRegistration />,
+    icon: <AppRegistration sx={{ color: "#fff" }} />,
     eventKey: "application",
   },
   {
     name: "Banner",
-    icon: <ViewCarousel />,
+    icon: <ViewCarousel sx={{ color: "#fff" }} />,
     eventKey: "banner",
   },
   {
     name: "Category",
-    icon: <Category />,
+    icon: <Category sx={{ color: "#fff" }} />,
     eventKey: "category",
   },
   {
     name: "Product",
-    icon: <ProductionQuantityLimits />,
+    icon: <ProductionQuantityLimits sx={{ color: "#fff" }} />,
     eventKey: "product",
   },
   {
     name: "Sizes",
-    icon: <PhotoSizeSelectSmall />,
+    icon: <PhotoSizeSelectSmall sx={{ color: "#fff" }} />,
     eventKey: "size",
   },
   {
     name: "University",
-    icon: <School />,
+    icon: <School sx={{ color: "#fff" }} />,
     eventKey: "university",
   },
   {
     name: "Images",
-    icon: <AddPhotoAlternate />,
+    icon: <AddPhotoAlternate sx={{ color: "#fff" }} />,
     eventKey: "product_image",
   },
 ];
 
-export function SideBar() {
+export function SideBar({ page, header, setSwitchResult, switchResult }) {
   const dispatch = useDispatch();
   const expanded = useSelector((state) => state.sidebar.expand);
   const navigate = useNavigate();
   const { tab_name } = useParams();
 
+  const { control, watch, setValue } = useForm({
+    defaultValues: {},
+  });
+
+  const onColumnsPositionChange = (dragResult) => {
+    console.log("dragResult", dragResult);
+    // const result = applyDrag(values.columnsList, dragResult);
+    // if (result) {
+    //   setValue("columnsList", result);
+    //   mutateStaticRelation(result);
+    // }
+  };
+
+  const mutateAppSetting = () => {};
+
   return (
     <SideNav expanded={expanded} className={styles.sidenav}>
       <div>
         <div className={styles.expand}>
-          <h1 onClick={() => navigate("/main")} className={styles.expand__logo}>
+          <h1
+            onClick={() => navigate(`/${page}`)}
+            className={styles.expand__logo}
+          >
             {expanded ? (
               <div className={styles.expand__writer}>
-                <span>U</span>
+                <span>{header.slice(0, 1)}</span>
                 <Typewriter
                   options={{
-                    strings: ["nion !"],
+                    strings: [header.slice(1)],
                     autoStart: true,
                     loop: true,
                   }}
                 />
               </div>
             ) : (
-              "U"
+              header.slice(0, 1)
             )}
           </h1>
           <div
@@ -92,48 +120,78 @@ export function SideBar() {
           </div>
         </div>
         <SideNav.Nav selected={tab_name} className={styles.navbar}>
-          {menuData.map((elem) => (
-            <NavItem
-              eventKey={elem.eventKey}
-              onClick={() => navigate(`/main/${elem.eventKey}`)}
-            >
-              <NavIcon
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                {expanded ? (
-                  elem.icon
-                ) : (
-                  <Tooltip
-                    title={elem.name}
-                    placement="right"
-                    arrow
-                    TransitionComponent={Zoom}
+          <Container lockAxis="y" onDrop={onColumnsPositionChange}>
+            {menuData.map((elem, index) => (
+              <Draggable className={styles.dnd}>
+                <NavItem
+                  eventKey={elem.eventKey}
+                  onClick={(e) => navigate(`/${page}/${elem.eventKey}`)}
+                  className={styles.navbar__item}
+                  style={{
+                    backgroundColor:
+                      tab_name === elem.eventKey
+                        ? "rgba(142, 248, 242, 0.5)"
+                        : "",
+                  }}
+                >
+                  <NavIcon
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
                   >
-                    <Button sx={{ width: "100%", height: "100%" }}>
-                      {elem.icon}
-                    </Button>
-                  </Tooltip>
-                )}
-              </NavIcon>
+                    {expanded ? (
+                      <Button sx={{ width: "100%", height: "100%" }}>
+                        {elem.icon}
+                      </Button>
+                    ) : (
+                      <Tooltip
+                        title={elem.name}
+                        placement="right"
+                        arrow
+                        TransitionComponent={Zoom}
+                      >
+                        <Button sx={{ width: "100%", height: "100%" }}>
+                          {elem.icon}
+                        </Button>
+                      </Tooltip>
+                    )}
+                  </NavIcon>
 
-              <NavText>{elem.name}</NavText>
-            </NavItem>
-          ))}
+                  <NavText style={{ width: "100%" }}>
+                    <div className={styles.draggableRow}>
+                      <p className={styles.label}>{elem.name}</p>
+                      {page === "setting" && (
+                        <WCheckbox
+                          mutateStaticRelation={mutateAppSetting}
+                          control={control}
+                          name={`columnsList[${index}].is_checked`}
+                          icon={<VisibilityOff />}
+                          checkedIcon={<RemoveRedEye sx={{ color: "blue" }} />}
+                        />
+                      )}
+                    </div>
+                  </NavText>
+                </NavItem>
+              </Draggable>
+            ))}
+          </Container>
         </SideNav.Nav>
       </div>
       <div className={styles.asset}>
         <div
           className={styles.asset__setting}
-          onClick={() => navigate("/settings")}
+          onClick={() => navigate(page === "main" ? "/setting" : "/main")}
         >
-          <SettingsApplicationsRounded
-            fontSize="large"
-            sx={{ color: "#fff" }}
-          />
+          {page === "main" ? (
+            <SettingsApplicationsRounded
+              fontSize="large"
+              sx={{ color: "#fff" }}
+            />
+          ) : (
+            <Apps fontSize="large" sx={{ color: "#fff" }} />
+          )}
         </div>
         {expanded && (
           <div className={styles.asset__helpers}>

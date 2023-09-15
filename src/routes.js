@@ -4,9 +4,13 @@ import MainLayout from "Layouts/MainLayout/MainLayout";
 import Main from "pages/Main/Main";
 import MainIndex from "pages/MainIndex/MainIndex";
 import MainSingle from "pages/MainSingle/MainSingle";
-import SettingsLayout from "Layouts/SettingsLayout/SettingsLayout";
+import SettingsLayout from "Layouts/SettingLayout/SettingLayout";
 import Protected from "helpers/Protected/Protected";
 import Login from "pages/Login/Login";
+import SettingLayout from "Layouts/SettingLayout/SettingLayout";
+import SettingIndex from "pages/SettingIndex/SettingIndex";
+import Setting from "pages/Setting/Setting";
+import SettingSingle from "pages/SettingSingle/SettingSingle";
 
 const hasToken = localStorage.getItem("token");
 
@@ -57,10 +61,10 @@ export const Routes = () =>
       ],
     },
     {
-      path: "/settings",
+      path: "/setting",
       element: (
         <Protected isProtected={!hasToken}>
-          <SettingsLayout />
+          <SettingLayout />
         </Protected>
       ),
       children: [
@@ -68,7 +72,7 @@ export const Routes = () =>
           index: true,
           element: (
             <Protected isProtected={!hasToken}>
-              <MainIndex />
+              <SettingIndex />
             </Protected>
           ),
         },
@@ -76,7 +80,7 @@ export const Routes = () =>
           path: ":tab_name",
           element: (
             <Protected isProtected={!hasToken}>
-              <Main />
+              <Setting />
             </Protected>
           ),
           children: [
@@ -84,7 +88,7 @@ export const Routes = () =>
               path: ":id",
               element: (
                 <Protected isProtected={!hasToken}>
-                  <MainSingle />
+                  <SettingSingle />
                 </Protected>
               ),
             },
