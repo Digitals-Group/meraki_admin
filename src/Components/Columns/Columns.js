@@ -66,6 +66,10 @@ export const columns = (tab_name) => {
           header: "Name",
         },
         {
+          accessorFn: (row) => <Image url={row.image_url} />,
+          header: "Product image",
+        },
+        {
           accessorFn: (row) => row.subtitle,
           header: "Subtitle",
         },

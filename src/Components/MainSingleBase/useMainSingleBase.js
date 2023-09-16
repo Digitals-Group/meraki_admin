@@ -366,6 +366,12 @@ const useMainSingleBase = () => {
                 errors={errors}
               />
             </Label>
+            <UploadImage
+              control={control}
+              errors={errors}
+              name="image_url"
+              setValue={setValue}
+            />
             <Label label="Subtitle">
               <Input
                 control={control}
@@ -399,12 +405,6 @@ const useMainSingleBase = () => {
                 errors={errors}
               />
             </Label>
-            {/* <UploadImage
-              control={control}
-              errors={errors}
-              name="image_url"
-              setValue={setValue}
-            /> */}
             <Label label="Price">
               <Input
                 control={control}
