@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "Components/Form/Input/Input";
 import PhoneInput from "Components/Form/PhoneInput/PhoneInput";
 import Label from "Components/Label/Label";
@@ -16,6 +16,8 @@ import {
 import WSelect from "Components/Form/WSelect/WSelect";
 import Textarea from "Components/Form/TextArea/TextArea";
 import UploadImage from "Components/Form/UploadImage/UploadImage";
+import UploadImages from "Components/Form/UploadImages/UploadImages";
+import WColorPicker from "Components/Form/ColorPicker/ColorPicker";
 
 const userTypeOptions = [
   {
@@ -47,6 +49,14 @@ const relationFields = (tab_name) => {
           isMulti: false,
         },
       ];
+    case "product_image":
+      return [
+        {
+          tab_name: "product",
+          inputName: "product_id",
+          isMulti: false,
+        },
+      ];
 
     default:
       return [];
@@ -60,6 +70,9 @@ const useMainSingleBase = () => {
   const expanded = useSelector((state) => state.sidebar.expand);
   const expandedSinglePage = useSelector(
     (state) => state.sidebar.expandSinglePage
+  );
+  const [multiInsert, setMultiInsert] = useState(
+    tab_name === "product_image" ? 1 : false
   );
 
   const { data, isLoading } = UseGetMainById({
@@ -75,10 +88,16 @@ const useMainSingleBase = () => {
     handleSubmit,
     reset,
     setValue,
+    watch,
     formState: { errors },
   } = useForm({
-    defaultValues: {},
+    defaultValues: {
+      image_urls: [],
+      images: [],
+    },
   });
+
+  console.log("watch", watch());
 
   useEffect(() => {
     if (id !== "create") {
@@ -167,7 +186,7 @@ const useMainSingleBase = () => {
     }
   };
 
-  const inputs = () => {
+  const inputs = (ind) => {
     switch (tab_name) {
       case "user":
         return (
@@ -485,6 +504,23 @@ const useMainSingleBase = () => {
           </>
         );
 
+      case "product_image":
+        return (
+          <>
+            <Label label="Color">
+              <WColorPicker control={control} name={`images.${ind}.rgb`} />
+            </Label>
+            <Label label="Images">
+              <UploadImages
+                control={control}
+                name={`images.${ind}.image_urls`}
+                required={true}
+                setValue={setValue}
+              />
+            </Label>
+          </>
+        );
+
       default:
         break;
     }
@@ -517,6 +553,8 @@ const useMainSingleBase = () => {
     handleDeleteSingle,
     relations: relationFields(tab_name),
     isLoading,
+    setMultiInsert,
+    multiInsert,
   };
 };
 

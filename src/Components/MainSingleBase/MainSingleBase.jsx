@@ -21,6 +21,8 @@ const MainSingleBase = () => {
     handleDeleteSingle,
     relations,
     isLoading,
+    setMultiInsert,
+    multiInsert,
   } = useMainSingleBase();
 
   return (
@@ -46,6 +48,30 @@ const MainSingleBase = () => {
           <div className={styles.base__body__content__inputs}>
             {isLoading ? (
               <BigLoading />
+            ) : multiInsert ? (
+              <>
+                {[...Array(multiInsert).keys()].map((_, ind) => (
+                  <>
+                    {relations.map((elem) => (
+                      <RelationsSingle
+                        elem={elem}
+                        control={control}
+                        errors={errors}
+                        ind={ind}
+                        multiInsert={true}
+                      />
+                    ))}
+                    {inputs(ind)}
+                  </>
+                ))}
+
+                <button
+                  type="button"
+                  onClick={() => setMultiInsert((prev) => ++prev)}
+                >
+                  Add Item
+                </button>
+              </>
             ) : (
               <>
                 {relations.map((elem) => (

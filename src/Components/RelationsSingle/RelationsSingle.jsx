@@ -3,7 +3,7 @@ import Label from "Components/Label/Label";
 import React, { useState } from "react";
 import { UseGetRelations } from "services/relation.service";
 
-const RelationsSingle = ({ elem, control, errors }) => {
+const RelationsSingle = ({ elem, control, errors, ind, multiInsert }) => {
   const [search, setSearch] = useState("");
   const { data } = UseGetRelations({
     queryParams: {
@@ -17,7 +17,9 @@ const RelationsSingle = ({ elem, control, errors }) => {
   return (
     <Label label={elem.tab_name?.toUpperCase()}>
       <WSelect
-        name={elem?.inputName}
+        name={
+          multiInsert ? `images.${ind}.${elem?.inputName}` : elem?.inputName
+        }
         control={control}
         options={data?.datas?.map((el) => ({
           label: el.name || el.title || el.code,

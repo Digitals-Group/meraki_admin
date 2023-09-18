@@ -54,7 +54,6 @@ const WSelect = ({
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
       return {
         ...styles,
-        // ...base,
         cursor: isDisabled ? "not-allowed" : "default",
         backgroundColor: isFocused ? "rgba(16, 130, 146, 0.1)" : "#fff",
         color: isDisabled ? "#6E7C87" : "#252C32",
