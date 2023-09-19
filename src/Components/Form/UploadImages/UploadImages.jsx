@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import styles from "./UploadImages.module.scss";
 
-import { CircularProgress, FormHelperText } from "@mui/material";
+import { CircularProgress } from "@mui/material";
 import { Controller, useWatch } from "react-hook-form";
 import { PlusIcon, RemoveIcon } from "helpers/Icons/Icons";
 import { UseUpload } from "services/upload.service";
@@ -76,16 +76,20 @@ const UploadImages = ({
                     className={styles.uploadImageInput}
                     {...props}
                   />
-                  {!disabledHelperText && error?.message && (
-                    <FormHelperText error>{error?.message}</FormHelperText>
-                  )}
+                  <label>
+                    <PlusIcon
+                      stroke={
+                        !disabledHelperText && error?.message
+                          ? "red"
+                          : "#6E8BB7"
+                      }
+                      width={!disabledHelperText && error?.message && "36"}
+                      height={!disabledHelperText && error?.message && "36"}
+                    />
+                  </label>
                 </>
               )}
             />
-
-            <label>
-              <PlusIcon fill="#000" />
-            </label>
           </div>
         )}
         {photos?.length > 0 &&
