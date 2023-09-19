@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Input from "Components/Form/Input/Input";
 import PhoneInput from "Components/Form/PhoneInput/PhoneInput";
 import Label from "Components/Label/Label";
@@ -71,9 +71,6 @@ const useMainSingleBase = () => {
   const expandedSinglePage = useSelector(
     (state) => state.sidebar.expandSinglePage
   );
-  const [multiInsert, setMultiInsert] = useState(
-    tab_name === "product_image" ? 1 : false
-  );
 
   const { data, isLoading } = UseGetMainById({
     id: id,
@@ -88,17 +85,18 @@ const useMainSingleBase = () => {
     handleSubmit,
     reset,
     setValue,
-    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      image_urls: [],
-      images: [],
+      role_id:
+        tab_name === "user"
+          ? {
+              label: "USER",
+              value: "3110a62f-7774-442a-b9b3-2d762d3b791a",
+            }
+          : undefined,
     },
   });
-
-  console.log("watch", watch());
-
   useEffect(() => {
     if (id !== "create") {
       for (let item in data) {
@@ -106,11 +104,15 @@ const useMainSingleBase = () => {
           setValue(item, data[item]);
 
         if (Array.isArray(data[item]) || data[item] === null) {
-          setValue(
-            `${item}_ids`,
-            data[item]?.map((elem) => ({ label: elem.code, value: elem.id }))
-          );
-          setValue(item, undefined);
+          if (tab_name === "product_image") {
+            setValue(item, data[item]);
+          } else {
+            setValue(
+              `${item}_ids`,
+              data[item]?.map((elem) => ({ label: elem.code, value: elem.id }))
+            );
+            setValue(item, undefined);
+          }
         }
 
         if (
@@ -122,9 +124,12 @@ const useMainSingleBase = () => {
             label: data[item]?.name || data[item]?.title,
             value: data[item]?.id,
           };
+
           if (item !== "role_data") setValue(`${item}_id`, data[item]);
           setValue(item, undefined);
         }
+        if (tab_name === "product_image")
+          setValue("product_id", data.product_data);
       }
       if (tab_name === "user") {
         setValue("role_id", {
@@ -177,12 +182,23 @@ const useMainSingleBase = () => {
             role_id: data.role_id.value,
             role_data: undefined,
           }
-        : { ...data, price: +data?.price };
+        : {
+            ...data,
+            price: +data?.price || undefined,
+            sizes: data.sizes_ids || undefined,
+          };
 
     if (id === "create") {
-      mainMutate({ tab_name, apiData });
+      mainMutate({
+        tab_name,
+        apiData,
+      });
     } else {
-      userUpdateMutate({ id, tab_name, apiData });
+      userUpdateMutate({
+        id,
+        tab_name,
+        apiData,
+      });
     }
   };
 
@@ -508,12 +524,12 @@ const useMainSingleBase = () => {
         return (
           <>
             <Label label="Color">
-              <WColorPicker control={control} name={`images.${ind}.rgb`} />
+              <WColorPicker control={control} name="rgb" />
             </Label>
             <Label label="Images">
               <UploadImages
                 control={control}
-                name={`images.${ind}.image_urls`}
+                name="image_urls"
                 required={true}
                 setValue={setValue}
               />
@@ -527,11 +543,11 @@ const useMainSingleBase = () => {
   };
 
   const { mutate: mainDeleteMutate } = UseDeleteMain({
-    onSuccess: (res) => {
+    onSuccess: () => {
       dispatch(showAlert("Successfully deleted", "success"));
       queryClient.refetchQueries("GET_MAIN");
     },
-    onError: (err) => {},
+    onError: () => {},
   });
 
   const handleDeleteSingle = () => {
@@ -553,8 +569,6 @@ const useMainSingleBase = () => {
     handleDeleteSingle,
     relations: relationFields(tab_name),
     isLoading,
-    setMultiInsert,
-    multiInsert,
   };
 };
 

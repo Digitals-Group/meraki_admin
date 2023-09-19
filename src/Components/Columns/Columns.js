@@ -121,7 +121,20 @@ export const columns = (tab_name) => {
         },
       ];
     case "product_image":
-      return [];
+      return [
+        {
+          accessorFn: (row) => row.product_data?.title,
+          header: "Product name",
+        },
+        {
+          accessorFn: (row) => row.rgb,
+          header: "Color",
+        },
+        {
+          accessorFn: (row) => row.image_urls,
+          header: "Images",
+        },
+      ];
 
     default:
       return [];

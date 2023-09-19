@@ -36,7 +36,7 @@ const UploadImages = ({
   return (
     <div className={styles.root}>
       <div className={styles.rowImages}>
-        {photos?.length !== 8 && (
+        {photos?.length !== 20 && (
           <div
             className={styles.inputWrapper}
             onClick={() => inputRef.current.click()}
