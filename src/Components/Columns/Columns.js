@@ -1,4 +1,6 @@
+import ColorPickerField from "Components/Fields/ColorPickerFIeld/ColorPickerField";
 import Image from "Components/Fields/Image/Image";
+import MultiImageField from "Components/Fields/MultiImageField/MultiImageField";
 import Phone from "Components/Fields/Phone/Phone";
 
 export const columns = (tab_name) => {
@@ -127,11 +129,11 @@ export const columns = (tab_name) => {
           header: "Product name",
         },
         {
-          accessorFn: (row) => row.rgb,
+          accessorFn: (row) => <ColorPickerField rgb={row.rgb} />,
           header: "Color",
         },
         {
-          accessorFn: (row) => row.image_urls,
+          accessorFn: (row) => <MultiImageField images={row.image_urls} />,
           header: "Images",
         },
       ];
