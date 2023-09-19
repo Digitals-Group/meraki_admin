@@ -8,6 +8,7 @@ const ColorPickerField = ({ rgb }) => {
         width: "50px",
         height: "50px",
         borderRadius: "50%",
+        border: "1px solid #BBCBCC",
       }}
     />
   );
