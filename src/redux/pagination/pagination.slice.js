@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   pagination_main: {
-    pageIndex: 1,
+    pageIndex: 0,
     pageSize: 10,
   },
   pagination_relation: {
-    pageIndex: 1,
+    pageIndex: 0,
     pageSize: 10,
   },
 };
