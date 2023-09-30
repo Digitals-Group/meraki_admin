@@ -137,6 +137,33 @@ export const columns = (tab_name) => {
           header: "Images",
         },
       ];
+    case "order":
+      return [
+        {
+          accessorFn: (row) => row.additional_phone,
+          header: "Additional phone",
+        },
+        {
+          accessorFn: (row) => row.address,
+          header: "Address",
+        },
+        {
+          accessorFn: (row) => row.order_num,
+          header: "Order number",
+        },
+        {
+          accessorFn: (row) => row.status,
+          header: "Status",
+        },
+        {
+          accessorFn: (row) => row.total_count,
+          header: "Total count",
+        },
+        {
+          accessorFn: (row) => row.total_price,
+          header: "Total price",
+        },
+      ];
 
     default:
       return [];

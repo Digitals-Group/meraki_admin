@@ -57,6 +57,14 @@ const relationFields = (tab_name) => {
           isMulti: false,
         },
       ];
+    case "order":
+      return [
+        {
+          tab_name: "product",
+          inputName: "car_product_ids",
+          isMulti: true,
+        },
+      ];
 
     default:
       return [];
@@ -202,7 +210,7 @@ const useMainSingleBase = () => {
     }
   };
 
-  const inputs = (ind) => {
+  const inputs = () => {
     switch (tab_name) {
       case "user":
         return (
@@ -532,6 +540,45 @@ const useMainSingleBase = () => {
                 name="image_urls"
                 required={true}
                 setValue={setValue}
+              />
+            </Label>
+          </>
+        );
+      case "order":
+        return (
+          <>
+            <Label label="Additional phone">
+              <PhoneInput
+                mask="+\9\9\8 (99) 999-99-99"
+                maskChar="_"
+                name="additional_phone"
+                control={control}
+                errors={errors}
+                validation={{
+                  required: {
+                    value: true,
+                    message: "Обязательное поле",
+                  },
+                  validate: {
+                    isFull: (value) => {
+                      if (value.includes("_")) return "Invalid phone";
+                    },
+                  },
+                }}
+              />
+            </Label>
+            <Label label="Address">
+              <Input
+                control={control}
+                placeholder="Enter address"
+                name="address"
+                validation={{
+                  required: {
+                    value: true,
+                    message: "required",
+                  },
+                }}
+                errors={errors}
               />
             </Label>
           </>

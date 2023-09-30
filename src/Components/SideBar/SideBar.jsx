@@ -20,6 +20,7 @@ import {
   Apps,
   VisibilityOff,
   RemoveRedEye,
+  Grading,
 } from "@mui/icons-material";
 import { Container, Draggable } from "react-smooth-dnd";
 import WCheckbox from "Components/Form/WCheckbox/WCheckbox";
@@ -66,6 +67,11 @@ const menuData = [
     icon: <AddPhotoAlternate sx={{ color: "#fff" }} />,
     eventKey: "product_image",
   },
+  {
+    name: "Order",
+    icon: <Grading sx={{ color: "#fff" }} />,
+    eventKey: "order",
+  },
 ];
 
 export function SideBar({ page, header, setSwitchResult, switchResult }) {
@@ -74,12 +80,11 @@ export function SideBar({ page, header, setSwitchResult, switchResult }) {
   const navigate = useNavigate();
   const { tab_name } = useParams();
 
-  const { control, watch, setValue } = useForm({
+  const { control } = useForm({
     defaultValues: {},
   });
 
   const onColumnsPositionChange = (dragResult) => {
-    console.log("dragResult", dragResult);
     // const result = applyDrag(values.columnsList, dragResult);
     // if (result) {
     //   setValue("columnsList", result);
