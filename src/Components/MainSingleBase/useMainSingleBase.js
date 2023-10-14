@@ -18,6 +18,7 @@ import Textarea from "Components/Form/TextArea/TextArea";
 import UploadImage from "Components/Form/UploadImage/UploadImage";
 import UploadImages from "Components/Form/UploadImages/UploadImages";
 import WColorPicker from "Components/Form/ColorPicker/ColorPicker";
+import YandexMap from "Components/YandexMap/YandexMap";
 
 const userTypeOptions = [
   {
@@ -60,9 +61,9 @@ const relationFields = (tab_name) => {
     case "order":
       return [
         {
-          tab_name: "product",
-          inputName: "car_product_ids",
-          isMulti: true,
+          tab_name: "user",
+          inputName: "user_data_id",
+          isMulti: false,
         },
       ];
 
@@ -93,6 +94,7 @@ const useMainSingleBase = () => {
     handleSubmit,
     reset,
     setValue,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -105,6 +107,7 @@ const useMainSingleBase = () => {
           : undefined,
     },
   });
+
   useEffect(() => {
     if (id !== "create") {
       for (let item in data) {
@@ -129,7 +132,10 @@ const useMainSingleBase = () => {
           data[item] !== null
         ) {
           data[item] = {
-            label: data[item]?.name || data[item]?.title,
+            label:
+              data[item]?.name ||
+              data[item]?.title ||
+              `${data[item]?.first_name} ${data[item]?.last_name}`,
             value: data[item]?.id,
           };
 
@@ -183,7 +189,7 @@ const useMainSingleBase = () => {
       }
     }
 
-    const apiData =
+    let apiData =
       tab_name === "user"
         ? {
             ...data,
@@ -195,6 +201,16 @@ const useMainSingleBase = () => {
             price: +data?.price || undefined,
             sizes: data.sizes_ids || undefined,
           };
+
+    if (data.position?.length) {
+      apiData = {
+        ...apiData,
+        lat: data.position[0],
+        long: data.position[1],
+        position: undefined,
+        searchAddress: undefined,
+      };
+    }
 
     if (id === "create") {
       mainMutate({
@@ -568,16 +584,10 @@ const useMainSingleBase = () => {
               />
             </Label>
             <Label label="Address">
-              <Input
+              <YandexMap
                 control={control}
-                placeholder="Enter address"
                 name="address"
-                validation={{
-                  required: {
-                    value: true,
-                    message: "required",
-                  },
-                }}
+                setValue={setValue}
                 errors={errors}
               />
             </Label>

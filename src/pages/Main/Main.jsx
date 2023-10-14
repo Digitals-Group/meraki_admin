@@ -149,17 +149,19 @@ const Main = () => {
                   <Refresh />
                 </IconButton>
               </Tooltip>
-              <Tooltip arrow title="Create">
-                <IconButton
-                  onClick={() => navigate(`/main/${tab_name}/create`)}
-                  sx={{
-                    width: "50px",
-                    height: "50px",
-                  }}
-                >
-                  <CreateNewFolder />
-                </IconButton>
-              </Tooltip>
+              {tab_name !== "order" && (
+                <Tooltip arrow title="Create">
+                  <IconButton
+                    onClick={() => navigate(`/main/${tab_name}/create`)}
+                    sx={{
+                      width: "50px",
+                      height: "50px",
+                    }}
+                  >
+                    <CreateNewFolder />
+                  </IconButton>
+                </Tooltip>
+              )}
               <Tooltip arrow title="Delete selected">
                 <IconButton
                   onClick={() => refetch()}
