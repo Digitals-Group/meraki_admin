@@ -165,6 +165,62 @@ export const columns = (tab_name) => {
         },
       ];
 
+    case "order_item":
+      return [
+        {
+          accessorFn: (row) => row.count,
+          header: "Count",
+        },
+        {
+          accessorFn: (row) => row.product_data.category.name,
+          header: "Category",
+        },
+        {
+          accessorFn: (row) => row.description,
+          header: "Description",
+        },
+        {
+          accessorFn: (row) => row.gender[0],
+          header: "Gender",
+        },
+        {
+          accessorFn: (row) => <Image url={row.image_url} />,
+          header: "Image",
+        },
+        {
+          accessorFn: (row) => row.price,
+          header: "Price",
+        },
+        {
+          accessorFn: (row) => row.rating,
+          header: "Rating",
+        },
+        {
+          accessorFn: (row) => row.title,
+          header: "Name",
+        },
+        {
+          accessorFn: (row) => row.subtitle,
+          header: "Subtitle",
+        },
+        {
+          accessorFn: (row) => row.university.title,
+          header: "University",
+        },
+        {
+          accessorFn: (row) => <ColorPickerField rgb={row.rgb} />,
+          header: "Color",
+        },
+        {
+          accessorFn: (row) => row.size_data.code,
+          header: "Size",
+        },
+        {
+          accessorFn: (row) => row.summ,
+          header: "Sum",
+        },
+      ];
+
     default:
       return [];
   }

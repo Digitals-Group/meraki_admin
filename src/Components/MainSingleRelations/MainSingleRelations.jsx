@@ -12,6 +12,8 @@ import {
   ArrowForward,
 } from "@mui/icons-material";
 import { resizeChange } from "redux/resize/resize.slice";
+import styles from "./MainSingleRelations.module.scss";
+import SuperTabs from "Components/SuperTabs/SuperTabs";
 
 const enableBottomToolbar = true;
 const enableTopToolbar = true;
@@ -36,6 +38,7 @@ const MainSingleRelations = () => {
     expandedSinglePage,
     handlePaginationChange,
     columnSizing,
+    tabs,
   } = useMainSingleRelations();
 
   return (
@@ -130,60 +133,56 @@ const MainSingleRelations = () => {
         }
         positionToolbarAlertBanner="bottom"
         renderTopToolbarCustomActions={({ table }) => (
-          <div
-            style={{
-              padding: "0 20px",
-              maxWidth: "100%",
-              display: "flex",
-              gap: "5px",
-            }}
-          >
-            <Tooltip arrow title="Refresh">
-              <IconButton
-                onClick={() =>
-                  dispatch(sideBarExpand.setSideBarExpandSinglePage())
-                }
-                sx={{
-                  width: "50px",
-                  height: "50px",
-                }}
-              >
-                {expandedSinglePage ? <ArrowBack /> : <ArrowForward />}
-              </IconButton>
-            </Tooltip>
-            <Tooltip arrow title="Refresh">
-              <IconButton
-                onClick={() => refetch()}
-                sx={{
-                  width: "50px",
-                  height: "50px",
-                }}
-              >
-                <Refresh />
-              </IconButton>
-            </Tooltip>
-            <Tooltip arrow title="Create">
-              <IconButton
-                onClick={() => refetch()}
-                sx={{
-                  width: "50px",
-                  height: "50px",
-                }}
-              >
-                <CreateNewFolder />
-              </IconButton>
-            </Tooltip>
-            <Tooltip arrow title="Delete selected">
-              <IconButton
-                onClick={() => refetch()}
-                sx={{
-                  width: "50px",
-                  height: "50px",
-                }}
-              >
-                <DeleteSweep />
-              </IconButton>
-            </Tooltip>
+          <div className={styles.topbar}>
+            <div>
+              <Tooltip arrow title="Refresh">
+                <IconButton
+                  onClick={() =>
+                    dispatch(sideBarExpand.setSideBarExpandSinglePage())
+                  }
+                  sx={{
+                    width: "50px",
+                    height: "50px",
+                  }}
+                >
+                  {expandedSinglePage ? <ArrowBack /> : <ArrowForward />}
+                </IconButton>
+              </Tooltip>
+              <Tooltip arrow title="Refresh">
+                <IconButton
+                  onClick={() => refetch()}
+                  sx={{
+                    width: "50px",
+                    height: "50px",
+                  }}
+                >
+                  <Refresh />
+                </IconButton>
+              </Tooltip>
+              <Tooltip arrow title="Create">
+                <IconButton
+                  onClick={() => refetch()}
+                  sx={{
+                    width: "50px",
+                    height: "50px",
+                  }}
+                >
+                  <CreateNewFolder />
+                </IconButton>
+              </Tooltip>
+              <Tooltip arrow title="Delete selected">
+                <IconButton
+                  onClick={() => refetch()}
+                  sx={{
+                    width: "50px",
+                    height: "50px",
+                  }}
+                >
+                  <DeleteSweep />
+                </IconButton>
+              </Tooltip>
+            </div>
+            <SuperTabs tabs={tabs} />
           </div>
         )}
         muiTableBodyRowProps={({ row }) => ({

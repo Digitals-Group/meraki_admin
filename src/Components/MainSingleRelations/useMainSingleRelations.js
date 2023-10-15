@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styles from "./MainSingleRelations.module.scss";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { UseDeleteMain, UseGetMain } from "services/main.service";
 import { useDispatch, useSelector } from "react-redux";
 import { showAlert } from "redux/alert/alert.thunk";
@@ -19,6 +19,20 @@ const useMainSingleRelations = () => {
   const [globalFilter, setGlobalFilter] = useState("");
   const [sorting, setSorting] = useState([]);
   const [columnPinning, setColumnPinning] = useState({});
+  const [searchParams] = useSearchParams();
+
+  const tabs = [
+    {
+      index: 0,
+      label: "Main",
+      value: tab_name,
+    },
+    {
+      index: 1,
+      label: "Order items",
+      value: "order_item",
+    },
+  ];
 
   const pagination = useSelector(
     (state) => state.pagination.pagination_relation
@@ -38,8 +52,9 @@ const useMainSingleRelations = () => {
     queryParams: {
       offset: pagination.pageIndex * pagination.pageSize,
       limit: pagination.pageSize,
+      [`${tab_name}_id`]: searchParams.get("relation") && id,
     },
-    tab_name,
+    tab_name: searchParams.get("relation") || tab_name,
   });
 
   const { mutateAsync: mainDeleteMutate } = UseDeleteMain({
@@ -87,7 +102,7 @@ const useMainSingleRelations = () => {
         enableResizing: false,
         enableSorting: false,
       },
-      ...columns(tab_name),
+      ...columns(searchParams.get("relation") || tab_name),
     ],
     setColumnFilters,
     setGlobalFilter,
@@ -107,6 +122,7 @@ const useMainSingleRelations = () => {
     dispatch,
     expandedSinglePage,
     columnSizing,
+    tabs,
   };
 };
 
