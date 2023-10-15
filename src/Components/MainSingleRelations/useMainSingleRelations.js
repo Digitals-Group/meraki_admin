@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styles from "./MainSingleRelations.module.scss";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { UseDeleteMain, UseGetMain } from "services/main.service";
@@ -21,18 +21,26 @@ const useMainSingleRelations = () => {
   const [columnPinning, setColumnPinning] = useState({});
   const [searchParams] = useSearchParams();
 
-  const tabs = [
-    {
-      index: 0,
-      label: "Main",
-      value: tab_name,
-    },
-    {
-      index: 1,
-      label: "Order items",
-      value: "order_item",
-    },
-  ];
+  const tabs = useMemo(() => {
+    switch (tab_name) {
+      case "order":
+        return [
+          {
+            index: 0,
+            label: "Main",
+            value: tab_name,
+          },
+          {
+            index: 1,
+            label: "Order items",
+            value: "order_item",
+          },
+        ];
+
+      default:
+        return [];
+    }
+  }, [tab_name]);
 
   const pagination = useSelector(
     (state) => state.pagination.pagination_relation

@@ -182,7 +182,7 @@ const MainSingleRelations = () => {
                 </IconButton>
               </Tooltip>
             </div>
-            <SuperTabs tabs={tabs} />
+            {!!tabs.length && <SuperTabs tabs={tabs} />}
           </div>
         )}
         muiTableBodyRowProps={({ row }) => ({
