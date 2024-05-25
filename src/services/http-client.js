@@ -6,39 +6,39 @@ import { store } from "redux/store";
 const token = localStorage.getItem("token");
 
 export const requestUnion = axios.create({
-  baseURL: process.env.REACT_APP_PUBLIC_BASE_URL_UNION,
+ baseURL: process.env.REACT_APP_PUBLIC_BASE_URL_MERAKI,
 
-  params: {},
-  headers: {
-    Authorization: token,
-  },
+ params: {},
+ headers: {
+  Authorization: `Bearer ${token}`,
+ },
 });
 
 export const requestUnionAuth = axios.create({
-  baseURL: process.env.REACT_APP_PUBLIC_BASE_URL_UNION,
-  params: {},
-  headers: {},
+ baseURL: process.env.REACT_APP_PUBLIC_BASE_URL_MERAKI,
+ params: {},
+ headers: {},
 });
 
 const errorHandler = (error) => {
-  store.dispatch(showAlert(error?.response?.data?.message, "error"));
-  return Promise.reject(error.response);
+ store.dispatch(showAlert(error?.response?.data?.message, "error"));
+ return Promise.reject(error.response);
 };
 
 requestUnion.interceptors.response.use(
-  (response) => response.data,
-  errorHandler
+ (response) => response.data.result,
+ errorHandler
 );
 requestUnionAuth.interceptors.response.use(
-  (response) => response.data,
-  errorHandler
+ (response) => response.data.result,
+ errorHandler
 );
 
 export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: false,
-    },
+ defaultOptions: {
+  queries: {
+   refetchOnWindowFocus: false,
+   retry: false,
   },
+ },
 });
