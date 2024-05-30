@@ -105,7 +105,7 @@ const Main = () => {
        sx={{
         display: "flex",
         gap: "0rem",
-        justifyContent: "flex-end",
+        justifyContent: "center",
        }}
       >
        <IconButton

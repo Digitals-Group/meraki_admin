@@ -15,115 +15,115 @@ import SettingSingle from "pages/SettingSingle/SettingSingle";
 const hasToken = localStorage.getItem("token");
 
 export const Routes = () =>
-  useRoutes([
+ useRoutes([
+  {
+   path: "/",
+   element: (
+    <Protected isProtected={!hasToken}>
+     <Navigate to="/main" replace />
+    </Protected>
+   ),
+  },
+  {
+   path: "/main",
+   element: (
+    <Protected isProtected={!hasToken}>
+     <MainLayout />
+    </Protected>
+   ),
+   children: [
     {
-      path: "/",
-      element: (
+     index: true,
+     element: (
+      <Protected isProtected={!hasToken}>
+       <MainIndex />
+      </Protected>
+     ),
+    },
+    {
+     path: ":tab_name",
+     element: (
+      <Protected isProtected={!hasToken}>
+       <Main />
+      </Protected>
+     ),
+     children: [
+      {
+       path: ":id",
+       element: (
         <Protected isProtected={!hasToken}>
-          <Navigate to="/main" replace />
+         <MainSingle />
         </Protected>
-      ),
+       ),
+      },
+     ],
+    },
+   ],
+  },
+  {
+   path: "/setting",
+   element: (
+    <Protected isProtected={!hasToken}>
+     <SettingLayout />
+    </Protected>
+   ),
+   children: [
+    {
+     index: true,
+     element: (
+      <Protected isProtected={!hasToken}>
+       <SettingIndex />
+      </Protected>
+     ),
     },
     {
-      path: "/main",
-      element: (
+     path: ":tab_name",
+     element: (
+      <Protected isProtected={!hasToken}>
+       <Setting />
+      </Protected>
+     ),
+     children: [
+      {
+       path: ":id",
+       element: (
         <Protected isProtected={!hasToken}>
-          <MainLayout />
+         <SettingSingle />
         </Protected>
-      ),
-      children: [
-        {
-          index: true,
-          element: (
-            <Protected isProtected={!hasToken}>
-              <MainIndex />
-            </Protected>
-          ),
-        },
-        {
-          path: ":tab_name",
-          element: (
-            <Protected isProtected={!hasToken}>
-              <Main />
-            </Protected>
-          ),
-          children: [
-            {
-              path: ":id",
-              element: (
-                <Protected isProtected={!hasToken}>
-                  <MainSingle />
-                </Protected>
-              ),
-            },
-          ],
-        },
-      ],
+       ),
+      },
+     ],
     },
-    {
-      path: "/setting",
-      element: (
-        <Protected isProtected={!hasToken}>
-          <SettingLayout />
-        </Protected>
-      ),
-      children: [
-        {
-          index: true,
-          element: (
-            <Protected isProtected={!hasToken}>
-              <SettingIndex />
-            </Protected>
-          ),
-        },
-        {
-          path: ":tab_name",
-          element: (
-            <Protected isProtected={!hasToken}>
-              <Setting />
-            </Protected>
-          ),
-          children: [
-            {
-              path: ":id",
-              element: (
-                <Protected isProtected={!hasToken}>
-                  <SettingSingle />
-                </Protected>
-              ),
-            },
-          ],
-        },
-      ],
-    },
-    {
-      path: "/login",
-      element: hasToken ? <Navigate to="/main" replace /> : <Login />,
-    },
-    // {
-    //   path: "/blog",
-    //   element: <Blog />,
-    // },
-    // {
-    //   path: "/products",
-    //   element: <ProductsLayout />,
-    //   children: [
-    //     {
-    //       index: true,
-    //       element: <Products />,
-    //     },
-    //     {
-    //       path: ":id",
-    //       element: <ProductsById />,
-    //     },
-    //   ],
-    // },
-    {
-      path: "*",
-      element: (
-        <Protected isProtected={!hasToken}>
-          <NotFound />
-        </Protected>
-      ),
-    },
-  ]);
+   ],
+  },
+  {
+   path: "/login",
+   element: hasToken ? <Navigate to="/main" replace /> : <Login />,
+  },
+  // {
+  //   path: "/blog",
+  //   element: <Blog />,
+  // },
+  // {
+  //   path: "/products",
+  //   element: <ProductsLayout />,
+  //   children: [
+  //     {
+  //       index: true,
+  //       element: <Products />,
+  //     },
+  //     {
+  //       path: ":id",
+  //       element: <ProductsById />,
+  //     },
+  //   ],
+  // },
+  {
+   path: "*",
+   element: (
+    <Protected isProtected={!hasToken}>
+     <NotFound />
+    </Protected>
+   ),
+  },
+ ]);
