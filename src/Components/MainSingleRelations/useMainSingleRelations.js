@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import styles from "./MainSingleRelations.module.scss";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { UseDeleteMain, UseGetMain } from "services/main.service";
@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { showAlert } from "redux/alert/alert.thunk";
 import { queryClient } from "services/http-client";
 import { paginationChange } from "redux/pagination/pagination.slice";
-import { columns } from "Components/Columns/Columns";
+import { tableColumns } from "data/Columns";
 
 const useMainSingleRelations = () => {
  const dispatch = useDispatch();
@@ -83,9 +83,12 @@ const useMainSingleRelations = () => {
   });
  };
 
- const handlePaginationChange = (item) => {
-  dispatch(paginationChange.setPaginationRelation(item(pagination)));
- };
+ const handlePaginationChange = useCallback(
+  (item) => {
+   dispatch(paginationChange.setPaginationRelation(item(pagination)));
+  },
+  [dispatch, pagination]
+ );
  return {
   id,
   tab_name,
@@ -110,7 +113,7 @@ const useMainSingleRelations = () => {
     enableResizing: false,
     enableSorting: false,
    },
-   ...columns(searchParams.get("relation") || tab_name),
+   ...tableColumns(searchParams.get("relation") || tab_name),
   ],
   setColumnFilters,
   setGlobalFilter,

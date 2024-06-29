@@ -5,8 +5,7 @@ import { UseDeleteMain, UseGetMain } from "services/main.service";
 import { useDispatch, useSelector } from "react-redux";
 import { showAlert } from "redux/alert/alert.thunk";
 import { queryClient } from "services/http-client";
-import { paginationChange } from "redux/pagination/pagination.slice";
-import { columns } from "Components/Columns/Columns";
+import { tableColumns } from "data/Columns";
 
 const useMain = () => {
  const { id, tab_name } = useParams();
@@ -30,24 +29,25 @@ const useMain = () => {
  }, []);
 
  const { data, isError, isFetching, isLoading, refetch } = UseGetMain({
-  queryParams: {},
+  queryParams: {
+   skip: +pagination.pageIndex * pagination.pageSize,
+   take: +pagination.pageSize,
+  },
   tab_name,
  });
 
  const { mutate: mainDeleteMutate } = UseDeleteMain({
-  onSuccess: (res) => {
+  onSuccess: () => {
    dispatch(showAlert("Successfully deleted", "success"));
    queryClient.refetchQueries("GET_MAIN");
   },
-  onError: (err) => {},
+  onError: (err) => {
+   console.error(err);
+  },
  });
 
  const handleDeleteRow = (row) => {
   mainDeleteMutate({ id: row.original.id, tab_name });
- };
-
- const handlePaginationChange = (item) => {
-  dispatch(paginationChange.setPaginationMain(item(pagination)));
  };
 
  return {
@@ -75,7 +75,7 @@ const useMain = () => {
     enableResizing: false,
     enableSorting: false,
    },
-   ...columns(tab_name),
+   ...tableColumns(tab_name),
   ],
   setColumnFilters,
   setGlobalFilter,
@@ -92,7 +92,6 @@ const useMain = () => {
   refetch,
   handleDeleteRow,
   dispatch,
-  handlePaginationChange,
   columnSizing,
  };
 };

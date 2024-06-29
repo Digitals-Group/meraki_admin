@@ -3,7 +3,7 @@ import { requestUnion } from "./http-client";
 
 const relationService = {
  getRelations: (queryParams, tab_name) =>
-  requestUnion.get(`/${tab_name}`, {
+  requestUnion.post(`/${tab_name}/list`, {
    params: queryParams,
   }),
 };

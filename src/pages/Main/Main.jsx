@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Outlet } from "react-router-dom";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import MaterialReactTable from "material-react-table";
@@ -11,6 +11,7 @@ import {
 import useMain from "./useMain";
 import { sideBarExpand } from "redux/sidebar/sidebar.slice";
 import { resizeChange } from "redux/resize/resize.slice";
+import { paginationChange } from "redux/pagination/pagination.slice";
 
 const enableBottomToolbar = true;
 const enableTopToolbar = true;
@@ -33,9 +34,16 @@ const Main = () => {
   handleDeleteRow,
   dispatch,
   pagination,
-  handlePaginationChange,
   columnSizing,
  } = useMain();
+
+ const handlePaginationChange = useCallback(
+  (item) => {
+   console.log("1 ==>", item(pagination));
+   dispatch(paginationChange.setPaginationMain(item(pagination)));
+  },
+  [dispatch, pagination]
+ );
 
  return (
   <div id={!enableTopToolbar && !enableBottomToolbar && "mui-table"}>
@@ -92,6 +100,7 @@ const Main = () => {
      onColumnPinningChange={setColumnPinning}
      onSortingChange={setSorting}
      onPaginationChange={handlePaginationChange}
+     paginationDisplayMode="pages"
      state={{
       isLoading,
       showAlertBanner: isError,
