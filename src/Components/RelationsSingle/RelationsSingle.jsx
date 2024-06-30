@@ -1,25 +1,11 @@
 import WSelect from "Components/Form/WSelect/WSelect";
 import Label from "Components/Label/Label";
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
 import { UseGetRelations } from "services/relation.service";
 
 const RelationsSingle = ({ elem, control, errors }) => {
- const [search, setSearch] = useState("");
- const pagination = useSelector(
-  (state) => state.pagination.pagination_relation
- );
- const { data } = UseGetRelations({
-  queryParams: {
-   where: {
-    name: {
-     contains: search,
-     mode: "insensitive",
-    },
-   },
-   skip: +pagination.pageIndex * pagination.pageSize,
-   take: +pagination.pageSize,
-  },
+ const { data, isLoading } = UseGetRelations({
+  queryParams: {},
   tab_name: elem.tab_name,
  });
 
@@ -39,10 +25,10 @@ const RelationsSingle = ({ elem, control, errors }) => {
       message: "Required Field",
      },
     }}
+    isLoading={isLoading}
     isClearable
     isSearchable
     isMulti={elem.isMulti}
-    onInputChange={setSearch}
    />
   </Label>
  );

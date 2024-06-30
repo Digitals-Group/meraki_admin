@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./Main.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
 import { UseDeleteMain, UseGetMain } from "services/main.service";
@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { showAlert } from "redux/alert/alert.thunk";
 import { queryClient } from "services/http-client";
 import { tableColumns } from "data/Columns";
+import { paginationChange } from "redux/pagination/pagination.slice";
 
 const useMain = () => {
  const { id, tab_name } = useParams();
@@ -30,8 +31,8 @@ const useMain = () => {
 
  const { data, isError, isFetching, isLoading, refetch } = UseGetMain({
   queryParams: {
-   skip: +pagination.pageIndex * pagination.pageSize,
-   take: +pagination.pageSize,
+   skip: pagination.pageIndex * pagination.pageSize,
+   take: pagination.pageSize,
   },
   tab_name,
  });
@@ -49,6 +50,13 @@ const useMain = () => {
  const handleDeleteRow = (row) => {
   mainDeleteMutate({ id: row.original.id, tab_name });
  };
+
+ const handlePaginationChange = useCallback(
+  (item) => {
+   dispatch(paginationChange.setPaginationMain(item(pagination)));
+  },
+  [dispatch, pagination]
+ );
 
  return {
   id,
@@ -84,6 +92,7 @@ const useMain = () => {
   globalFilter,
   isLoading,
   pagination,
+  handlePaginationChange,
   isError,
   isFetching,
   sorting,

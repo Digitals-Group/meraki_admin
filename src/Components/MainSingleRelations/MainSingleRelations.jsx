@@ -1,7 +1,7 @@
 import React from "react";
 import { sideBarExpand } from "redux/sidebar/sidebar.slice";
 import useMainSingleRelations from "./useMainSingleRelations";
-import MaterialReactTable from "material-react-table";
+import { MaterialReactTable } from "material-react-table";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import {
  CreateNewFolder,
@@ -55,7 +55,6 @@ const MainSingleRelations = () => {
     enableSorting={true}
     enableColumnResizing={true}
     enableColumnOrdering={true}
-    enablePinning={true}
     enableStickyHeader={true}
     enableStickyFooter={true}
     enableRowSelection={true}
