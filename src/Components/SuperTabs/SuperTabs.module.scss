@@ -1,7 +1,28 @@
 @import "/src/styles/mixins.scss";
 
 .tabs {
-  background: #00acb5;
-  border-radius: 16px;
+  background: #ffffff;
+  border-radius: 4px;
   height: 48px;
+  max-width: 500px;
+  border: 2px solid #00acb5;
+  display: flex;
+  align-items: center;
+  overflow-y: hidden;
+
+  .MuiTab-root {
+    transition: all 1s ease;
+
+    &.active {
+      color: #fff;
+      background-color: #00acb5;
+      transition: all 1s ease;
+    }
+
+    &.inactive {
+      color: #000;
+      background-color: #fff;
+      transition: all 1s ease;
+    }
+  }
 }

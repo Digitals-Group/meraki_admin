@@ -9,10 +9,12 @@ const tabStyle = {
   fontSize: "16px",
   lineHeight: "22px",
   textAlign: "right",
-  color: "#fff",
-  opacity: 0.5,
+  color: "#000",
+  backgroundColor: "#fff",
+  opacity: 1,
   flex: 1,
   zIndex: 1,
+  transition: "all .5s ease-in-out",
 };
 
 const activeStyle = {
@@ -20,8 +22,10 @@ const activeStyle = {
   fontSize: "16px",
   lineHeight: "22px",
   color: "#fff",
+  backgroundColor: "#00acb5",
   flex: 1,
   zIndex: 1,
+  transition: "all .5s ease-in-out",
 };
 
 const SuperTabs = ({ tabs }) => {
@@ -33,24 +37,23 @@ const SuperTabs = ({ tabs }) => {
     const currentTab = tabs.find((elem) => elem.index === newValue);
     navigate({
       pathname: `/main/${tab_name}/${id}`,
-      search: tab_name !== currentTab.value && `?relation=${currentTab.value}`,
+      search: tab_name !== currentTab.value ? `?relation=${currentTab.value}` : '',
     });
   };
 
   const currentIndex = tabs.find(
     (elem) => elem.value === searchParams.get("relation")
-  )?.index;
+  )?.index ?? 0;
 
   return (
     <div className={styles.tabs}>
       <Tabs
-        value={currentIndex || 0}
+        value={currentIndex}
         onChange={handleChange}
         TabIndicatorProps={{
           style: {
             height: "100%",
-            background: "#FFFFFF14",
-            borderRadius: "8px",
+            background: "#FFF",
           },
         }}
         variant="scrollable"
@@ -62,7 +65,7 @@ const SuperTabs = ({ tabs }) => {
             value={tab.index}
             label={tab.label}
             key={tab.index}
-            style={currentIndex || 0 === index ? activeStyle : tabStyle}
+            style={currentIndex === index ? activeStyle : tabStyle}
             sx={{
               whiteSpace: "noWrap",
               textTransform: "capitalize",
