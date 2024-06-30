@@ -10,7 +10,7 @@ import {
  UsePatchMain,
  UsePostMain,
 } from "services/main.service";
-import { relationFields } from "./relations";
+import { relationFields } from "../../data/relations";
 
 const useMainSingleBase = () => {
  const { tab_name, id } = useParams();
@@ -64,9 +64,7 @@ const useMainSingleBase = () => {
    dispatch(showAlert("Successfully created", "success"));
    reset();
    navigate(`/main/${tab_name}`);
-   setTimeout(() => {
-    queryClient.refetchQueries("GET_MAIN");
-   }, 1000);
+   queryClient.refetchQueries("GET_MAIN");
   },
   onError: () => {},
  });
@@ -82,7 +80,7 @@ const useMainSingleBase = () => {
  });
 
  const onSubmit = (value) => {
-  if (value.phone_number.startsWith("+"))
+  if (value.phone_number?.startsWith("+"))
    value.phone_number = value.phone_number.slice(4);
 
   relationFields(tab_name).forEach((elem) => {
@@ -132,6 +130,7 @@ const useMainSingleBase = () => {
   handleDeleteSingle,
   relations: relationFields(tab_name),
   isLoading,
+  setValue,
  };
 };
 

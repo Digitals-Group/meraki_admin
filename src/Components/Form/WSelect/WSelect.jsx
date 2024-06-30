@@ -25,9 +25,9 @@ const WSelect = ({
  isClearable = false,
  isMulti = false,
  disabled = false,
+ isLoading = false,
  placement = "auto",
- noOptionsText = "Нет вариантов",
- onInputChange,
+ noOptionsText = "No options",
 }) => {
  const colourStyles = {
   control: (styles, { isFocused, isDisabled }) => ({
@@ -104,13 +104,14 @@ const WSelect = ({
        styles={colourStyles}
        openMenuOnFocus={true}
        isSearchable={isSearchable}
+       noOptionsMessage={() => "sdfsd"}
        isMulti={isMulti}
        isDisabled={disabled}
        value={value}
        isClearable={isClearable}
        className="basic-multi-select"
        onChange={onChange}
-       onInputChange={onInputChange}
+       isLoading={isLoading}
        components={{
         NoOptionsMessage,
         IndicatorSeparator: () => null,

@@ -1,7 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { Box, IconButton, Tooltip } from "@mui/material";
-import MaterialReactTable from "material-react-table";
+import { MaterialReactTable } from "material-react-table";
 import {
  CreateNewFolder,
  Delete,
@@ -52,7 +52,6 @@ const Main = () => {
      enableSorting={true}
      enableColumnResizing={true}
      enableColumnOrdering={true}
-     enablePinning={true}
      enableStickyHeader={true}
      enableStickyFooter={true}
      enableRowSelection={true}
@@ -92,6 +91,7 @@ const Main = () => {
      onColumnPinningChange={setColumnPinning}
      onSortingChange={setSorting}
      onPaginationChange={handlePaginationChange}
+     paginationDisplayMode="pages"
      state={{
       isLoading,
       showAlertBanner: isError,
