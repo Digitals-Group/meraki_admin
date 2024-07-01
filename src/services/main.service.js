@@ -3,9 +3,7 @@ import { requestUnion } from "./http-client";
 
 const mainService = {
  getMain: (queryParams, tab_name) =>
-  requestUnion.get(`/${tab_name}`, {
-   params: queryParams,
-  }),
+  requestUnion.post(`/${tab_name}/list`, queryParams),
  getMainById: (id, tab_name) => requestUnion.get(`/${tab_name}/${id}`),
  postMain: (data, tab_name) => requestUnion.post(`/${tab_name}`, data),
  patchMain: ({ id, tab_name, data }) =>

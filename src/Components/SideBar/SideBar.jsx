@@ -1,6 +1,6 @@
 import styles from "./SideBar.module.scss";
 import SideNav, { NavItem, NavIcon, NavText } from "@trendmicro/react-sidenav";
-import { ChevronIcon, UserIcon } from "helpers/Icons/Icons";
+import { ChevronIcon } from "helpers/Icons/Icons";
 import { useDispatch, useSelector } from "react-redux";
 import { sideBarExpand } from "redux/sidebar/sidebar.slice";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,7 +9,6 @@ import { Button, Tooltip } from "@mui/material";
 import Zoom from "@mui/material/Zoom";
 import {
  SettingsApplicationsRounded,
- AppRegistration,
  Logout,
  Apps,
  VisibilityOff,
@@ -18,19 +17,7 @@ import {
 import { Container, Draggable } from "react-smooth-dnd";
 import WCheckbox from "Components/Form/WCheckbox/WCheckbox";
 import { useForm } from "react-hook-form";
-
-const menuData = [
- {
-  name: "Users",
-  icon: <UserIcon sx={{ color: "#fff" }} />,
-  eventKey: "users",
- },
- {
-  name: "Roles",
-  icon: <AppRegistration sx={{ color: "#fff" }} />,
-  eventKey: "roles",
- },
-];
+import { sidebarData } from "data/sidebar";
 
 export function SideBar({ page, header, setSwitchResult, switchResult }) {
  const dispatch = useDispatch();
@@ -85,7 +72,7 @@ export function SideBar({ page, header, setSwitchResult, switchResult }) {
     </div>
     <SideNav.Nav selected={tab_name} className={styles.navbar}>
      <Container lockAxis="y" onDrop={onColumnsPositionChange}>
-      {menuData.map((elem, index) => (
+      {sidebarData.map((elem, index) => (
        <Draggable className={styles.dnd} key={elem.name}>
         <NavItem
          eventKey={elem.eventKey}

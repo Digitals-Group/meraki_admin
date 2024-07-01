@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styles from "./MainSingleRelations.module.scss";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { UseDeleteMain, UseGetMain } from "services/main.service";
@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { showAlert } from "redux/alert/alert.thunk";
 import { queryClient } from "services/http-client";
 import { paginationChange } from "redux/pagination/pagination.slice";
-import { columns } from "Components/Columns/Columns";
+import { tableColumns } from "data/Columns";
+import { relationTabs } from "data/relationsTab";
 
 const useMainSingleRelations = () => {
  const dispatch = useDispatch();
@@ -20,27 +21,6 @@ const useMainSingleRelations = () => {
  const [sorting, setSorting] = useState([]);
  const [columnPinning, setColumnPinning] = useState({});
  const [searchParams] = useSearchParams();
-
- const tabs = useMemo(() => {
-  switch (tab_name) {
-   case "user":
-    return [
-     {
-      index: 0,
-      label: "Main",
-      value: tab_name,
-     },
-     {
-      index: 1,
-      label: "Order items",
-      value: "order_item",
-     },
-    ];
-
-   default:
-    return [];
-  }
- }, [tab_name]);
 
  const pagination = useSelector(
   (state) => state.pagination.pagination_relation
@@ -56,11 +36,16 @@ const useMainSingleRelations = () => {
   }
  }, []);
 
+ const relationTab = relationTabs(tab_name).find(
+  (tab) => tab.value === searchParams.get("relation")
+ );
+ const whereClause = relationTab ? { [relationTab.relation_name]: id } : {};
+
  const { data, isError, isFetching, isLoading, refetch } = UseGetMain({
   queryParams: {
-   offset: pagination.pageIndex * pagination.pageSize,
-   limit: pagination.pageSize,
-   [`${tab_name}_id`]: searchParams.get("relation") && id,
+   skip: pagination.pageIndex * pagination.pageSize,
+   take: pagination.pageSize,
+   ...(Object.keys(whereClause).length && { where: whereClause }),
   },
   tab_name: searchParams.get("relation") || tab_name,
  });
@@ -83,9 +68,12 @@ const useMainSingleRelations = () => {
   });
  };
 
- const handlePaginationChange = (item) => {
-  dispatch(paginationChange.setPaginationRelation(item(pagination)));
- };
+ const handlePaginationChange = useCallback(
+  (item) => {
+   dispatch(paginationChange.setPaginationRelation(item(pagination)));
+  },
+  [dispatch, pagination]
+ );
  return {
   id,
   tab_name,
@@ -110,7 +98,7 @@ const useMainSingleRelations = () => {
     enableResizing: false,
     enableSorting: false,
    },
-   ...columns(searchParams.get("relation") || tab_name),
+   ...tableColumns(searchParams.get("relation") || tab_name),
   ],
   setColumnFilters,
   setGlobalFilter,
@@ -130,7 +118,7 @@ const useMainSingleRelations = () => {
   dispatch,
   expandedSinglePage,
   columnSizing,
-  tabs,
+  tabs: relationTabs(tab_name),
  };
 };
 

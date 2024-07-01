@@ -5,7 +5,7 @@ import MainButton from "Components/MainButton/MainButton";
 import useMainSingleBase from "./useMainSingleBase";
 import BigLoading from "Components/Loading/BigLoading";
 import RelationsSingle from "Components/RelationsSingle/RelationsSingle";
-import { inputs } from "./inputs";
+import { inputs } from "../../data/inputs";
 
 const MainSingleBase = () => {
  const {
@@ -21,6 +21,7 @@ const MainSingleBase = () => {
   handleDeleteSingle,
   relations,
   isLoading,
+  setValue,
  } = useMainSingleBase();
 
  return (
@@ -51,7 +52,7 @@ const MainSingleBase = () => {
         {relations.map((elem) => (
          <RelationsSingle elem={elem} control={control} errors={errors} />
         ))}
-        {inputs(tab_name, control, errors)}
+        {inputs(tab_name, control, errors, setValue)}
        </>
       )}
      </div>

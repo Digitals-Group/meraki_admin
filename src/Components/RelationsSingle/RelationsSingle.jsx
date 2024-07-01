@@ -1,20 +1,11 @@
 import WSelect from "Components/Form/WSelect/WSelect";
 import Label from "Components/Label/Label";
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
 import { UseGetRelations } from "services/relation.service";
 
 const RelationsSingle = ({ elem, control, errors }) => {
- const { id } = useParams();
-
- const [search, setSearch] = useState("");
- const { data } = UseGetRelations({
-  queryParams: {
-   offset: 0,
-   limit: 10,
-   search,
-   order_id: elem.tab_name === "order_item" ? id : undefined,
-  },
+ const { data, isLoading } = UseGetRelations({
+  queryParams: {},
   tab_name: elem.tab_name,
  });
 
@@ -31,15 +22,13 @@ const RelationsSingle = ({ elem, control, errors }) => {
     validation={{
      required: {
       value: true,
-      message: "Обязательное поле",
+      message: "Required Field",
      },
     }}
+    isLoading={isLoading}
     isClearable
     isSearchable
     isMulti={elem.isMulti}
-    onInputChange={(e) => {
-     setSearch(e);
-    }}
    />
   </Label>
  );
