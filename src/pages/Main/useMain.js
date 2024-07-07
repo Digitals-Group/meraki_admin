@@ -33,6 +33,9 @@ const useMain = () => {
   queryParams: {
    skip: pagination.pageIndex * pagination.pageSize,
    take: pagination.pageSize,
+   orderBy: {
+    createdAt: "desc",
+   },
   },
   tab_name,
  });

@@ -46,26 +46,22 @@ const useMainSingleRelations = () => {
    skip: pagination.pageIndex * pagination.pageSize,
    take: pagination.pageSize,
    ...(Object.keys(whereClause).length && { where: whereClause }),
+   orderBy: {
+    createdAt: "desc",
+   },
   },
   tab_name: searchParams.get("relation") || tab_name,
  });
 
  const { mutateAsync: mainDeleteMutate } = UseDeleteMain({
-  onSuccess: (res) => {
+  onSuccess: () => {
    dispatch(showAlert("Successfully deleted", "success"));
    queryClient.refetchQueries("GET_MAIN");
   },
-  onError: (err) => {},
  });
 
  const handleDeleteRow = (row) => {
-  mainDeleteMutate({ id: row.original.id, tab_name }).then((res) => {
-   if (row.original.id === id && data?.users?.[0]?.id) {
-    navigate(`/main/${tab_name}/${data?.users?.[0]?.id}`);
-   } else {
-    navigate(`/main/${tab_name}`);
-   }
-  });
+  mainDeleteMutate({ id: row.original.id, tab_name });
  };
 
  const handlePaginationChange = useCallback(
@@ -87,8 +83,9 @@ const useMainSingleRelations = () => {
      </div>
     ),
     header: "#",
-    size: 45,
     minSize: 45,
+    maxSize: 45,
+    size: 45,
     enableColumnActions: false,
     enableEditing: false,
     enableExpanding: false,
@@ -98,7 +95,7 @@ const useMainSingleRelations = () => {
     enableResizing: false,
     enableSorting: false,
    },
-   ...tableColumns(searchParams.get("relation") || tab_name),
+   ...tableColumns(tab_name),
   ],
   setColumnFilters,
   setGlobalFilter,

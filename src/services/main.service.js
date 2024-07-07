@@ -4,26 +4,29 @@ import { requestUnion } from "./http-client";
 const mainService = {
  getMain: (queryParams, tab_name) =>
   requestUnion.post(`/${tab_name}/list`, queryParams),
- getMainById: (id, tab_name) => requestUnion.get(`/${tab_name}/${id}`),
+ getMainById: (queryParams, tab_name) =>
+  requestUnion.post(`/${tab_name}/read`, queryParams),
  postMain: (data, tab_name) => requestUnion.post(`/${tab_name}`, data),
- patchMain: ({ id, tab_name, data }) =>
-  requestUnion.patch(`/${tab_name}/${id}`, data),
+ patchMain: ({ tab_name, data }) =>
+  requestUnion.patch(`/${tab_name}/update`, data),
  putMain: ({ id, tab_name, apiData }) =>
   requestUnion.put(`/${tab_name}/${id}`, apiData),
  deleteMain: ({ id, tab_name }) => requestUnion.delete(`/${tab_name}/${id}`),
 };
 
-export const UseGetMain = ({ queryParams, tab_name }) => {
+export const UseGetMain = ({ tab_name, queryParams }) => {
  return useQuery(["GET_MAIN", queryParams, tab_name], async () => {
   return await mainService.getMain(queryParams, tab_name).then((res) => res);
  });
 };
 
-export const UseGetMainById = ({ id, tab_name, querySettings }) => {
+export const UseGetMainById = ({ tab_name, queryParams, querySettings }) => {
  return useQuery(
-  ["GET_MAIN_BY_ID", id, tab_name],
+  ["GET_MAIN_BY_ID", tab_name, queryParams],
   async () => {
-   return await mainService.getMainById(id, tab_name).then((res) => res);
+   return await mainService
+    .getMainById(queryParams, tab_name)
+    .then((res) => res);
   },
   querySettings
  );
@@ -37,9 +40,8 @@ export const UsePostMain = (mutationSettings) => {
 
 export const UsePatchMain = (mutationSettings) => {
  return useMutation(
-  ({ id, tab_name, data }) =>
+  ({ tab_name, data }) =>
    mainService?.patchMain({
-    id,
     tab_name,
     data,
    }),

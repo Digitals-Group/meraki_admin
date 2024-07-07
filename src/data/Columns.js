@@ -5,7 +5,15 @@ import Video from "Components/Fields/Video/Video";
 
 export const tableColumns = (tab_name) => {
  switch (tab_name) {
-  case "users":
+  case "role":
+   return [
+    {
+     accessorFn: (row) => row.name,
+     header: "Name",
+    },
+   ];
+
+  case "user":
    return [
     {
      accessorFn: (row) => row.first_name,
@@ -16,12 +24,12 @@ export const tableColumns = (tab_name) => {
      header: "Last name",
     },
     {
-     accessorFn: (row) => <Phone phone={row.phone_number} />,
-     header: "Phone number",
-    },
-    {
      accessorFn: (row) => row.username,
      header: "User name",
+    },
+    {
+     accessorFn: (row) => <Phone phone={row.phone_number} />,
+     header: "Phone number",
     },
     {
      accessorFn: (row) => row.roles?.name,
@@ -29,23 +37,31 @@ export const tableColumns = (tab_name) => {
     },
    ];
 
-  case "roles":
-   return [
-    {
-     accessorFn: (row) => row.name,
-     header: "Name",
-    },
-   ];
-
   case "blog":
    return [
     {
-     accessorFn: (row) => row.title,
-     header: "Title",
+     accessorFn: (row) => row.title_uz,
+     header: "Title uz",
     },
     {
-     accessorFn: (row) => row.description,
-     header: "Description",
+     accessorFn: (row) => row.title_en,
+     header: "Title en",
+    },
+    {
+     accessorFn: (row) => row.title_ru,
+     header: "Title ru",
+    },
+    {
+     accessorFn: (row) => row.description_uz,
+     header: "Description uz",
+    },
+    {
+     accessorFn: (row) => row.description_en,
+     header: "Description en",
+    },
+    {
+     accessorFn: (row) => row.description_ru,
+     header: "Description ru",
     },
     {
      accessorFn: (row) => <Image url={row.image} />,
@@ -53,7 +69,7 @@ export const tableColumns = (tab_name) => {
     },
    ];
 
-  case "partners":
+  case "partner":
    return [
     {
      accessorFn: (row) => <Image url={row.image} />,
@@ -61,15 +77,31 @@ export const tableColumns = (tab_name) => {
     },
    ];
 
-  case "awards":
+  case "award":
    return [
     {
-     accessorFn: (row) => row.title,
-     header: "Title",
+     accessorFn: (row) => row.title_uz,
+     header: "Title uz",
     },
     {
-     accessorFn: (row) => row.description,
-     header: "Description",
+     accessorFn: (row) => row.title_en,
+     header: "Title en",
+    },
+    {
+     accessorFn: (row) => row.title_ru,
+     header: "Title ru",
+    },
+    {
+     accessorFn: (row) => row.description_uz,
+     header: "Description uz",
+    },
+    {
+     accessorFn: (row) => row.description_en,
+     header: "Description en",
+    },
+    {
+     accessorFn: (row) => row.description_ru,
+     header: "Description ru",
     },
     {
      accessorFn: (row) => <Image url={row.image} />,
@@ -88,8 +120,16 @@ export const tableColumns = (tab_name) => {
      header: "Image",
     },
     {
-     accessorFn: (row) => row.name,
-     header: "Name",
+     accessorFn: (row) => row.name_uz,
+     header: "Name uz",
+    },
+    {
+     accessorFn: (row) => row.name_en,
+     header: "Name en",
+    },
+    {
+     accessorFn: (row) => row.name_ru,
+     header: "Name ru",
     },
     {
      accessorFn: (row) => row.company_name,
@@ -144,24 +184,56 @@ export const tableColumns = (tab_name) => {
   case "faq":
    return [
     {
-     accessorFn: (row) => row.question,
-     header: "Question",
+     accessorFn: (row) => row.question_uz,
+     header: "Question uz",
     },
     {
-     accessorFn: (row) => row.answer,
-     header: "Answer",
+     accessorFn: (row) => row.question_en,
+     header: "Question en",
+    },
+    {
+     accessorFn: (row) => row.question_ru,
+     header: "Question ru",
+    },
+    {
+     accessorFn: (row) => row.answer_uz,
+     header: "Answer uz",
+    },
+    {
+     accessorFn: (row) => row.answer_en,
+     header: "Answer en",
+    },
+    {
+     accessorFn: (row) => row.answer_ru,
+     header: "Answer ru",
     },
    ];
 
   case "career":
    return [
     {
-     accessorFn: (row) => row.name,
-     header: "Name",
+     accessorFn: (row) => row.name_uz,
+     header: "Name_uz",
     },
     {
-     accessorFn: (row) => row.description,
-     header: "Description",
+     accessorFn: (row) => row.name_en,
+     header: "Name_en",
+    },
+    {
+     accessorFn: (row) => row.name_ru,
+     header: "Name_ru",
+    },
+    {
+     accessorFn: (row) => row.description_uz,
+     header: "Description uz",
+    },
+    {
+     accessorFn: (row) => row.description_en,
+     header: "Description en",
+    },
+    {
+     accessorFn: (row) => row.description_ru,
+     header: "Description ru",
     },
    ];
 
@@ -194,6 +266,10 @@ export const tableColumns = (tab_name) => {
     {
      accessorFn: (row) => <Status status={row.is_Called} />,
      header: "Is Called",
+    },
+    {
+     accessorFn: (row) => row.career?.name,
+     header: "Career name",
     },
    ];
 
