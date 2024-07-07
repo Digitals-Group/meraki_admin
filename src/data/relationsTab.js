@@ -1,6 +1,6 @@
 export const relationTabs = (tab_name) => {
  switch (tab_name) {
-  case "roles":
+  case "role":
    return [
     {
      index: 0,
@@ -9,8 +9,8 @@ export const relationTabs = (tab_name) => {
     },
     {
      index: 1,
-     label: "Users",
-     value: "users",
+     label: "User",
+     value: "user",
      relation_name: "role_id",
     },
    ];

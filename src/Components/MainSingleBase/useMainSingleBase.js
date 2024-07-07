@@ -11,6 +11,7 @@ import {
  UsePostMain,
 } from "services/main.service";
 import { relationFields } from "../../data/relations";
+import { include } from "data/include";
 
 const useMainSingleBase = () => {
  const { tab_name, id } = useParams();
@@ -22,10 +23,13 @@ const useMainSingleBase = () => {
  );
 
  const { data, isLoading } = UseGetMainById({
-  id: id,
   tab_name,
   querySettings: {
    enabled: id !== "create",
+  },
+  queryParams: {
+   where: { id },
+   include: include(tab_name),
   },
  });
 
@@ -51,7 +55,7 @@ const useMainSingleBase = () => {
      data[item] !== null
     ) {
      setValue(item, {
-      label: data[item]?.name,
+      label: data[item]?.name || data[item]?.title,
       value: data[item]?.id,
      });
     }
@@ -93,13 +97,12 @@ const useMainSingleBase = () => {
   if (id === "create") {
    mainMutate({
     tab_name,
-    data: value,
+    data: { data: value },
    });
   } else {
    userUpdateMutate({
-    id,
     tab_name,
-    data: value,
+    data: { data: value, where: { id } },
    });
   }
  };

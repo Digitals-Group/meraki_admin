@@ -13,37 +13,37 @@ import {
 
 export const sidebarData = [
  {
-  name: "Users",
+  name: "User",
   icon: <Person sx={{ color: "#fff" }} />,
-  eventKey: "users",
+  eventKey: "user",
  },
  {
-  name: "Roles",
+  name: "Role",
   icon: <AppRegistration sx={{ color: "#fff" }} />,
-  eventKey: "roles",
+  eventKey: "role",
  },
  {
-  name: "Blogs",
+  name: "Blog",
   icon: <AutoAwesomeMosaic sx={{ color: "#fff" }} />,
   eventKey: "blog",
  },
  {
-  name: "Partners",
+  name: "Partner",
   icon: <GroupWork sx={{ color: "#fff" }} />,
-  eventKey: "partners",
+  eventKey: "partner",
  },
  {
-  name: "Awards",
+  name: "Award",
   icon: <EmojiEvents sx={{ color: "#fff" }} />,
-  eventKey: "awards",
+  eventKey: "award",
  },
  {
-  name: "Reviews",
+  name: "Review",
   icon: <Reviews sx={{ color: "#fff" }} />,
   eventKey: "review",
  },
  {
-  name: "Contacts",
+  name: "Contact",
   icon: <Contacts sx={{ color: "#fff" }} />,
   eventKey: "contact",
  },
