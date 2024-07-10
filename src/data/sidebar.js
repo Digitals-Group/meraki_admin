@@ -9,6 +9,15 @@ import {
  Quiz,
  AssignmentTurnedIn,
  Approval,
+ Article,
+ Category,
+ EmojiObjects,
+ AdsClick,
+ Dashboard,
+ Feed,
+ ImageSearch,
+ ContentPasteGo,
+ ElectricalServices,
 } from "@mui/icons-material";
 
 export const sidebarData = [
@@ -61,5 +70,50 @@ export const sidebarData = [
   name: "Career Apply",
   icon: <Approval sx={{ color: "#fff" }} />,
   eventKey: "career-apply",
+ },
+ {
+  name: "Article",
+  icon: <Article sx={{ color: "#fff" }} />,
+  eventKey: "article",
+ },
+ {
+  name: "Project Category",
+  icon: <Category sx={{ color: "#fff" }} />,
+  eventKey: "project-category",
+ },
+ {
+  name: "Project Solution",
+  icon: <EmojiObjects sx={{ color: "#fff" }} />,
+  eventKey: "project-solution",
+ },
+ {
+  name: "Project Result",
+  icon: <AdsClick sx={{ color: "#fff" }} />,
+  eventKey: "project-result",
+ },
+ {
+  name: "Project",
+  icon: <Dashboard sx={{ color: "#fff" }} />,
+  eventKey: "project",
+ },
+ {
+  name: "Service Category",
+  icon: <Feed sx={{ color: "#fff" }} />,
+  eventKey: "service-category",
+ },
+ {
+  name: "Service Image",
+  icon: <ImageSearch sx={{ color: "#fff" }} />,
+  eventKey: "service-image",
+ },
+ {
+  name: "Service Step",
+  icon: <ContentPasteGo sx={{ color: "#fff" }} />,
+  eventKey: "service-step",
+ },
+ {
+  name: "Service",
+  icon: <ElectricalServices sx={{ color: "#fff" }} />,
+  eventKey: "service",
  },
 ];

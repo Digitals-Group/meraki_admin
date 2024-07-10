@@ -18,6 +18,65 @@ export const relationFields = (tab_name) => {
     },
    ];
 
+  case "project-solution":
+   return [
+    {
+     tab_name: "project",
+     inputName: "projectId",
+     isMulti: false,
+    },
+   ];
+
+  case "project-result":
+   return [
+    {
+     tab_name: "project",
+     inputName: "projectId",
+     isMulti: false,
+    },
+   ];
+
+  case "project":
+   return [
+    {
+     tab_name: "project-category",
+     inputName: "projectCategoryId",
+     isMulti: false,
+    },
+   ];
+
+  case "service-image":
+   return [
+    {
+     tab_name: "service",
+     inputName: "serviceId",
+     isMulti: false,
+    },
+   ];
+
+  case "service-step":
+   return [
+    {
+     tab_name: "service",
+     inputName: "serviceId",
+     isMulti: false,
+    },
+   ];
+
+  case "service":
+   return [
+    {
+     tab_name: "service-category",
+     inputName: "serviceCategoryId",
+     isMulti: false,
+    },
+    {
+     tab_name: "contact",
+     inputName: "contactId",
+     isMulti: false,
+    },
+   ];
+
   default:
    return [];
  }

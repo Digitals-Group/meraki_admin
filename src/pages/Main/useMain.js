@@ -7,6 +7,7 @@ import { showAlert } from "redux/alert/alert.thunk";
 import { queryClient } from "services/http-client";
 import { tableColumns } from "data/Columns";
 import { paginationChange } from "redux/pagination/pagination.slice";
+import { include } from "data/include";
 
 const useMain = () => {
  const { id, tab_name } = useParams();
@@ -36,6 +37,7 @@ const useMain = () => {
    orderBy: {
     createdAt: "desc",
    },
+   include: include(tab_name),
   },
   tab_name,
  });

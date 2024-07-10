@@ -803,6 +803,606 @@ export const inputs = (tab_name, control, errors, setValue) => {
     </>
    );
 
+  case "article":
+   return (
+    <>
+     <Label label="Title uz*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_uz"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Title en*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_en"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Title ru*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_ru"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Description uz*">
+      <Textarea
+       control={control}
+       placeholder="Enter description"
+       name="description_uz"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Description en*">
+      <Textarea
+       control={control}
+       placeholder="Enter description"
+       name="description_en"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Description ru*">
+      <Textarea
+       control={control}
+       placeholder="Enter description"
+       name="description_ru"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Content*">
+      <Textarea
+       control={control}
+       placeholder="Enter content"
+       name="content"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+    </>
+   );
+
+  case "project-category":
+   return (
+    <>
+     <Label label="Title uz*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_uz"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Title en*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_en"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Title ru*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_ru"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+    </>
+   );
+
+  case "project-solution":
+   return (
+    <>
+     <Label label="Title uz*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_uz"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Title en*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_en"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Title ru*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_ru"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Description uz*">
+      <Textarea
+       control={control}
+       placeholder="Enter description"
+       name="description_uz"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Description en*">
+      <Textarea
+       control={control}
+       placeholder="Enter description"
+       name="description_en"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Description ru*">
+      <Textarea
+       control={control}
+       placeholder="Enter description"
+       name="description_ru"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+    </>
+   );
+
+  case "project-result":
+   return (
+    <UploadFile
+     control={control}
+     name="image"
+     errors={errors}
+     setValue={setValue}
+    />
+   );
+
+  case "project":
+   return (
+    <>
+     <Label label="Title uz*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_uz"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Title en*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_en"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Title ru*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_ru"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Description uz*">
+      <Textarea
+       control={control}
+       placeholder="Enter description"
+       name="description_uz"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Description en*">
+      <Textarea
+       control={control}
+       placeholder="Enter description"
+       name="description_en"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Description ru*">
+      <Textarea
+       control={control}
+       placeholder="Enter description"
+       name="description_ru"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <UploadFile
+      control={control}
+      name="image"
+      errors={errors}
+      setValue={setValue}
+     />
+     <Label label="Result description uz*">
+      <Textarea
+       control={control}
+       placeholder="Enter result description"
+       name="resultDescription_uz"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Result description en*">
+      <Textarea
+       control={control}
+       placeholder="Enter result description"
+       name="resultDescription_en"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Result description ru*">
+      <Textarea
+       control={control}
+       placeholder="Enter result description"
+       name="resultDescription_ru"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+    </>
+   );
+
+  case "service-category":
+   return (
+    <>
+     <Label label="Title uz*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_uz"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Title en*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_en"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Title ru*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_ru"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+
+     <UploadFile
+      control={control}
+      name="image"
+      errors={errors}
+      setValue={setValue}
+     />
+    </>
+   );
+
+  case "service-image":
+   return (
+    <UploadFile
+     control={control}
+     name="image"
+     errors={errors}
+     setValue={setValue}
+    />
+   );
+
+  case "service-step":
+   return (
+    <>
+     <Label label="Title uz*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_uz"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Title en*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_en"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Title ru*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_ru"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Description uz*">
+      <Textarea
+       control={control}
+       placeholder="Enter description"
+       name="description_uz"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Description en*">
+      <Textarea
+       control={control}
+       placeholder="Enter description"
+       name="description_en"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Description ru*">
+      <Textarea
+       control={control}
+       placeholder="Enter description"
+       name="description_ru"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+    </>
+   );
+
+  case "service":
+   return (
+    <>
+     <Label label="Title uz*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_uz"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Title en*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_en"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Title ru*">
+      <Input
+       control={control}
+       placeholder="Enter title"
+       name="title_ru"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <UploadFile
+      control={control}
+      name="video"
+      errors={errors}
+      setValue={setValue}
+      isVideo
+     />
+    </>
+   );
+
   default:
    break;
  }

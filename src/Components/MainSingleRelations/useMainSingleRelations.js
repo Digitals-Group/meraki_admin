@@ -8,6 +8,7 @@ import { queryClient } from "services/http-client";
 import { paginationChange } from "redux/pagination/pagination.slice";
 import { tableColumns } from "data/Columns";
 import { relationTabs } from "data/relationsTab";
+import { include } from "data/include";
 
 const useMainSingleRelations = () => {
  const dispatch = useDispatch();
@@ -49,6 +50,7 @@ const useMainSingleRelations = () => {
    orderBy: {
     createdAt: "desc",
    },
+   include: include(tab_name),
   },
   tab_name: searchParams.get("relation") || tab_name,
  });
@@ -95,7 +97,7 @@ const useMainSingleRelations = () => {
     enableResizing: false,
     enableSorting: false,
    },
-   ...tableColumns(tab_name),
+   ...tableColumns(relationTab ? searchParams.get("relation") : tab_name),
   ],
   setColumnFilters,
   setGlobalFilter,

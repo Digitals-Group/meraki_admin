@@ -268,8 +268,212 @@ export const tableColumns = (tab_name) => {
      header: "Is Called",
     },
     {
-     accessorFn: (row) => row.career?.name,
+     accessorFn: (row) => row.career?.name_uz,
      header: "Career name",
+    },
+   ];
+
+  case "article":
+   return [
+    {
+     accessorFn: (row) => row.title_uz,
+     header: "Title uz",
+    },
+    {
+     accessorFn: (row) => row.title_en,
+     header: "Title en",
+    },
+    {
+     accessorFn: (row) => row.title_ru,
+     header: "Title ru",
+    },
+    {
+     accessorFn: (row) => row.description_uz,
+     header: "Description uz",
+    },
+    {
+     accessorFn: (row) => row.description_en,
+     header: "Description en",
+    },
+    {
+     accessorFn: (row) => row.description_ru,
+     header: "Description ru",
+    },
+    {
+     accessorFn: (row) => row.content,
+     header: "Content",
+    },
+   ];
+
+  case "project-category":
+   return [
+    {
+     accessorFn: (row) => row.title_uz,
+     header: "Title uz",
+    },
+    {
+     accessorFn: (row) => row.title_en,
+     header: "Title en",
+    },
+    {
+     accessorFn: (row) => row.title_ru,
+     header: "Title ru",
+    },
+   ];
+
+  case "project-solution":
+   return [
+    {
+     accessorFn: (row) => row.title_uz,
+     header: "Title uz",
+    },
+    {
+     accessorFn: (row) => row.title_en,
+     header: "Title en",
+    },
+    {
+     accessorFn: (row) => row.title_ru,
+     header: "Title ru",
+    },
+    {
+     accessorFn: (row) => row.description_uz,
+     header: "Description uz",
+    },
+    {
+     accessorFn: (row) => row.description_en,
+     header: "Description en",
+    },
+    {
+     accessorFn: (row) => row.description_ru,
+     header: "Description ru",
+    },
+   ];
+
+  case "project-result":
+   return [
+    {
+     accessorFn: (row) => <Image url={row.image} />,
+     header: "Image",
+    },
+   ];
+
+  case "project":
+   return [
+    {
+     accessorFn: (row) => row.title_uz,
+     header: "Title uz",
+    },
+    {
+     accessorFn: (row) => row.title_en,
+     header: "Title en",
+    },
+    {
+     accessorFn: (row) => row.title_ru,
+     header: "Title ru",
+    },
+    {
+     accessorFn: (row) => row.description_uz,
+     header: "Description uz",
+    },
+    {
+     accessorFn: (row) => row.description_en,
+     header: "Description en",
+    },
+    {
+     accessorFn: (row) => row.description_ru,
+     header: "Description ru",
+    },
+    {
+     accessorFn: (row) => <Image url={row.image} />,
+     header: "Image",
+    },
+    {
+     accessorFn: (row) => row.resultDescription_uz,
+     header: "Result Description uz",
+    },
+    {
+     accessorFn: (row) => row.resultDescription_en,
+     header: "Result Description en",
+    },
+    {
+     accessorFn: (row) => row.resultDescription_ru,
+     header: "Result Description ru",
+    },
+   ];
+
+  case "service-category":
+   return [
+    {
+     accessorFn: (row) => row.title_uz,
+     header: "Title uz",
+    },
+    {
+     accessorFn: (row) => row.title_en,
+     header: "Title en",
+    },
+    {
+     accessorFn: (row) => row.title_ru,
+     header: "Title ru",
+    },
+    {
+     accessorFn: (row) => <Image url={row.image} />,
+     header: "Image",
+    },
+   ];
+
+  case "service-image":
+   return [
+    {
+     accessorFn: (row) => <Image url={row.image} />,
+     header: "Image",
+    },
+   ];
+
+  case "service-step":
+   return [
+    {
+     accessorFn: (row) => row.title_uz,
+     header: "Title uz",
+    },
+    {
+     accessorFn: (row) => row.title_en,
+     header: "Title en",
+    },
+    {
+     accessorFn: (row) => row.title_ru,
+     header: "Title ru",
+    },
+    {
+     accessorFn: (row) => row.description_uz,
+     header: "Description uz",
+    },
+    {
+     accessorFn: (row) => row.description_en,
+     header: "Description en",
+    },
+    {
+     accessorFn: (row) => row.description_ru,
+     header: "Description ru",
+    },
+   ];
+
+  case "service":
+   return [
+    {
+     accessorFn: (row) => row.title_uz,
+     header: "Title uz",
+    },
+    {
+     accessorFn: (row) => row.title_en,
+     header: "Title en",
+    },
+    {
+     accessorFn: (row) => row.title_ru,
+     header: "Title ru",
+    },
+    {
+     accessorFn: (row) => <Video url={row.video} />,
+     header: "Video",
     },
    ];
 
