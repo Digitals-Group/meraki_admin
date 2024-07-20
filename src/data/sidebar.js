@@ -18,6 +18,7 @@ import {
  ImageSearch,
  ContentPasteGo,
  ElectricalServices,
+ Groups,
 } from "@mui/icons-material";
 
 export const sidebarData = [
@@ -115,5 +116,10 @@ export const sidebarData = [
   name: "Service",
   icon: <ElectricalServices sx={{ color: "#fff" }} />,
   eventKey: "service",
+ },
+ {
+  name: "Team",
+  icon: <Groups sx={{ color: "#fff" }} />,
+  eventKey: "team",
  },
 ];

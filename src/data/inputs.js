@@ -1403,6 +1403,126 @@ export const inputs = (tab_name, control, errors, setValue) => {
     </>
    );
 
+  case "team":
+   return (
+    <>
+     <UploadFile
+      control={control}
+      name="image"
+      errors={errors}
+      setValue={setValue}
+     />
+     <Label label="Name uz*">
+      <Input
+       control={control}
+       placeholder="Enter name"
+       name="name_uz"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Name en*">
+      <Input
+       control={control}
+       placeholder="Enter name"
+       name="name_en"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Name ru*">
+      <Input
+       control={control}
+       placeholder="Enter name"
+       name="name_ru"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Job position uz*">
+      <Input
+       control={control}
+       placeholder="Enter job position"
+       name="jobPosition_uz"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Job position en*">
+      <Input
+       control={control}
+       placeholder="Enter job position"
+       name="jobPosition_en"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Job position ru*">
+      <Input
+       control={control}
+       placeholder="Enter job position"
+       name="jobPosition_ru"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
+     <Label label="Instagram link">
+      <Input
+       control={control}
+       placeholder="Enter instagram link"
+       name="instagramLink"
+       errors={errors}
+      />
+     </Label>
+     <Label label="Telegram link">
+      <Input
+       control={control}
+       placeholder="Enter telegram link"
+       name="telegramLink"
+       errors={errors}
+      />
+     </Label>
+     <Label label="Facebook link">
+      <Input
+       control={control}
+       placeholder="Enter facebook link"
+       name="facebookLink"
+       errors={errors}
+      />
+     </Label>
+    </>
+   );
+
   default:
    break;
  }
