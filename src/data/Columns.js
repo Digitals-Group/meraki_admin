@@ -437,6 +437,50 @@ export const tableColumns = (tab_name) => {
         },
       ];
 
+    case "team":
+      return [
+        {
+          accessorFn: (row) => <Image url={row.image} />,
+          header: "Image",
+        },
+        {
+          accessorFn: (row) => row.name_uz,
+          header: "Name uz",
+        },
+        {
+          accessorFn: (row) => row.name_en,
+          header: "Name en",
+        },
+        {
+          accessorFn: (row) => row.name_ru,
+          header: "Name ru",
+        },
+        {
+          accessorFn: (row) => row.jobPosition_uz,
+          header: "Job position uz",
+        },
+        {
+          accessorFn: (row) => row.jobPosition_en,
+          header: "Job position en",
+        },
+        {
+          accessorFn: (row) => row.jobPosition_ru,
+          header: "Job position ru",
+        },
+        {
+          accessorFn: (row) => row.instagramLink,
+          header: "Instagram",
+        },
+        {
+          accessorFn: (row) => row.telegramLink,
+          header: "Telegram",
+        },
+        {
+          accessorFn: (row) => row.facebookLink,
+          header: "Facebook",
+        },
+      ];
+
     default:
       return [];
   }

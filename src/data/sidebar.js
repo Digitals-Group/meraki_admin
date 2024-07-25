@@ -11,12 +11,12 @@ import {
   Approval,
   Category,
   EmojiObjects,
-  AdsClick,
   Dashboard,
   Feed,
   ImageSearch,
   ContentPasteGo,
   ElectricalServices,
+  Groups,
 } from "@mui/icons-material";
 
 export const sidebarData = [
@@ -70,7 +70,6 @@ export const sidebarData = [
     icon: <Approval sx={{ color: "#fff" }} />,
     eventKey: "career-apply",
   },
-
   {
     name: "Project Category",
     icon: <Category sx={{ color: "#fff" }} />,
@@ -105,5 +104,10 @@ export const sidebarData = [
     name: "Service",
     icon: <ElectricalServices sx={{ color: "#fff" }} />,
     eventKey: "service",
+  },
+  {
+    name: "Team",
+    icon: <Groups sx={{ color: "#fff" }} />,
+    eventKey: "team",
   },
 ];
