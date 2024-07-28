@@ -164,10 +164,6 @@ export const tableColumns = (tab_name) => {
           header: "Phone number",
         },
         {
-          accessorFn: (row) => row.service,
-          header: "Service",
-        },
-        {
           accessorFn: (row) => row.description,
           header: "Description",
         },

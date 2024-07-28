@@ -479,20 +479,6 @@ export const inputs = (tab_name, control, errors, setValue) => {
               }}
             />
           </Label>
-          <Label label="Service*">
-            <Input
-              control={control}
-              placeholder="Enter service"
-              name="service"
-              validation={{
-                required: {
-                  value: true,
-                  message: "required",
-                },
-              }}
-              errors={errors}
-            />
-          </Label>
           <Label label="Description*">
             <Textarea
               control={control}

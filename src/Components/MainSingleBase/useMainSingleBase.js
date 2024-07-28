@@ -56,7 +56,11 @@ const useMainSingleBase = () => {
           data[item] !== null
         ) {
           setValue(item, {
-            label: data[item]?.name_uz || data[item]?.title_uz,
+            label:
+              data[item]?.name_uz ||
+              data[item]?.title_uz ||
+              data[item]?.name ||
+              data[item]?.title,
             value: data[item]?.id,
           });
         }

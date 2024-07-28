@@ -15,7 +15,7 @@ const RelationsSingle = ({ elem, control, errors }) => {
         name={elem?.tab_name}
         control={control}
         options={data?.data?.map((el) => ({
-          label: el.name_uz || el.title_uz,
+          label: el.name_uz || el.title_uz || el.name || el.title,
           value: el.id,
         }))}
         errors={errors}

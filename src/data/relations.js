@@ -61,12 +61,6 @@ export const relationFields = (tab_name) => {
           inputName: "serviceCategoryId",
           isMulti: false,
         },
-        {
-          tab_name: "contact",
-          inputName: "contactId",
-          isMulti: false,
-          isRequired: false,
-        },
       ];
 
     default:

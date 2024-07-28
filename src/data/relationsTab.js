@@ -107,7 +107,8 @@ export const relationTabs = (tab_name) => {
           index: 1,
           label: "Service",
           value: "service",
-          relation_name: "contactId",
+          relation_name: "contacts",
+          isManyToMany: true,
         },
       ];
 
