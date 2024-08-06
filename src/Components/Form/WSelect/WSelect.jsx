@@ -87,6 +87,7 @@ const WSelect = ({
    </Tooltip>
   );
  };
+
  return (
   <>
    <Controller
@@ -94,6 +95,7 @@ const WSelect = ({
     name={name}
     rules={validation}
     render={({ field: { value, onChange } }) => {
+     const relationValue = options?.find((option) => option.value === value);
      return (
       <SelectMenu
        menuPlacement={`${placement}`}
@@ -104,10 +106,10 @@ const WSelect = ({
        styles={colourStyles}
        openMenuOnFocus={true}
        isSearchable={isSearchable}
-       noOptionsMessage={() => "sdfsd"}
+       noOptionsMessage={() => "no options"}
        isMulti={isMulti}
        isDisabled={disabled}
-       value={value}
+       value={relationValue || value}
        isClearable={isClearable}
        className="basic-multi-select"
        onChange={onChange}

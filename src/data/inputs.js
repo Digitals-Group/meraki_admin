@@ -1272,13 +1272,20 @@ export const inputs = (tab_name, control, errors, setValue) => {
        errors={errors}
       />
      </Label>
-     <UploadFile
-      control={control}
-      name="video"
-      errors={errors}
-      setValue={setValue}
-      isVideo
-     />
+     <Label label="Video Link*">
+      <Input
+       control={control}
+       placeholder="Enter youtube video link"
+       name="video"
+       validation={{
+        required: {
+         value: true,
+         message: "required",
+        },
+       }}
+       errors={errors}
+      />
+     </Label>
     </>
    );
 

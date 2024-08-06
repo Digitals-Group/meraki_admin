@@ -1,7 +1,6 @@
 import Image from "Components/Fields/Image/Image";
 import Phone from "Components/Fields/Phone/Phone";
 import Status from "Components/Fields/Status/Status";
-import Video from "Components/Fields/Video/Video";
 
 export const tableColumns = (tab_name) => {
  switch (tab_name) {
@@ -428,7 +427,7 @@ export const tableColumns = (tab_name) => {
      header: "Title ru",
     },
     {
-     accessorFn: (row) => <Video url={row.video} />,
+     accessorFn: (row) => row.video,
      header: "Video",
     },
    ];

@@ -2,12 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { Box, IconButton, Tooltip } from "@mui/material";
 import { MaterialReactTable } from "material-react-table";
-import {
- CreateNewFolder,
- Delete,
- DeleteSweep,
- Refresh,
-} from "@mui/icons-material";
+import { CreateNewFolder, Delete, Refresh } from "@mui/icons-material";
 import useMain from "./useMain";
 import { sideBarExpand } from "redux/sidebar/sidebar.slice";
 import { resizeChange } from "redux/resize/resize.slice";
@@ -162,17 +157,6 @@ const Main = () => {
          </IconButton>
         </Tooltip>
        )}
-       <Tooltip arrow title="Delete selected">
-        <IconButton
-         onClick={() => refetch()}
-         sx={{
-          width: "50px",
-          height: "50px",
-         }}
-        >
-         <DeleteSweep />
-        </IconButton>
-       </Tooltip>
       </div>
      )}
      muiTableBodyRowProps={({ row }) => ({

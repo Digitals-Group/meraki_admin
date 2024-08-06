@@ -6,7 +6,6 @@ import { Box, IconButton, Tooltip } from "@mui/material";
 import {
  CreateNewFolder,
  Delete,
- DeleteSweep,
  Refresh,
  ArrowBack,
  ArrowForward,
@@ -165,17 +164,6 @@ const MainSingleRelations = () => {
          }}
         >
          <CreateNewFolder />
-        </IconButton>
-       </Tooltip>
-       <Tooltip arrow title="Delete selected">
-        <IconButton
-         onClick={() => refetch()}
-         sx={{
-          width: "50px",
-          height: "50px",
-         }}
-        >
-         <DeleteSweep />
         </IconButton>
        </Tooltip>
       </div>
